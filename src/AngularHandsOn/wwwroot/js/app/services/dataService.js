@@ -1,10 +1,10 @@
-(function() {
+(function () {
 
     angular.module('app')
-        .factory('dataService', dataService);
+        .factory('dataService', ['$q', '$timeout', dataService]);
 
 
-    function dataService(logger) {
+    function dataService($q, $timeout) {
 
         return {
             getAllBooks: getAllBooks,
@@ -13,9 +13,7 @@
 
         function getAllBooks() {
 
-            logger.output('getting all books');
-
-            return [
+            var booksArray = [
                 {
                     book_id: 1,
                     title: 'Harry Potter and the Deathly Hallows',
@@ -35,13 +33,35 @@
                     yearPublished: 1963
                 }
             ];
+
+            var deferred = $q.defer();
+
+
+            $timeout(function () {
+
+                var successful = true;
+                if (successful) {
+
+                    deferred.notify('Just getting started gathering books...');
+                    deferred.notify('Almost done gathering books...');
+
+                    deferred.resolve(booksArray);
+
+                } else {
+
+                    deferred.reject('Error retrieving books.');
+
+                }
+
+            }, 1000);
+
+            return deferred.promise;
+
         }
 
         function getAllReaders() {
 
-            logger.output('getting all readers');
-
-            return [
+            var readersArray = [
                 {
                     reader_id: 1,
                     name: 'Marie',
@@ -61,9 +81,17 @@
                     totalMinutesRead: 600
                 }
             ];
+
+            var deferred = $q.defer();
+
+            $timeout(function () {
+
+                deferred.resolve(readersArray);
+
+            }, 1500);
+
+            return deferred.promise;
         }
     }
-
-    dataService.$inject = ['logger'];
 
 }());
