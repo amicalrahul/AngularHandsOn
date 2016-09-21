@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
     app.provider('books', ['constants', function (constants) {
 
@@ -28,13 +28,59 @@
 
     }]);
 
-    app.config(['booksProvider', 'constants', 'dataServiceProvider', function (booksProvider, constants, dataServiceProvider) {
+    app.config(['booksProvider', 'constants', 'dataServiceProvider', '$routeProvider', '$logProvider', function (booksProvider, constants, dataServiceProvider, $routeProvider, $logProvider) {
 
         booksProvider.setIncludeVersionInTitle(true);
+        $logProvider.debugEnabled(false);
+
+        $routeProvider
+           .when('/', {
+               templateUrl: '../../js/app/templates/books.html',
+               controller: 'BooksController',
+               controllerAs: 'books'
+           })
+           .when('/AddBook', {
+               templateUrl: '../../js/app/templates/addBook.html',
+               controller: 'AddBookController',
+               controllerAs: 'addBook'
+           })
+           .when('/EditBook/:bookID', {
+               templateUrl: '../../js/app/templates/editBook.html',
+               controller: 'EditBookController',
+               controllerAs: 'bookEditor',
+               resolve: {
+                   books: function (dataService) {
+                       //throw 'error getting books';
+                       return dataService.getAllBooks();
+                   }
+               }
+           })
+           .otherwise('/');
 
         console.log('title from constants service: ' + constants.APP_TITLE);
 
         console.log(dataServiceProvider.$get);
+
+        app.run(['$rootScope', function ($rootScope) {
+
+            $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+
+                console.log('successfully changed routes');
+
+            });
+
+            $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+
+                console.log('error changing routes');
+
+                console.log(event);
+                console.log(current);
+                console.log(previous);
+                console.log(rejection);
+
+            });
+
+        }]);
 
     }]);
 

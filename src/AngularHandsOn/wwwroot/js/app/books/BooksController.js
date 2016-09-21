@@ -1,10 +1,10 @@
 (function () {
 
     angular.module('app')
-        .controller('BooksController', ['$q', 'books', 'dataService', 'badgeService', BooksController]);
+        .controller('BooksController', ['$q', 'books', 'dataService', 'badgeService', '$cookies', '$cookieStore', '$log', BooksController]);
 
 
-    function BooksController($q, books, dataService, badgeService) {
+    function BooksController($q, books, dataService, badgeService, $cookies, $cookieStore, $log) {
 
         var vm = this;
 
@@ -75,12 +75,15 @@
         }
 
         vm.getBadge = badgeService.retrieveBadge;
+        vm.favoriteBook = $cookies.favoriteBook;
 
-        //$log.log('logging with log');
-        //$log.info('logging with info');
-        //$log.warn('logging with warn');
-        //$log.error('logging with error');
-        //$log.debug('logging with debug');
+        vm.lastEdited = $cookieStore.get('lastEdited');
+
+        $log.log('logging with log');
+        $log.info('logging with info');
+        $log.warn('logging with warn');
+        $log.error('logging with error');
+        $log.debug('logging with debug');
 
 
     }

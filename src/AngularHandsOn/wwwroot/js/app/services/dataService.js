@@ -53,7 +53,7 @@
 
                 }
 
-            }, 1000);
+            }, 50);
 
             return deferred.promise;
 
@@ -88,7 +88,7 @@
 
                 deferred.resolve(readersArray);
 
-            }, 1500);
+            }, 50);
 
             return deferred.promise;
         }
