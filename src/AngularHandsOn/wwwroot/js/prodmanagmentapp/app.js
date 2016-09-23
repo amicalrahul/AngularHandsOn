@@ -1,7 +1,6 @@
-﻿/// <reference path="startpage.html" />c:\ember\angularhandson\src\angularhandson\wwwroot\js\prodmanagmentapp\
-(function () {
+﻿(function () {
     "use strict";
-    var app = angular.module("productManagement", ['ngRoute',"common.services",
+    var app = angular.module("productManagement", ['ngRoute', 'common.services',
                              "productResourceMock"]);
     app.config(['$routeProvider', configSection]);
 

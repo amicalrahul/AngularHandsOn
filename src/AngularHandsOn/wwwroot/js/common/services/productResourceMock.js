@@ -147,7 +147,7 @@
 
 
 
-        var productUrl1 = "../../api/books1";
+        var productUrl1 = "/api/books1";
 
         $httpBackend.whenGET(productUrl1).respond(booksArray);
     });

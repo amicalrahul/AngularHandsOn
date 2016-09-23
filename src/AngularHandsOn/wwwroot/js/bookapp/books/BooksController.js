@@ -10,7 +10,7 @@
         var vm = this;
 
         vm.appName = books.appName;
-
+        console.log("appName :" + vm.appName);
         /*
         The following section of code performs the same function as the larger section
         below, but waits until both promises are resolved before processing the results.
@@ -36,11 +36,11 @@
 
 
         vm.allBooks = bookResource.query();
-        console.log(vm.allBooks);
-        //vm.allBooks = dataService.getAllBooks()
-            //.then(getBooksSuccess, null, getBooksNotification)
-            //.catch(errorCallback)
-            //.finally(getAllBooksComplete);
+        console.log("allBoooks : " + vm.allBooks);
+        //dataService.getAllBooks()
+        //    .then(getBooksSuccess, null, getBooksNotification)
+        //    .catch(errorCallback)
+        //    .finally(getAllBooksComplete);
 
         function getBooksSuccess(books) {
             //throw 'error in success handler';
@@ -81,7 +81,7 @@
         vm.getBadge = badgeService.retrieveBadge;
         vm.favoriteBook = $cookies.favoriteBook;
 
-        vm.lastEdited = $cookieStore.get('lastEdited');
+        //vm.lastEdited = $cookieStore.get('lastEdited');
 
         $log.log('logging with log');
 

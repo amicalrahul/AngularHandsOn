@@ -15,17 +15,3 @@
     }
 
 }());
-
-(function () {
-    "use strict";
-
-    angular
-        .module("common.services")
-        .factory("bookResource",
-                ["$resource",
-                 bookResource]);
-
-    function bookResource($resource) {
-        return $resource("../../api/books1:book_id");
-    }
-}());

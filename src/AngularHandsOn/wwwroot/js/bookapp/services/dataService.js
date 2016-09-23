@@ -1,10 +1,10 @@
 (function () {
 
     angular.module('app')
-        .factory('dataService', ['$q', '$timeout', '$http', 'constants', "productResource", dataService]);
+        .factory('dataService', ['$q', '$timeout', '$http', 'constants', dataService]);
 
 
-    function dataService($q, $timeout, $http, constants, productResource) {
+    function dataService($q, $timeout, $http, constants) {
 
         return {
             getAllBooks: getAllBooks,
@@ -12,9 +12,9 @@
         };
         function getAllBooks() {
 
-            productResource.query(function (data) {
-               return  data;
-            });
+            //productResource.query(function (data) {
+            //   return  data;
+            //});
             //return $http.get('../../api/books1')
             //    .then(sendResponseData)
             //    .catch(sendGetBooksError);
