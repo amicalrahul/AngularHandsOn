@@ -1,9 +1,9 @@
 (function () {
 
     angular.module('app')
-        .controller('EditBookController', ['$routeParams', 'books', '$cookies', '$cookieStore', EditBookController]);
+        .controller('EditBookController', ['$routeParams', 'books', '$cookies', '$cookieStore', "bookResource", EditBookController]);
 
-    function EditBookController($routeParams, books, $cookies, $cookieStore) {
+    function EditBookController($routeParams, books, $cookies, $cookieStore, bookResource) {
         //console.log($routeParams.bookID);
 
         var vm = this;
@@ -15,9 +15,9 @@
         //        })[0];
         //    });
 
-        vm.currentBook = books.filter(function(item) {
-            return item.book_id == $routeParams.bookID;
-        })[0];
+        //vm.currentBook = books.filter(function(item) {
+        //    return item.book_id == $routeParams.bookID;
+        //})[0];
 
         vm.setAsFavorite = function() {
 
@@ -27,6 +27,10 @@
 
         $cookieStore.put('lastEdited', vm.currentBook);
 
+
+        vm.currentBook = bookResource.get({ book_id: $routeParams.bookID });
+    };
+
     }
 
-}());
+());

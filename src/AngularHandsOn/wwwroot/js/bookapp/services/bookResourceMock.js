@@ -1,19 +1,12 @@
-(function () {
+﻿(function() {
 
-    angular.module('app')
-        .factory('dataService', ['$q', '$timeout', dataService]);
+    var app = angular
+        .module("bookResourceMock",
+                    ["ngMockE2E"]);
 
+    app.run(function ($httpBackend) {
 
-    function dataService($q, $timeout) {
-
-        return {
-            getAllBooks: getAllBooks,
-            getAllReaders: getAllReaders
-        };
-
-        function getAllBooks() {
-
-            var booksArray = [
+        var booksArray = [
                 {
                     book_id: 1,
                     title: 'Harry Potter and the Deathly Hallows',
@@ -32,36 +25,9 @@
                     author: 'Donald J. Sobol',
                     yearPublished: 1963
                 }
-            ];
+        ];
 
-            var deferred = $q.defer();
-
-
-            $timeout(function () {
-
-                var successful = true;
-                if (successful) {
-
-                    deferred.notify('Just getting started gathering books...');
-                    deferred.notify('Almost done gathering books...');
-
-                    deferred.resolve(booksArray);
-
-                } else {
-
-                    deferred.reject('Error retrieving books.');
-
-                }
-
-            }, 50);
-
-            return deferred.promise;
-
-        }
-
-        function getAllReaders() {
-
-            var readersArray = [
+        var readersArray = [
                 {
                     reader_id: 1,
                     name: 'Marie',
@@ -80,18 +46,12 @@
                     weeklyReadingGoal: 140,
                     totalMinutesRead: 600
                 }
-            ];
+        ];
 
-            var deferred = $q.defer();
+        var productUrl = "../../api/books1";
 
-            $timeout(function () {
+        $httpBackend.whenGET(productUrl).respond(booksArray);
 
-                deferred.resolve(readersArray);
-
-            }, 50);
-
-            return deferred.promise;
-        }
-    }
+    });
 
 }());
