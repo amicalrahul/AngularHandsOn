@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using NuGet.Protocol.Core.v3;
 
 namespace AngularHandsOn.Controllers
 {
@@ -41,5 +44,30 @@ namespace AngularHandsOn.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public JsonResult GetBooks()
+        {
+            var abc = new List<MyClass>()
+            {
+                new MyClass() { book_id = 1, author = "J.K. Rowling", title =  "Harry Potter and the Deathly Hallows", yearPublished = 2000},
+                new MyClass() { book_id = 2, author = "Dr. Seuss", title =  "The Cat in the Hat", yearPublished = 1957},
+                new MyClass() { book_id = 3, author = "Donald J. Sobol", title =  "Encyclopedia Brown, Boy Detective", yearPublished = 1234}
+
+            };
+            
+            return Json(abc);
+        }
     }
+}
+
+
+public class MyClass
+{
+    public int book_id { get; set; }
+    public string title { get; set; }
+    public string author { get; set; }
+    public int yearPublished { get; set; }
+
+
 }
