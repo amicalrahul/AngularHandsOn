@@ -54,7 +54,7 @@ namespace AngularHandsOn
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Home", action = "ProductManagement" });
             });
         }
     }
