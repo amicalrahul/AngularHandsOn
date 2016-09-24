@@ -36,5 +36,10 @@ namespace AngularHandsOn.Controllers
         {
             return View();
         }
+
+        public IActionResult ProductManagement()
+        {
+            return View();
+        }
     }
 }

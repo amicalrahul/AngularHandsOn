@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var app = angular.module('app', ['ngRoute', 'ngCookies']);
+    var app = angular.module('app', ['ngRoute', 'ngCookies', 'common.services', "productResourceMock"]);
 
     app.provider('books', ['constants', function (constants) {
 
@@ -35,17 +35,17 @@
 
         $routeProvider
            .when('/', {
-               templateUrl: '../../js/app/templates/books.html',
+               templateUrl: '../../js/bookapp/templates/books.html',
                controller: 'BooksController',
                controllerAs: 'books'
            })
            .when('/AddBook', {
-               templateUrl: '../../js/app/templates/addBook.html',
+               templateUrl: '../../js/bookapp/templates/addBook.html',
                controller: 'AddBookController',
                controllerAs: 'addBook'
            })
            .when('/EditBook/:bookID', {
-               templateUrl: '../../js/app/templates/editBook.html',
+               templateUrl: '../../js/bookapp/templates/editBook.html',
                controller: 'EditBookController',
                controllerAs: 'bookEditor',
                resolve: {
