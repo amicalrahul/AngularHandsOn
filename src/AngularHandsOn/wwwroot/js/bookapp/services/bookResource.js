@@ -6,7 +6,7 @@
 
     function bookResource($resource) {
 
-        return  $resource("/api/books1");
+        return $resource("/Home/GetBooks");
 
         //return $resource('/api/books1/:book_id', { book_id: '@book_id' },
         //    {

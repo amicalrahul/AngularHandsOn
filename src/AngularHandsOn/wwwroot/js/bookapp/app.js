@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var app = angular.module('app', ['ngRoute', 'ngCookies', 'common.services', "productResourceMock"]);
+    var app = angular.module('app', ['ngRoute', 'ngCookies', 'common.services']);
 
     app.provider('books', ['constants', function (constants) {
 
