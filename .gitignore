@@ -1,6 +1,6 @@
 # OnePlanner specific files
 
-src/AngularHandsOn/wwwroot/lib
+src/AngularHandsOn/wwwroot/lib/angular-resource/.bower.json
 src/AngularHandsOn/node_modules
 src/AngularHandsOn/bin
 src/AngularHandsOn/obj
@@ -570,3 +570,9 @@ _Pvt_Extensions/
 ModelManifest.xml
 /Solutions/BpMcp_PlanningServices/pdb
 
+src/AngularHandsOn/wwwroot/lib/angular-mocks/angular-mocks.js
+src/AngularHandsOn/wwwroot/lib/angular-resource/angular-resource.min.js
+src/AngularHandsOn/wwwroot/lib/angular-resource/angular-resource.min.js.map
+src/AngularHandsOn/wwwroot/lib/angular-resource/bower.json
+src/AngularHandsOn/wwwroot/lib/angular-resource/package.json
+src/AngularHandsOn/wwwroot/lib/angular-resource/README.md
