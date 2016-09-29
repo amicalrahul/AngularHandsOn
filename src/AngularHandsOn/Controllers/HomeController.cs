@@ -53,18 +53,59 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetSchools()
+        public JsonStringResult GetSchools()
         {
             var json = System.IO.File.ReadAllText((@"~/../AppData/schools.json"));
 
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent(json, Encoding.UTF8, "application/json"),
-                StatusCode = HttpStatusCode.OK
-            };
+
+            return new JsonStringResult(json);
         }
+        //[HttpGet]
+        //public JsonStringResult GetSchools(object id)
+        //{
+        //    var json = System.IO.File.ReadAllText((@"~/../AppData/schools.json"));
 
 
+        //    return new JsonStringResult(json);
+        //}
+        [HttpGet]
+        public JsonStringResult GetClassRooms()
+        {
+            var json = System.IO.File.ReadAllText((@"~/../AppData/classrooms.json"));
+
+
+            return new JsonStringResult(json);
+        }
+        //[HttpGet]
+        //public JsonStringResult GetClassRooms(object id)
+        //{
+        //    var classRoomData = GetClassRooms();
+        //    var schoolData = GetSchools();
+        //    var activitiesData = GetActivities();
+        //     var abc = Json(System.IO.File.ReadAllText((@"~/../AppData/classrooms.json")));
+
+
+
+        //    var json = System.IO.File.ReadAllText((@"~/../AppData/classrooms.json"));
+        //    return new JsonStringResult(json);
+        //}
+
+        [HttpGet]
+        public JsonStringResult GetActivities()
+        {
+            var json = System.IO.File.ReadAllText((@"~/../AppData/activities.json"));
+
+
+            return new JsonStringResult(json);
+        }
+        //[HttpGet]
+        //public JsonStringResult GetActivities(object id)
+        //{
+        //    var json = System.IO.File.ReadAllText((@"~/../AppData/activities.json"));
+
+
+        //    return new JsonStringResult(json);
+        //}
         [HttpGet]
         public JsonStringResult GetBooks()
         {
