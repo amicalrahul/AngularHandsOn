@@ -36,6 +36,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="ProductManagement">ProductManagement</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Angular">Book App</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="SchoolApp">School App</a></li>
                 </ul>
             </div>
         </div>
@@ -49,6 +50,7 @@
     </div>
 
     <environment names="Development">
+        <!-- Library Scripts -->
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -58,23 +60,39 @@
         <script src="~/lib/angular-mocks/angular-mocks.js"></script>
         <script src="~/lib/angular-resource/angular-resource.js"></script>
         <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
+        <script src="~/lib/toastr.js"></script>
+        <script src="~/lib/ui-bootstrap-tpls-0.11.0.js"></script>
+        <script src="~/lib/ui-utils.js"></script>
+        <!-- Application Script -->
         <script src="~/js/bookapp/app.js"></script>
+        <!-- Product Controllers -->
         <script src="~/js/bookapp/books/BooksController.js"></script>
         <script src="~/js/bookapp/books/AddBookController.js"></script>
         <script src="~/js/bookapp/books/EditBookController.js"></script>
+
+        <!-- Services -->
         <script src="~/js/bookapp/services/dataService.js"></script>
         <script src="~/js/bookapp/services/loggerService.js"></script>
         <script src="~/js/bookapp/services/constantService.js"></script>
         <script src="~/js/bookapp/services/badgeService.js"></script>
         <script src="~/js/bookapp/services/bookResource.js"></script>
         <script src="~/js/bookapp/services/bookResourceMock.js"></script>
+
+        <!-- Application Script -->
         <script src="~/js/prodmanagmentapp/app.js"></script>
+        <!-- Services -->
         <script src="~/js/common/services/common.services.js"></script>
         <script src="~/js/common/services/productResource.js"></script>
         <script src="~/js/common/services/productResourceMock.js"></script>
+        <!-- Product Controllers -->
         <script src="~/js/prodmanagmentapp/products/productListCtrl.js"></script>
         <script src="~/js/prodmanagmentapp/products/productDetailCtrl.js"></script>
         <script src="~/js/prodmanagmentapp/products/productEditCtrl.js"></script>
+
+        <!-- Application Script -->
+        <script src="~/js/schoolapp/app.js"></script>
+        <!-- Product Controllers -->
+        <script src="~/js/schoolapp/controllers/HomeController.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

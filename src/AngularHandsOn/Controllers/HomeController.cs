@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -40,27 +43,54 @@ namespace AngularHandsOn.Controllers
             return View();
         }
 
+        public IActionResult SchoolApp()
+        {
+            return View();
+        }
         public IActionResult ProductManagement()
         {
             return View();
         }
 
         [HttpGet]
-        public JsonResult GetBooks()
+        public HttpResponseMessage GetSchools()
         {
-            var abc = new List<MyClass>()
-            {
-                new MyClass() { book_id = 1, author = "J.K. Rowling", title =  "Harry Potter and the Deathly Hallows", yearPublished = 2000},
-                new MyClass() { book_id = 2, author = "Dr. Seuss", title =  "The Cat in the Hat", yearPublished = 1957},
-                new MyClass() { book_id = 3, author = "Donald J. Sobol", title =  "Encyclopedia Brown, Boy Detective", yearPublished = 1234}
+            var json = System.IO.File.ReadAllText((@"~/../AppData/schools.json"));
 
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                StatusCode = HttpStatusCode.OK
             };
+        }
+
+
+        [HttpGet]
+        public JsonStringResult GetBooks()
+        {
+
+            var json = System.IO.File.ReadAllText((@"~/../AppData/books.json"));
             
-            return Json(abc);
+            //var abc = new List<MyClass>()
+            //{
+            //    new MyClass() { book_id = 1, author = "J.K. Rowling", title =  "Harry Potter and the Deathly Hallows", yearPublished = 2000},
+            //    new MyClass() { book_id = 2, author = "Dr. Seuss", title =  "The Cat in the Hat", yearPublished = 1957},
+            //    new MyClass() { book_id = 3, author = "Donald J. Sobol", title =  "Encyclopedia Brown, Boy Detective", yearPublished = 1234}
+
+            //};
+
+            return new JsonStringResult(json);
         }
     }
 }
-
+public class JsonStringResult : ContentResult
+{
+    public JsonStringResult(string json)
+    {
+        Content = json;
+        ContentType = "application/json";
+    }
+}
 
 public class MyClass
 {
