@@ -54,12 +54,32 @@
                 user: '='
             },
             controller: function ($scope) {
+                $scope.collapsed = false;
                 $scope.knightMe = function (user) {
                     user.rank = "knight";
+                }
+                $scope.collapse = function () {
+                    $scope.collapsed = !$scope.collapsed;
                 }
             }
         }
     })
-
+    
+    angular.module('ngdirective').directive('address', function() {
+        return {
+            restrict: 'E',
+            scope: true,
+            templateUrl: '../../js/ngdirectiveapp/address.html',
+            controller: function($scope) {
+                $scope.collapsed = false;
+                $scope.collapseAddress = function() {
+                    $scope.collapsed = true;
+                }
+                $scope.expandAddress = function() {
+                    $scope.collapsed = false;
+                }
+            }
+        }
+    })
 }());
 
