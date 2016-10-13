@@ -17,8 +17,8 @@
                 </tr>
                 </thead>
                 <tr ng-repeat="activity in filteredActivities = (classroom.currentClassroom.activities | activityMonthFilter:classroom.month)">
-                    <td>{{ activity.name }}</td>
-                    <td>{{ activity.date | date:'fullDate' }}</td>
+                    <td>{{ classroom.currentClassroom.school.name }}</td>
+                    <td>{{ classroom.currentClassroom.school.date | date:'fullDate' }}</td>
                 </tr>
             </table>
         </div>

@@ -15,7 +15,7 @@
             </thead>
             <tr ng-repeat="classroom in classrooms.allClassrooms">
                 <td><a href="#/classrooms/{{ classroom.id }}/detail">{{ classroom.name }}</a></td>
-                <td>{{ classroom.school }}</td>
+                <td>{{ classroom.school.name }}</td>
                 <td><a href="#/classrooms/{{ classroom.id }}">{{ classroom.teacher }}</a></td>
             </tr>
         </table>

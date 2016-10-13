@@ -50,26 +50,26 @@
 
     app.run(['$rootScope', '$log', function ($rootScope, $log) {
 
-        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+        //$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 
-            $log.debug('successfully changed routes');
+        //    $log.debug('successfully changed routes');
 
-            $log.debug(event);
-            $log.debug(current);
-            $log.debug(previous);
+        //    $log.debug(event);
+        //    $log.debug(current);
+        //    $log.debug(previous);
 
-        });
+        //});
 
-        $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+        //$rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
 
-            $log.debug('error changing routes');
+        //    $log.debug('error changing routes');
 
-            $log.debug(event);
-            $log.debug(current);
-            $log.debug(previous);
-            $log.debug(rejection);
+        //    $log.debug(event);
+        //    $log.debug(current);
+        //    $log.debug(previous);
+        //    $log.debug(rejection);
 
-        });
+        //});
 
     }]);
 }());

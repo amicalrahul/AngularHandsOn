@@ -14,7 +14,9 @@
                 vm.currentClassroom = classroom;
 
                 if ($routeParams.month) {
-                    if (classroom.activities.length > 0) {
+                    console.log(classroom.activities);
+                    console.log(classroom);
+                    if (classroom.activities && classroom.activities.length > 0) {
                         vm.timePeriod = dataService.getMonthName($routeParams.month);
                     }
                     else {
