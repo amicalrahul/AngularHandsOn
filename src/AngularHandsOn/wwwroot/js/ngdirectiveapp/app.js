@@ -18,7 +18,7 @@
     };
 
     angular.module('ngdirective').controller('mainCtrl', function ($scope) {
-        $scope.user = {
+        $scope.user1 = {
             name: 'Luke Skywalker',
             address: {
                 street: 'PO Box 123',
@@ -31,12 +31,33 @@
               'Chewbacca'
             ]
         }
+        $scope.user2 = {
+            name: 'Han Solo',
+            address: {
+                street: 'PO Box 123',
+                city: 'Mos Eisley',
+                planet: 'Tattoine'
+            },
+            friends: [
+              'Han',
+              'Leia',
+              'Chewbacca'
+            ]
+        }
     });
 
     angular.module('ngdirective').directive('userInfoCard', function () {
         return {
             templateUrl: "../../js/ngdirectiveapp/userInfoCard.html",
-            restrict: "E"
+            restrict: "E",
+            scope: {
+                user: '='
+            },
+            controller: function ($scope) {
+                $scope.knightMe = function (user) {
+                    user.rank = "knight";
+                }
+            }
         }
     })
 
