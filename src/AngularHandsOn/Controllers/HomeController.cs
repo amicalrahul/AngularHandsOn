@@ -51,7 +51,10 @@ namespace AngularHandsOn.Controllers
         {
             return View();
         }
-
+        public IActionResult NgDirective()
+        {
+            return View();
+        }
         [HttpGet]
         public JsonStringResult GetSchools()
         {
