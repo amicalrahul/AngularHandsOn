@@ -46,36 +46,68 @@
         }
     });
 
+
     angular.module('ngdirective').directive('userInfoCard', function () {
         return {
             templateUrl: "../../js/ngdirectiveapp/userInfoCard.html",
             restrict: "E",
             scope: {
-                user: '='
+                user: '=',
+                initialCollapsed: '@collapsed'
             },
             controller: function ($scope) {
-                $scope.collapsed = false;
+                $scope.collapsed = ($scope.initialCollapsed === 'true');
                 $scope.knightMe = function (user) {
                     user.rank = "knight";
                 }
                 $scope.collapse = function () {
                     $scope.collapsed = !$scope.collapsed;
                 }
+
+                $scope.removeFriend = function (friend) {
+                    var idx = $scope.user.friends.indexOf(friend);
+                    if (idx > -1) {
+                        $scope.user.friends.splice(idx, 1);
+                    }
+                }
+            }
+        }
+    });
+
+    angular.module('ngdirective').directive('removeFriend', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '../../js/ngdirectiveapp/removeFriend.html',
+            scope: {
+                notifyParent: '&method'
+            },
+            controller: function ($scope) {
+                $scope.removing = false;
+                $scope.startRemove = function () {
+                    $scope.removing = true;
+                }
+                $scope.cancelRemove = function () {
+                    $scope.removing = false;
+                }
+                $scope.confirmRemove = function () {
+                    $scope.notifyParent();
+                }
+
             }
         }
     })
-    
-    angular.module('ngdirective').directive('address', function() {
+
+    angular.module('ngdirective').directive('address', function () {
         return {
             restrict: 'E',
             scope: true,
             templateUrl: '../../js/ngdirectiveapp/address.html',
-            controller: function($scope) {
+            controller: function ($scope) {
                 $scope.collapsed = false;
-                $scope.collapseAddress = function() {
+                $scope.collapseAddress = function () {
                     $scope.collapsed = true;
                 }
-                $scope.expandAddress = function() {
+                $scope.expandAddress = function () {
                     $scope.collapsed = false;
                 }
             }
