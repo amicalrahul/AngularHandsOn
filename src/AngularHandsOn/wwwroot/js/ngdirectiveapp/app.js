@@ -58,18 +58,13 @@
     angular.module('ngdirective').directive('stateDisplay', function () {
         return {
             link: function (scope, el, attrs) {
-                scope.$watch(attrs['stateDisplay'], function (newVal) {
-                    switch (newVal) {
-                        case 0:
-                            el.css('background-color', 'white');
-                            break;
-                        case 1:
-                            el.css('background-color', 'yellow');
-                            break;
-                        case 2:
-                            el.css('background-color', 'red');
-                            break;
-                    }
+                var parms = attrs['stateDisplay'].split(' ');
+                var linkVar = parms[0];
+                var classes = parms.slice(1);
+
+                scope.$watch(linkVar, function (newVal) {
+                    el.removeClass(classes.join(' '));
+                    el.addClass(classes[newVal]);
                 });
             }
         }
@@ -120,7 +115,7 @@
                 }
                 $scope.nextState = function () {
                     $scope.user.level++;
-                    $scope.user.level = $scope.user.level % 3;
+                    $scope.user.level = $scope.user.level % 4;
                 }
                 $scope.collapse = function () {
                     $scope.collapsed = !$scope.collapsed;
