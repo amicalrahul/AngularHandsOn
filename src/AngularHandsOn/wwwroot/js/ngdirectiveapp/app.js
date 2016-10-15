@@ -29,7 +29,8 @@
               'Han',
               'Leia',
               'Chewbacca'
-            ]
+            ],
+            level: 0
         }
         $scope.user2 = {
             name: 'Han Solo',
@@ -42,7 +43,8 @@
               'Han',
               'Leia',
               'Chewbacca'
-            ]
+            ],
+            level: 1
         }
         $scope.messages = [];
 
@@ -53,6 +55,25 @@
         }
     });
 
+    angular.module('ngdirective').directive('stateDisplay', function () {
+        return {
+            link: function (scope, el, attrs) {
+                scope.$watch(attrs['stateDisplay'], function (newVal) {
+                    switch (newVal) {
+                        case 0:
+                            el.css('background-color', 'white');
+                            break;
+                        case 1:
+                            el.css('background-color', 'yellow');
+                            break;
+                        case 2:
+                            el.css('background-color', 'red');
+                            break;
+                    }
+                });
+            }
+        }
+    })
     angular.module('ngdirective').directive('eventPause', function ($parse) {
         return {
             restrict: 'A',
@@ -96,6 +117,10 @@
                 $scope.collapsed = ($scope.initialCollapsed === 'true');
                 $scope.knightMe = function (user) {
                     user.rank = "knight";
+                }
+                $scope.nextState = function () {
+                    $scope.user.level++;
+                    $scope.user.level = $scope.user.level % 3;
                 }
                 $scope.collapse = function () {
                     $scope.collapsed = !$scope.collapsed;
