@@ -44,8 +44,28 @@
               'Chewbacca'
             ]
         }
+        $scope.messages = [];
+
+        $scope.handlePause = function (e) {
+            console.log(e);
+            $scope.messages.push({ text: 'paused!' });
+            console.log('paused!');
+        }
     });
 
+    angular.module('ngdirective').directive('eventPause', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, el, attrs) {
+                var fn = $parse(attrs['eventPause']);
+                el.on('pause', function (event) {
+                    scope.$apply(function () {
+                        fn(scope, { evt: event })
+                    })
+                })
+            }
+        }
+    })
     angular.module('ngdirective').directive('spacebarSupport', function () {
         return {
             restrict: 'A',
