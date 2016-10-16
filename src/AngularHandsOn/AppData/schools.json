@@ -2,31 +2,37 @@
   {
     "id": 1,
     "name": "Fort Craig Elementary",
-    "principal": "Michelle Thorne"
+    "principal": "Michelle Thorne",
+    "date": "2015-10-06T16:00:00.000Z"
   },
   {
     "id": 2,
     "name": "Edgewood Elementary",
-    "principal": "Audrey Hills"
+    "principal": "Audrey Hills",
+    "date": "2015-10-06T16:00:00.000Z"
   },
   {
     "id": 3,
     "name": "Clarke Elementary",
-    "principal": "Scott Johnson"
+    "principal": "Scott Johnson",
+    "date": "2015-10-06T16:00:00.000Z"
   },
   {
     "id": 4,
     "name": "Meadowview Elementary",
-    "principal": "Jeffrey Bender"
+    "principal": "Jeffrey Bender",
+    "date": "2015-10-06T16:00:00.000Z"
   },
   {
     "id": 5,
     "name": "Coulter Ridge Elementary",
-    "principal": "Leigh Williams"
+    "principal": "Leigh Williams",
+    "date": "2015-10-06T16:00:00.000Z"
   },
   {
     "id": 6,
     "name": "Hilltop Elementary",
-    "principal": "Daniel Lanier"
+    "principal": "Daniel Lanier",
+    "date": "2015-10-06T16:00:00.000Z"
   }
 ]

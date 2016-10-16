@@ -2,19 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AngularHandsOn</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/app.css" />
+        <link href="~/js/ngdirectiveapp/style.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
@@ -37,6 +38,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="ProductManagement">ProductManagement</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Angular">Book App</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="SchoolApp">School App</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="NgDirective">Ng Directive App</a></li>
                 </ul>
             </div>
         </div>
@@ -89,10 +91,25 @@
         <script src="~/js/prodmanagmentapp/products/productDetailCtrl.js"></script>
         <script src="~/js/prodmanagmentapp/products/productEditCtrl.js"></script>
 
+
+        <link href="~/css/bootstrap.cerulean.min.css" rel="stylesheet" />
         <!-- Application Script -->
         <script src="~/js/schoolapp/app.js"></script>
         <!-- Product Controllers -->
+        <script src="~/js/schoolapp/filters/activityMonthFilter.js"></script>
         <script src="~/js/schoolapp/controllers/HomeController.js"></script>
+        <script src="~/js/schoolapp/controllers/ClassroomController.js"></script>
+        <script src="~/js/schoolapp/controllers/AllActivitiesController.js"></script>
+        <script src="~/js/schoolapp/controllers/AllClassroomsController.js"></script>
+        <script src="~/js/schoolapp/controllers/AllSchoolsController.js"></script>
+
+        <!-- Services -->
+        <script src="~/js/schoolapp/services/helper.js"></script>
+        <script src="~/js/schoolapp/services/dataService.js"></script>
+        <script src="~/js/schoolapp/services/notifier.js"></script>
+
+        <!-- Angular Directive App -->
+        <script src="~/js/ngdirectiveapp/app.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
