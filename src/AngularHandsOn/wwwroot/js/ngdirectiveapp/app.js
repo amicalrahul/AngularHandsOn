@@ -18,7 +18,7 @@
     };
 
     angular.module('ngdirective').controller('mainCtrl', function ($scope) {
-        $scope.user1 = {
+        $scope.person1 = {
             name: 'Luke Skywalker',
             address: {
                 street: 'PO Box 123',
@@ -32,7 +32,7 @@
             ],
             level: 0
         }
-        $scope.user2 = {
+        $scope.person2 = {
             name: 'Han Solo',
             address: {
                 street: 'PO Box 123',
@@ -46,6 +46,16 @@
             ],
             level: 1
         }
+        $scope.droid1 = {
+            name: 'R2-D2',
+            specifications: {
+                manufacturer: 'Industrial Automaton',
+                type: 'Astromech',
+                productLine: 'R2 series'
+            },
+            level: 1
+            // owners...etc
+        }
         $scope.messages = [];
 
         $scope.handlePause = function (e) {
@@ -55,6 +65,65 @@
         }
     });
 
+    angular.module('ngdirective').directive('userPanel', function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            templateUrl: '../../js/ngdirectiveapp/userPanel.html',
+            scope: {
+                name: '@',
+                level: '=',
+                initialCollapsed: '@collapsed'
+            },
+            controller: function ($scope) {
+                $scope.collapsed = ($scope.initialCollapsed === 'true');
+                $scope.nextState = function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    $scope.level++;
+                    $scope.level = $scope.level % 4;
+                }
+                $scope.collapse = function () {
+                    $scope.collapsed = !$scope.collapsed;
+                }
+            }
+        }
+    })
+    angular.module('ngdirective').directive('droidInfoCard', function () {
+        return {
+            templateUrl: "../../js/ngdirectiveapp/droidInfoCard.html",
+            restrict: "E",
+            scope: {
+                droid: '=',
+                initialCollapsed: '@collapsed'
+            },
+            controller: function ($scope) {
+
+            }
+        }
+    });
+    angular.module('ngdirective').directive('personInfoCard', function () {
+        return {
+            templateUrl: "../../js/ngdirectiveapp/personInfoCard.html",
+            restrict: "E",
+            scope: {
+                person: '=',
+                initialCollapsed: '@collapsed'
+            },
+            controller: function ($scope) {
+                $scope.knightMe = function (person) {
+                    person.rank = "knight";
+                }
+
+                $scope.removeFriend = function (friend) {
+                    var idx = $scope.person.friends.indexOf(friend);
+                    if (idx > -1) {
+                        $scope.person.friends.splice(idx, 1);
+                    }
+                }
+            }
+        }
+    });
     angular.module('ngdirective').directive('stateDisplay', function () {
         return {
             link: function (scope, el, attrs) {
@@ -99,38 +168,7 @@
             }
         }
     })
-
-    angular.module('ngdirective').directive('userInfoCard', function () {
-        return {
-            templateUrl: "../../js/ngdirectiveapp/userInfoCard.html",
-            restrict: "E",
-            scope: {
-                user: '=',
-                initialCollapsed: '@collapsed'
-            },
-            controller: function ($scope) {
-                $scope.collapsed = ($scope.initialCollapsed === 'true');
-                $scope.knightMe = function (user) {
-                    user.rank = "knight";
-                }
-                $scope.nextState = function () {
-                    $scope.user.level++;
-                    $scope.user.level = $scope.user.level % 4;
-                }
-                $scope.collapse = function () {
-                    $scope.collapsed = !$scope.collapsed;
-                }
-
-                $scope.removeFriend = function (friend) {
-                    var idx = $scope.user.friends.indexOf(friend);
-                    if (idx > -1) {
-                        $scope.user.friends.splice(idx, 1);
-                    }
-                }
-            }
-        }
-    });
-
+    
     angular.module('ngdirective').directive('removeFriend', function () {
         return {
             restrict: 'E',
