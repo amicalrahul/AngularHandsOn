@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using AngularHandsOn.App_Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularHandsOn
 {
@@ -29,6 +31,8 @@ namespace AngularHandsOn
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<AngularDbContext>(options =>
+                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +51,7 @@ namespace AngularHandsOn
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseMvc(routes =>
             {

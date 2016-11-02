@@ -135,13 +135,3 @@ public class JsonStringResult : ContentResult
         ContentType = "application/json";
     }
 }
-
-public class MyClass
-{
-    public int book_id { get; set; }
-    public string title { get; set; }
-    public string author { get; set; }
-    public int yearPublished { get; set; }
-
-
-}

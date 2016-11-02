@@ -278,7 +278,7 @@ Solutions/AppConfigFiles/serverApp.config
 OnePlanner.GUI/Resources/splashscreen.png
 
 # ASP.NET vNext publish folder
-App_Data
+
 
 *.jmconfig
 
