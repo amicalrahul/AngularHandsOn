@@ -32,16 +32,16 @@ var tsProject = ts.createProject('tsconfig.json', {
 gulp.task('ts', function (done) {
     //var tsResult = tsProject.src()
     var tsResult = gulp.src([
-            "./wwwroot/app/*.ts"
+            "./wwwroot/app/apm/*.ts"
     ])
         .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
-    return tsResult.js.pipe(gulp.dest('./wwwroot/app'));
+    return tsResult.js.pipe(gulp.dest('./wwwroot/app/apm'));
 });
 
 gulp.task('watch', ['watch.ts']);
 
 gulp.task('watch.ts', ['ts'], function () {
-    return gulp.watch('./wwwroot/app/*.ts', ['ts']);
+    return gulp.watch('./wwwroot/app/apm/*.ts', ['ts']);
 });
 
 gulp.task('default', ['scriptsNStyles', 'watch']);

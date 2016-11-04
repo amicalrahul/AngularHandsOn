@@ -580,4 +580,12 @@ src/AngularHandsOn/typings/
 src/AngularHandsOn/wwwroot/nodeLib/
 src/AngularHandsOn/wwwroot/app/@angular/
 src/AngularHandsOn/wwwroot/app/bootstrap/
-src/AngularHandsOn/wwwroot/app/
+
+src/AngularHandsOn/wwwroot/app/core-js/
+src/AngularHandsOn/wwwroot/app/reflect-metadata/
+src/AngularHandsOn/wwwroot/app/rxjs/add/observable/
+src/AngularHandsOn/wwwroot/app/rxjs/add/operator/
+src/AngularHandsOn/wwwroot/app/rxjs/
+src/AngularHandsOn/wwwroot/app/systemjs/
+src/AngularHandsOn/wwwroot/app/typings/
+src/AngularHandsOn/wwwroot/app/zone.js/

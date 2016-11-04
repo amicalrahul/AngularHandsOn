@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
+/// <reference path="app/boot.js" />
 /// <reference path="js/bookapp/app.js" />
 /// <reference path="js/bookapp/books/AddBookController.js" />
 /// <reference path="js/bookapp/books/BooksController.js" />
