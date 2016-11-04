@@ -576,3 +576,8 @@ src/AngularHandsOn/wwwroot/lib/angular-resource/angular-resource.min.js.map
 src/AngularHandsOn/wwwroot/lib/angular-resource/bower.json
 src/AngularHandsOn/wwwroot/lib/angular-resource/package.json
 src/AngularHandsOn/wwwroot/lib/angular-resource/README.md
+src/AngularHandsOn/typings/
+src/AngularHandsOn/wwwroot/nodeLib/
+src/AngularHandsOn/wwwroot/app/@angular/
+src/AngularHandsOn/wwwroot/app/bootstrap/
+src/AngularHandsOn/wwwroot/app/

@@ -39,6 +39,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Angular">Book App</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="SchoolApp">School App</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="NgDirective">Ng Directive App</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Angular2">Angular2</a></li>
                 </ul>
             </div>
         </div>
@@ -110,6 +111,22 @@
 
         <!-- Angular Directive App -->
         <script src="~/js/ngdirectiveapp/app.js"></script>
+
+
+
+        <script src="~/app/core-js/client/shim.min.js"></script>
+        <script src="~/app/zone.js/dist/zone.js"></script>
+        <script src="~/app/reflect-metadata/Reflect.js"></script>
+        <script src="~/app/systemjs/dist/system.src.js"></script>
+
+        <!-- 2. Configure SystemJS -->
+        <script src="~/lib/systemjs.config.js"></script>
+        <script>
+        System.import('/app/main').catch(function (err)
+        {
+            console.error(err);
+        });
+        </script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

@@ -26,6 +26,7 @@ namespace AngularHandsOn.Controllers
             return View();
         }
 
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -39,6 +40,10 @@ namespace AngularHandsOn.Controllers
         }
 
         public IActionResult Angular()
+        {
+            return View();
+        }
+        public IActionResult Angular2()
         {
             return View();
         }
