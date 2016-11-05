@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="app/products/product-list.component.js" />
 /// <reference path="js/bookapp/app.js" />
 /// <reference path="js/bookapp/books/AddBookController.js" />
 /// <reference path="js/bookapp/books/BooksController.js" />
