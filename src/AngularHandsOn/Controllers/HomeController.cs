@@ -43,6 +43,12 @@ namespace AngularHandsOn.Controllers
             return View();
         }
 
+
+        public IActionResult Angular2()
+        {
+            return View();
+        }
+
         public IActionResult SchoolApp()
         {
             return View();
