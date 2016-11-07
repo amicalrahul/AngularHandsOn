@@ -577,5 +577,6 @@ src/AngularHandsOn/wwwroot/lib/angular-resource/bower.json
 src/AngularHandsOn/wwwroot/lib/angular-resource/package.json
 src/AngularHandsOn/wwwroot/lib/angular-resource/README.md
 src/AngularHandsOn/wwwroot/lib1
-src/AngularHandsOn/wwwroot/app
+src/AngularHandsOn/wwwroot/app/**/*.js
+src/AngularHandsOn/wwwroot/app/**/*.map
 src/wwwroot/app
