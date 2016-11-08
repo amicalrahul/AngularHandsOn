@@ -5,6 +5,7 @@
 /// <reference path="app/home/welcome.component.js" />
 /// <reference path="app/main.js" />
 /// <reference path="app/products/product.js" />
+/// <reference path="app/products/product.service.js" />
 /// <reference path="app/products/product-filter.pipe.js" />
 /// <reference path="app/products/product-list.component.js" />
 /// <reference path="app/shared/star.component.js" />

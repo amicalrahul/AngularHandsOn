@@ -8,7 +8,7 @@ export class ProductService {
         return [
             {
                 "productId": 2,
-                "productName": "Garden Cart",
+                "productName": "Garden Cart1",
                 "productCode": "GDN-0023",
                 "releaseDate": "March 18, 2016",
                 "description": "15 gallon capacity rolling garden cart",
