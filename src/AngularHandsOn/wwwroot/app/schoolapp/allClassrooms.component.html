@@ -1,0 +1,30 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-body'>
+        <h1 class="col-md-offset-1 col-lg-offset-1">All Classrooms</h1>
+        <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Registered Classrooms</div>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Classroom Name</th>
+                            <th>School</th>
+                            <th>Teacher</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor='let classroom of allClassrooms'>
+                        <td>
+                            <a [routerLink]="['/classroomdetail', classroom.id]">{{ classroom.name }}</a>
+                        </td>
+                        <td>{{ classroom.name }}</td>
+                        <td>
+                            <a [routerLink]="['/classroom', classroom.id]">{{ classroom.teacher }}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
