@@ -5,36 +5,20 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 
-import { ProductListComponent } from './products/product-list.component';
-import { ProductFilterPipe } from './products/product-filter.pipe';
-import { StarComponent } from './shared/star.component';
-import { ProductService } from './products/product.service';
-import { DataService } from './schoolapp/services/data.service';
-import { HomeComponent } from './schoolapp/home.component';
-import { AllActivitiesComponent } from './schoolapp/allActivities.component';
-import { AllClassroomComponent } from './schoolapp/allClassrooms.component';
-import { AllSchoolsComponent } from './schoolapp/allSchools.component';
-import { ClassroomDetailComponent } from './schoolapp/classroomDetail.component';
-import { ClassroomComponent } from './schoolapp/classroom.component';
+import { ProductModule } from './products/product.module';
 
+import { SchoolAppModule } from './schoolapp/schoolapp.module';
 import { WelcomeComponent } from './home/welcome.component';
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule,
+    imports: [BrowserModule, FormsModule, HttpModule, ProductModule, SchoolAppModule,
         RouterModule.forRoot([
             { path: 'welcome', component: WelcomeComponent },
-            { path: 'products', component: ProductListComponent },
-            { path: 'schoolapphome', component: HomeComponent },
-            { path: 'allschools', component: AllSchoolsComponent },
-            { path: 'allclassrooms', component: AllClassroomComponent },
-            { path: 'activities', component: AllActivitiesComponent },
-            { path: 'classroom/:id', component: ClassroomComponent },
-            { path: 'classroomdetail/:id', component: ClassroomDetailComponent },
-            { path: '', redirectTo:'welcome', pathMatch: 'full' }
+            { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+            { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
         ],
             { useHash: true }
         )],
-    declarations: [AppComponent, WelcomeComponent, ProductListComponent, ProductFilterPipe, StarComponent, HomeComponent,
-        AllSchoolsComponent, AllClassroomComponent, AllActivitiesComponent, ClassroomComponent, ClassroomDetailComponent],
+    declarations: [AppComponent, WelcomeComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

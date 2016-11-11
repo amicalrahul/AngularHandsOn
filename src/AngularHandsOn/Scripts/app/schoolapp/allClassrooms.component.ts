@@ -19,10 +19,11 @@ export class AllClassroomComponent implements OnInit {
     ngOnInit(): void {
 
         this._dataService.getAllClassrooms()
-            .subscribe(products => {
-                this.allClassrooms = products;
+            .subscribe(classrooms => {
+                this.allClassrooms = classrooms;
             },
             error => this.errorMessage = <any>error);
 
     }
+    
 }

@@ -22,7 +22,6 @@ export class DataService {
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
-
     getAllClassrooms(): Observable<IClassroom[]> {
         let url: string = "/Home/GetClassrooms";
         return this._http.get(url)
@@ -30,6 +29,36 @@ export class DataService {
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
+    //getAllClassrooms(): Observable<IClassroom[]> {
+    //    let url: string = "/Home/GetClassrooms";
+    //    return this._http.get(url)
+    //        .map(function (response: Response) {
+    //            let classroomsRaw = <IClassroomRaw[]>response.json();
+    //            let classrooms: IClassroom[];
+    //            let schools: ISchool[] = this.getAllSchools();
+    //            classroomsRaw.forEach(function (classroomRaw: IClassroomRaw) {
+    //                let classroom: IClassroom;
+    //                classroom.id = classroomRaw.id;
+    //                classroom.name = classroomRaw.name;
+    //                classroom.teacher = classroomRaw.teacher;
+    //                classroom.school = this.getItemsById(schools, classroomRaw.school_id)[0];
+
+    //                classrooms.push(classroom);                    
+    //            });
+    //            return classrooms;
+    //        })
+    //        .do(data => console.log('All: ' + JSON.stringify(data)))
+    //        .catch(this.handleError);;
+    //}
+    
+
+    getItemsById: any = function (data: any[], id: any) {
+
+        var matchingItems = data.filter(function (item) {
+            return item.id == id;
+        });
+        return matchingItems;
+    };
 
     getAllActivities(): Observable<IActivity[]> {
         let url: string = "/Home/GetActivities";

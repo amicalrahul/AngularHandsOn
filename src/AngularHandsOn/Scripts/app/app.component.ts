@@ -33,8 +33,7 @@ import { DataService } from './schoolapp/services/data.service';
         </div>
     </nav>
         <router-outlet></router-outlet>
-    `,
-    providers: [ProductService, DataService]
+    `
 })
 export class AppComponent { 
     pageTitle: string = `Acme Product Management`;

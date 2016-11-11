@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../app/schoolapp/services/data.service';
 
 import { ISchool } from '../../app/schoolapp/interfaces/school';
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
     classroomCount: number;
     activityCount: number;
 
-    constructor(private _dataService: DataService) {
+    constructor(private _dataService: DataService, private _router: Router) {
     }
 
     ngOnInit(): void {
@@ -48,4 +49,8 @@ export class HomeComponent implements OnInit {
             },
             error => this.errorMessage = <any>error);
     }    
+
+    refresh(): void {
+        this._router.navigate(['/schoolapphome']);
+    }
 }
