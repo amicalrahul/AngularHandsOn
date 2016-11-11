@@ -8,9 +8,10 @@ using AngularHandsOn.Entities;
 namespace AngularHandsOn.Migrations
 {
     [DbContext(typeof(AngularDbContext))]
-    partial class AngularDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161111171616_schollentity")]
+    partial class schollentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -20,8 +21,6 @@ namespace AngularHandsOn.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ActivityId");
 
                     b.Property<string>("ClassroomId");
 
@@ -61,8 +60,6 @@ namespace AngularHandsOn.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClassroomId");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("SchoolId");
@@ -84,8 +81,6 @@ namespace AngularHandsOn.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("Principal");
-
-                    b.Property<string>("SchoolId");
 
                     b.HasKey("Id");
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngularHandsOn.App_Data
+namespace AngularHandsOn.Entities
 {
     public class AngularDbContext : DbContext
     {
@@ -14,7 +14,10 @@ namespace AngularHandsOn.App_Data
             
         }
 
-        DbSet<Books> Books { get; set; }
+        public DbSet<Books> Books { get; set; }
+        public DbSet<School> Schools { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     }
 
 

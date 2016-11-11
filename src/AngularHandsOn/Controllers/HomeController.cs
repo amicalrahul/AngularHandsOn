@@ -9,11 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Protocol.Core.v3;
+using AngularHandsOn.Entities;
 
 namespace AngularHandsOn.Controllers
 {
     public class HomeController : Controller
     {
+        private AngularDbContext _dbContext;
+
+        public HomeController(AngularDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public IActionResult Index()
         {
             return View();
@@ -64,10 +71,8 @@ namespace AngularHandsOn.Controllers
         [HttpGet]
         public JsonStringResult GetSchools()
         {
-            var json = System.IO.File.ReadAllText((@"~/../AppData/schools.json"));
-
-
-            return new JsonStringResult(json);
+            var str = _dbContext.Schools.ToJson();
+            return new JsonStringResult(str);
         }
         //[HttpGet]
         //public JsonStringResult GetSchools(object id)
@@ -80,10 +85,8 @@ namespace AngularHandsOn.Controllers
         [HttpGet]
         public JsonStringResult GetClassRooms()
         {
-            var json = System.IO.File.ReadAllText((@"~/../AppData/classrooms.json"));
-
-
-            return new JsonStringResult(json);
+            var str = _dbContext.Classrooms.ToJson();
+            return new JsonStringResult(str);
         }
         //[HttpGet]
         //public JsonStringResult GetClassRooms(object id)
@@ -102,10 +105,8 @@ namespace AngularHandsOn.Controllers
         [HttpGet]
         public JsonStringResult GetActivities()
         {
-            var json = System.IO.File.ReadAllText((@"~/../AppData/activities.json"));
-
-
-            return new JsonStringResult(json);
+            var str = _dbContext.Activities.ToJson();
+            return new JsonStringResult(str);
         }
         //[HttpGet]
         //public JsonStringResult GetActivities(object id)

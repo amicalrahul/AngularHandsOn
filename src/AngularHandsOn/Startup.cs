@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AngularHandsOn.App_Data;
+using AngularHandsOn.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 namespace AngularHandsOn
 {
@@ -30,7 +31,8 @@ namespace AngularHandsOn
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+            .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
         }
@@ -60,6 +62,7 @@ namespace AngularHandsOn
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "ProductManagement" });
             });
+            Seeder.Seedit(app.ApplicationServices.GetRequiredService<AngularDbContext>());
         }
     }
 }
