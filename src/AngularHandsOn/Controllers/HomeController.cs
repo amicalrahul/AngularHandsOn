@@ -74,48 +74,78 @@ namespace AngularHandsOn.Controllers
             var str = _dbContext.Schools.ToJson();
             return new JsonStringResult(str);
         }
-        //[HttpGet]
-        //public JsonStringResult GetSchools(object id)
-        //{
-        //    var json = System.IO.File.ReadAllText((@"~/../AppData/schools.json"));
-
-
-        //    return new JsonStringResult(json);
-        //}
+        [HttpGet]
+        public JsonStringResult GetSchool(object id)
+        {
+            if(id == null || string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                return new JsonStringResult("");
+            }
+            var str = _dbContext.Schools.First(a=> a.SchoolId == id.ToString()).ToJson();
+            return new JsonStringResult(str);
+        }
         [HttpGet]
         public JsonStringResult GetClassRooms()
         {
-            var str = _dbContext.Classrooms.ToJson();
+            var str = _dbContext.Classrooms.ToList()
+                .Select(f => new {
+                    name = f.Name,
+                    teacher = f.Teacher,
+                    id = f.ClassroomId,
+                    school_id = f.SchoolId,
+                    school = _dbContext.Schools.First(a => a.SchoolId == f.SchoolId.ToString())
+                }
+                )                
+                .ToJson();
             return new JsonStringResult(str);
         }
-        //[HttpGet]
-        //public JsonStringResult GetClassRooms(object id)
-        //{
-        //    var classRoomData = GetClassRooms();
-        //    var schoolData = GetSchools();
-        //    var activitiesData = GetActivities();
-        //     var abc = Json(System.IO.File.ReadAllText((@"~/../AppData/classrooms.json")));
-
-
-
-        //    var json = System.IO.File.ReadAllText((@"~/../AppData/classrooms.json"));
-        //    return new JsonStringResult(json);
-        //}
+        [HttpGet]
+        public JsonStringResult GetClassRoom(int id)
+        {
+            if (string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                return new JsonStringResult("");
+            }
+            var str = _dbContext.Classrooms.Where(a => a.ClassroomId == id.ToString()).ToList()
+                .Select(f => new
+                {
+                    name = f.Name,
+                    teacher = f.Teacher,
+                    id = f.ClassroomId,
+                    school_id = f.SchoolId,
+                    school = _dbContext.Schools.Where(a => a.SchoolId == f.SchoolId.ToString()).First(),
+                    activities = _dbContext.Activities.Where(a=> a.ClassroomId == f.ClassroomId)
+                })
+                .ToJson();
+            return new JsonStringResult(str);
+        }
 
         [HttpGet]
         public JsonStringResult GetActivities()
         {
-            var str = _dbContext.Activities.ToJson();
+            var str = _dbContext.Activities.ToList()
+                .Select(f => new
+                {
+                    name = f.Name,
+                    date = f.Date,
+                    activity_id = f.ActivityId,
+                    classroom_id = f.ClassroomId,
+                    school_id = f.SchoolId,
+                    school = _dbContext.Schools.First(a => a.SchoolId == f.SchoolId.ToString()),
+                    classroom = _dbContext.Classrooms.Where(a => a.ClassroomId == f.ClassroomId).First()
+                }).ToJson();
             return new JsonStringResult(str);
         }
-        //[HttpGet]
-        //public JsonStringResult GetActivities(object id)
-        //{
-        //    var json = System.IO.File.ReadAllText((@"~/../AppData/activities.json"));
-
-
-        //    return new JsonStringResult(json);
-        //}
+        [HttpGet]
+        public JsonStringResult GetActivity(int id)
+        {
+            if (string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                return new JsonStringResult("");
+            }
+            var str = _dbContext.Activities.First(a => a.ActivityId == id.ToString()).ToJson();
+            return new JsonStringResult(str);
+        }
         [HttpGet]
         public JsonStringResult GetBooks()
         {

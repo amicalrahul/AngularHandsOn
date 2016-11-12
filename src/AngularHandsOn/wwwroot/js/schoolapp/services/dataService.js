@@ -42,11 +42,11 @@
         function getAllClassrooms() {
             return $http.get('/Home/GetClassrooms')
                 .then(function (response) {
-                    response.data.forEach(function (classroom, index, array) {
-                        getSchool(classroom.school_id).then(function (response1) {
-                            classroom.school = response1;
-                        })
-                    })
+                    //response.data.forEach(function (classroom, index, array) {
+                    //    getSchool(classroom.school_id).then(function (response1) {
+                    //        classroom.school = response1;
+                    //    })
+                    //})
                     return response.data;
                 })
                 .catch(function (response) {
@@ -56,22 +56,23 @@
         }
 
         function getClassroom(id) {
-            return $http.get('GetClassrooms')
+            return $http.get('/Home/GetClassRoom/' + id)
                 .then(function (response) {
-                    var classroom = getItemsById(response.data, id)[0];
-                    getSchool(classroom.school_id).then(function (response1) {
-                        classroom.school = response1;
-                        //var arr = new Array(2);
-                        //arr.push(2);
-                        //arr.push(3);
-                        //classroom.activities = arr;
+                    //var classroom = getItemsById(response.data, id)[0];
+                    //getSchool(classroom.school_id).then(function (response1) {
+                    //    classroom.school = response1;
+                    //    //var arr = new Array(2);
+                    //    //arr.push(2);
+                    //    //arr.push(3);
+                    //    //classroom.activities = arr;
                             
-                    })
-                    getActivity(id).then(function (response1) {
-                        classroom.activities = response1;
-                        console.log(classroom.activities);
-                    })
-                    return classroom;
+                    //})
+                    //getActivity(id).then(function (response1) {
+                    //    classroom.activities = response1;
+                    //    console.log(classroom.activities);
+                    //})
+                    //return classroom;
+                    return response.data;
                 })
                 .catch(function (response) {
                     $log.error('Error retrieving classroom (' + id + '): ' + response.statusText);

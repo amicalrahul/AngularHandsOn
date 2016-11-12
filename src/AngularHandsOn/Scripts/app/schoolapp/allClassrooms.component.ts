@@ -20,6 +20,7 @@ export class AllClassroomComponent implements OnInit {
 
         this._dataService.getAllClassrooms()
             .subscribe(classrooms => {
+                console.log(classrooms);
                 this.allClassrooms = classrooms;
             },
             error => this.errorMessage = <any>error);

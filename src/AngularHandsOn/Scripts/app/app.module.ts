@@ -9,15 +9,10 @@ import { ProductModule } from './products/product.module';
 
 import { SchoolAppModule } from './schoolapp/schoolapp.module';
 import { WelcomeComponent } from './home/welcome.component';
+import { AppRoutingModule } from './app-routing.module';
+
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, ProductModule, SchoolAppModule,
-        RouterModule.forRoot([
-            { path: 'welcome', component: WelcomeComponent },
-            { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-            { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
-        ],
-            { useHash: true }
-        )],
+    imports: [BrowserModule, FormsModule, HttpModule, ProductModule, SchoolAppModule, AppRoutingModule],
     declarations: [AppComponent, WelcomeComponent],
   bootstrap: [ AppComponent ]
 })

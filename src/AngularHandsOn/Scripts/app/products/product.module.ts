@@ -7,12 +7,11 @@ import { ProductFilterPipe } from './product-filter.pipe';
 import { ProductService } from './product.service';
 
 import { SharedModule } from '../shared/shared.module';
+import { ProductRoutingModule } from './product-routing.module';
 
 @NgModule({
     declarations: [ProductListComponent, ProductFilterPipe],
-    imports: [SharedModule, RouterModule.forChild([
-        { path: 'products', component: ProductListComponent }
-    ])],
+    imports: [SharedModule, ProductRoutingModule],
     providers: [ProductService]
     
 })
