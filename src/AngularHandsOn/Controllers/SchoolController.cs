@@ -6,6 +6,7 @@ using NuGet.Protocol.Core.v3;
 namespace AngularHandsOn.Controllers
 {
     [Route("api/home1")]
+    [Produces("application/json")]
     public class SchoolController : Controller
     {
         ISchoolRepository<int> _schoolRepository;
@@ -16,26 +17,17 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet("GetSchools")]
-        public JsonStringResult Get()
+        public IActionResult Get()
         {
             var result = _schoolRepository.Fetch();
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+            return new ObjectResult(result);
         }
         [HttpGet("GetSchool/{id}")]
-        public JsonStringResult Get(int id)
+        public IActionResult Get(int id)
         {
             var result = _schoolRepository.Fetch(id);
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+
+            return new ObjectResult(result);
         }
     }
 }

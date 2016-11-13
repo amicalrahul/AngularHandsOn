@@ -21,26 +21,16 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet("GetActivities")]
-        public JsonStringResult Get()
+        public IActionResult Get()
         {
             var result = _activityRepository.Fetch();
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+            return new ObjectResult(result);
         }
         [HttpGet("GetActivities/{id}")]
-        public JsonStringResult Get(int id)
+        public IActionResult Get(int id)
         {
             var result = _activityRepository.Fetch(id);
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+            return new ObjectResult(result);
         }
     }
 }

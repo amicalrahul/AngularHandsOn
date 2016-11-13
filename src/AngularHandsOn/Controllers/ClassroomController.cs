@@ -16,26 +16,16 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet("GetClassRooms")]
-        public JsonStringResult Get()
+        public IActionResult Get()
         {
             var result = _classroomRepository.Fetch();
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+            return new ObjectResult(result);
         }
         [HttpGet("GetClassRoom/{id}")]
-        public JsonStringResult Get(int id)
+        public IActionResult Get(int id)
         {
             var result = _classroomRepository.Fetch(id);
-            if (result == null)
-            {
-                return new JsonStringResult("");
-            }
-            var str = result.ToJson();
-            return new JsonStringResult(str);
+            return new ObjectResult(result);
         }
     }
 }
