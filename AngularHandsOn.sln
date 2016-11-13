@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAB9A740-3B8A-42A7-8C52-20B1FB9D151D}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AngularHandsOn", "src\AngularHandsOn\AngularHandsOn.xproj", "{C80BC9E2-CF47-4383-82AA-CF70876D3F96}"

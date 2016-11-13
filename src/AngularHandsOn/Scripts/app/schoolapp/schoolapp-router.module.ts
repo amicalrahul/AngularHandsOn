@@ -13,11 +13,14 @@ import { ClassRoomGuard } from './services/classroom-guard.service';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'schoolapphome', component: HomeComponent },
+        { path: 'classroom/:id', canActivate: [ClassRoomGuard], component: ClassroomComponent },
         { path: 'allschools', component: AllSchoolsComponent },
         { path: 'allclassrooms', component: AllClassroomComponent },
         { path: 'activities', component: AllActivitiesComponent },
-        { path: 'classroom/:id', canActivate: [ClassRoomGuard], component: ClassroomComponent },
-        { path: 'classroomdetail/:id', component: ClassroomDetailComponent },
+        {
+            path: 'classroomdetail/:id',
+            component: ClassroomDetailComponent
+        },
     ])],
     exports: [RouterModule]
         

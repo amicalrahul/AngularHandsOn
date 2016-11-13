@@ -16,16 +16,23 @@ export class DataService {
     constructor(private _http: Http) { }
 
     getAllSchools(): Observable<ISchool[]> {
-        let url: string = "/Home/GetSchools";
+        let url: string = "/api/home1/GetSchools";
         return this._http.get(url)
             .map((response: Response) => <ISchool[]>response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
     getAllClassrooms(): Observable<IClassroom[]> {
-        let url: string = "/Home/GetClassrooms";
+        let url: string = "/api/home1/GetClassrooms";
         return this._http.get(url)
             .map((response: Response) => <IClassroom[]>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);;
+    }
+    getClassroom(id: number): Observable<IClassroom> {
+        let url: string = "/api/home1/GetClassroom/" + id;
+        return this._http.get(url)
+            .map((response: Response) => (<IClassroom>response.json()))
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
@@ -52,7 +59,7 @@ export class DataService {
     //}
     
 
-    getItemsById: any = function (data: any[], id: any) {
+    private getItemsById: any = function (data: any[], id: any) {
 
         var matchingItems = data.filter(function (item) {
             return item.id == id;

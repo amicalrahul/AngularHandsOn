@@ -11,7 +11,19 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 
 })
 export class AllActivitiesComponent implements OnInit {
+    allActivities: IActivity[];
+    errorMessage: string;
+    constructor(private _dataService: DataService) {
+    }
 
-    ngOnInit(): void{
+    ngOnInit(): void {
+
+        this._dataService.getAllActivities()
+            .subscribe(activity => {
+                console.log(activity);
+                this.allActivities = activity;
+            },
+            error => this.errorMessage = <any>error);
+
     }
 }

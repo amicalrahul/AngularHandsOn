@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using AngularHandsOn.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace AngularHandsOn
 {
@@ -32,7 +33,19 @@ namespace AngularHandsOn
         {
             // Add framework services.
             services.AddMvc()
-            .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                //.AddMvcOptions(o =>
+                //{
+                //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                //})
+            .AddJsonOptions(o =>
+            {
+                if (o.SerializerSettings != null)
+                {
+                    o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    var conResolver = o.SerializerSettings.ContractResolver as DefaultContractResolver;
+                    //conResolver.NamingStrategy = new NamingStrategy()
+                }
+            });
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
         }
@@ -52,7 +65,7 @@ namespace AngularHandsOn
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseStatusCodePages();
             app.UseFileServer();
 
             app.UseMvc(routes =>
