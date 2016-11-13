@@ -11,6 +11,7 @@ using AngularHandsOn.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using AngularHandsOn.Repositories;
 
 namespace AngularHandsOn
 {
@@ -48,6 +49,9 @@ namespace AngularHandsOn
             });
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
+            services.AddSingleton<ISchoolRepository<int>, SchoolRepository>();
+            services.AddSingleton<IClassroomRepository<int>, ClassroomRepository>();
+            services.AddSingleton<IActivityRepository<int>, ActivityRepository >();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
