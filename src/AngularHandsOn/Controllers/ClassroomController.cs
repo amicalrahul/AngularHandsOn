@@ -1,7 +1,10 @@
 ﻿using AngularHandsOn.Entities;
+using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.v3;
+using System.Collections.Generic;
 
 namespace AngularHandsOn.Controllers
 {
@@ -19,13 +22,16 @@ namespace AngularHandsOn.Controllers
         public IActionResult Get()
         {
             var result = _classroomRepository.Fetch();
-            return new ObjectResult(result);
+            var results = Mapper.Map<IEnumerable<ClassroomModel>>(result);            
+            return new ObjectResult(results);
         }
         [HttpGet("GetClassRoom/{id}")]
         public IActionResult Get(int id)
         {
             var result = _classroomRepository.Fetch(id);
-            return new ObjectResult(result);
+
+            var results = Mapper.Map<ClassroomModel>(result);
+            return new ObjectResult(results);
         }
     }
 }

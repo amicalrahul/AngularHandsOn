@@ -26,7 +26,7 @@ namespace AngularHandsOn.Repositories
             {
                 return null;
             }
-            return _dbContext.Schools.SingleOrDefault(a => a.Id == id);
+            return _dbContext.Schools.SingleOrDefault(a => a.SchoolId == id);
         }
     }
 }

@@ -68,9 +68,17 @@ export class DataService {
     };
 
     getAllActivities(): Observable<IActivity[]> {
-        let url: string = "/Home/GetActivities";
+        let url: string = "/api/home1/GetActivities";
         return this._http.get(url)
             .map((response: Response) => <IActivity[]>response.json())
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);;
+    }
+
+    getAllObjectsCount(): Observable<any> {
+        let url: string = "/api/home1/GetAllObjectsCount";
+        return this._http.get(url)
+            .map((response: Response) => response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }

@@ -8,8 +8,8 @@ using AngularHandsOn.Entities;
 namespace AngularHandsOn.Migrations
 {
     [DbContext(typeof(AngularDbContext))]
-    [Migration("20161111171616_schollentity")]
-    partial class schollentity
+    [Migration("20161113211109_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,10 +19,9 @@ namespace AngularHandsOn.Migrations
 
             modelBuilder.Entity("AngularHandsOn.Entities.Activity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("ActivityId");
 
-                    b.Property<string>("ClassroomId");
+                    b.Property<int?>("ClassroomId");
 
                     b.Property<DateTime>("Date");
 
@@ -30,9 +29,13 @@ namespace AngularHandsOn.Migrations
 
                     b.Property<string>("Principal");
 
-                    b.Property<string>("SchoolId");
+                    b.Property<int?>("SchoolId");
 
-                    b.HasKey("Id");
+                    b.HasKey("ActivityId");
+
+                    b.HasIndex("ClassroomId");
+
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Activities");
                 });
@@ -57,24 +60,24 @@ namespace AngularHandsOn.Migrations
 
             modelBuilder.Entity("AngularHandsOn.Entities.Classroom", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ClassroomId");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("SchoolId");
+                    b.Property<int?>("SchoolId");
 
                     b.Property<string>("Teacher");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClassroomId");
+
+                    b.HasIndex("SchoolId");
 
                     b.ToTable("Classrooms");
                 });
 
             modelBuilder.Entity("AngularHandsOn.Entities.School", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("SchoolId");
 
                     b.Property<DateTime>("Date");
 
@@ -82,9 +85,27 @@ namespace AngularHandsOn.Migrations
 
                     b.Property<string>("Principal");
 
-                    b.HasKey("Id");
+                    b.HasKey("SchoolId");
 
                     b.ToTable("Schools");
+                });
+
+            modelBuilder.Entity("AngularHandsOn.Entities.Activity", b =>
+                {
+                    b.HasOne("AngularHandsOn.Entities.Classroom", "Classroom")
+                        .WithMany("Activity")
+                        .HasForeignKey("ClassroomId");
+
+                    b.HasOne("AngularHandsOn.Entities.School", "School")
+                        .WithMany("Activity")
+                        .HasForeignKey("SchoolId");
+                });
+
+            modelBuilder.Entity("AngularHandsOn.Entities.Classroom", b =>
+                {
+                    b.HasOne("AngularHandsOn.Entities.School", "School")
+                        .WithMany("Classroom")
+                        .HasForeignKey("SchoolId");
                 });
         }
     }

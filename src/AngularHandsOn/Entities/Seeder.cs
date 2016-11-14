@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using AngularHandsOn.Entities;
+using System.Threading.Tasks;
 
-public static class Seeder
+public class Seeder
 {
-    public static void Seedit(AngularDbContext context)
+    private AngularDbContext _dbContext;
+
+    public Seeder(AngularDbContext dbContext)
     {
-        //JsonSerializerSettings settings = new JsonSerializerSettings
-        //{
-        //    ContractResolver = new PrivateSetterContractResolver()
-        //};
-        context.Database.EnsureCreated();
+        _dbContext = dbContext;
+    }
+
+    public async Task EnsureSeedData()
+    {
+
+        _dbContext.Database.EnsureCreated();
+        
 
         var dataText = System.IO.File.ReadAllText(@"~/../AppData/schools.json");
         List<School> schools = JsonConvert.DeserializeObject<List<School>>(dataText);
@@ -25,24 +31,25 @@ public static class Seeder
         List<Activity> activities = JsonConvert.DeserializeObject<List<Activity>>(dataText);
         try
         {
+            if (!_dbContext.Schools.Any())
+            {
+                _dbContext.AddRange(schools);
+            }
+            if (!_dbContext.Classrooms.Any())
+            {
+                _dbContext.AddRange(classrooms);
+            }
+            if (!_dbContext.Activities.Any())
+            {
+                _dbContext.AddRange(activities);
+            }
 
-            if (!context.Schools.Any())
-            {
-                context.AddRange(schools);
-            }
-            if (!context.Classrooms.Any())
-            {
-                context.AddRange(classrooms);
-            }
-            if (!context.Activities.Any())
-            {
-                context.AddRange(activities);
-            }
-            context.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
         catch (System.Exception ex)
         {
-            
+
         }
     }
+    
 }

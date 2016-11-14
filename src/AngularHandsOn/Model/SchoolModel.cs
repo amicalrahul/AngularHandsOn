@@ -1,20 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngularHandsOn.Entities
+namespace AngularHandsOn.Model
 {
-    public class School
+    public class SchoolModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [JsonProperty(PropertyName = "id")]
-        public int SchoolId { get; set; }
+        public string SchoolId { get; set; }
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
         [JsonProperty(PropertyName = "principal")]

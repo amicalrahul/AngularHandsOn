@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using AngularHandsOn.Repositories;
+using AutoMapper;
+using AngularHandsOn.Model;
+using Newtonsoft.Json;
+using System.Buffers;
 
 namespace AngularHandsOn
 {
@@ -34,6 +38,14 @@ namespace AngularHandsOn
         {
             // Add framework services.
             services.AddMvc()
+            //    (options =>
+            //{
+            //    options.OutputFormatters.Clear();
+            //    options.OutputFormatters.Add(new JsonOutputFormatter(new JsonSerializerSettings()
+            //    {
+            //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            //    }, ArrayPool<char>.Shared));
+            //})
                 //.AddMvcOptions(o =>
                 //{
                 //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
@@ -44,18 +56,20 @@ namespace AngularHandsOn
                 {
                     o.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     var conResolver = o.SerializerSettings.ContractResolver as DefaultContractResolver;
+                    o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     //conResolver.NamingStrategy = new NamingStrategy()
                 }
             });
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
+            services.AddTransient<Seeder>();
             services.AddSingleton<ISchoolRepository<int>, SchoolRepository>();
             services.AddSingleton<IClassroomRepository<int>, ClassroomRepository>();
             services.AddSingleton<IActivityRepository<int>, ActivityRepository >();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Seeder seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -72,6 +86,12 @@ namespace AngularHandsOn
             app.UseStatusCodePages();
             app.UseFileServer();
 
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<SchoolModel, School>().ReverseMap();
+                cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
+                cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -79,7 +99,7 @@ namespace AngularHandsOn
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "ProductManagement" });
             });
-            Seeder.Seedit(app.ApplicationServices.GetRequiredService<AngularDbContext>());
+            seeder.EnsureSeedData().Wait();
         }
     }
 }

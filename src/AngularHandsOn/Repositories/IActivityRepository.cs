@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AngularHandsOn.Repositories
 {
-    public interface IActivityRepository<T> : IBaseRepository<Object, T>
+    public interface IActivityRepository<T> : IBaseRepository<Activity, T>
     {
         
     }

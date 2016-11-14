@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AngularHandsOn.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularHandsOn.Repositories
 {
@@ -15,27 +16,13 @@ namespace AngularHandsOn.Repositories
         {
             _dbContext = dbContext;
         }
-        public IEnumerable<object> Fetch()
+        public IEnumerable<Activity> Fetch()
         {
-            return _dbContext.Activities.ToList()
-                 .Select(f => new
-                 {
-                     name = f.Name,
-                     date = f.Date,
-                     activity_id = f.ActivityId,
-                     classroom_id = f.ClassroomId,
-                     school_id = f.SchoolId,
-                     school = _dbContext.Schools.First(a => a.SchoolId == f.SchoolId.ToString()),
-                     classroom = _dbContext.Classrooms.Where(a => a.ClassroomId == f.ClassroomId).First()
-                 });
+            return _dbContext.Activities.Include(a => a.Classroom).Include(a => a.School).ToList();
         }
 
-        public object Fetch(int id)
+        public Activity Fetch(int id)
         {
-            if (string.IsNullOrWhiteSpace(id.ToString()))
-            {
-                return new JsonStringResult("");
-            }
             return _dbContext.Activities.First(a => a.ActivityId == id.ToString());
         }
     }

@@ -18,34 +18,19 @@ export class HomeComponent implements OnInit {
     allClassrooms: IClassroom[];
     allActivities: IActivity[];
     errorMessage: string;
-    schoolCount: number;
-    classroomCount: number;
-    activityCount: number;
+    schoolCount: number = 0;
+    classroomCount: number = 0;
+    activityCount: number = 0;
 
     constructor(private _dataService: DataService, private _router: Router) {
     }
 
     ngOnInit(): void {
-        this._dataService.getAllSchools()
+        this._dataService.getAllObjectsCount()
             .subscribe(products => {
-                this.allSchools = products;
-                this.schoolCount = products.length;
-            },
-            error => this.errorMessage = <any>error);
-
-
-        this._dataService.getAllClassrooms()
-            .subscribe(products => {
-                this.allClassrooms = products;
-                this.classroomCount = products.length;
-            },
-            error => this.errorMessage = <any>error);
-
-
-        this._dataService.getAllActivities()
-            .subscribe(products => {
-                this.allActivities = products;
-                this.activityCount = products.length;
+                this.schoolCount = products.schoolCount;
+                this.activityCount = products.activityCount;
+                this.classroomCount = products.classroomCount;
             },
             error => this.errorMessage = <any>error);
     }    
