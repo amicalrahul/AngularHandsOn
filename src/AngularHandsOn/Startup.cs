@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,16 +6,14 @@ using Microsoft.Extensions.Logging;
 using AngularHandsOn.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using AngularHandsOn.Model;
 using Newtonsoft.Json;
-using System.Buffers;
 
 namespace AngularHandsOn
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -73,6 +67,8 @@ namespace AngularHandsOn
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            ConfigureAuth(app);
 
             if (env.IsDevelopment())
             {
