@@ -8,9 +8,10 @@ using AngularHandsOn.Entities;
 namespace AngularHandsOn.Migrations
 {
     [DbContext(typeof(AngularDbContext))]
-    partial class AngularDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161116174044_identityclasses")]
+    partial class identityclasses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

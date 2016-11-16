@@ -10,16 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Protocol.Core.v3;
 using AngularHandsOn.Entities;
+using AngularHandsOn.Repositories;
+using AutoMapper;
+using AngularHandsOn.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AngularHandsOn.Controllers
 {
     public class HomeController : Controller
     {
         private AngularDbContext _dbContext;
+        ISchoolRepository<int> _schoolRepository;
 
-        public HomeController(AngularDbContext dbContext)
+        public HomeController(AngularDbContext dbContext, ISchoolRepository<int> schoolRepository)
         {
             _dbContext = dbContext;
+            _schoolRepository = schoolRepository;
         }
         public IActionResult Index()
         {
@@ -31,6 +37,15 @@ namespace AngularHandsOn.Controllers
             ViewData["Message"] = "Your application description page.";
 
             return View();
+        }
+
+        [Authorize]
+        public IActionResult Schools()
+        {
+
+            var result = _schoolRepository.Fetch();
+            var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
+            return View(results);
         }
 
         public IActionResult Contact()

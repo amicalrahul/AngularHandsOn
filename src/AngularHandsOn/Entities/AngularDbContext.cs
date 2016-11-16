@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace AngularHandsOn.Entities
 {
-    public class AngularDbContext : DbContext
+    public class AngularDbContext : IdentityDbContext<User>
     {
         public AngularDbContext(DbContextOptions options) : base(options)
         {
             
         }
-
         public DbSet<Books> Books { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
