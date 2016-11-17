@@ -22,6 +22,7 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet("GetSchools")]
+        [Authorize]
         public IActionResult Get()
         {
             var result = _schoolRepository.Fetch();

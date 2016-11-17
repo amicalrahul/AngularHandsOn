@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace AngularHandsOn
 {
@@ -54,6 +56,22 @@ namespace AngularHandsOn
                 options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
                 options.Cookies.ApplicationCookie.LoginPath = "/Auth/LogIn";
                 options.Cookies.ApplicationCookie.LogoutPath = "/Auth/LogOff";
+                options.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = async cxt =>
+                    {
+                        if (cxt.Request.Path.StartsWithSegments("/api") && cxt.Response.StatusCode == 200)
+                        {
+                            cxt.Response.StatusCode = 401;
+                        }
+                        else
+                        {
+                            cxt.Response.Redirect(cxt.RedirectUri);
+                        }
+                        await Task.Yield();
+                    }
+                };
+            
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
@@ -100,6 +118,7 @@ namespace AngularHandsOn
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            //Adding ConfigureAuth middleware enables token authenticaion for API calls
             ConfigureAuth(app);
 
             if (env.IsDevelopment())

@@ -20,6 +20,11 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
+
+        @if (User.Identity.IsAuthenticated)
+            {
+            <span id="userName" class="navbar-text">Welcome: @User.Identity.Name</span>
+        }
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,7 +45,17 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="SchoolApp">School App</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="NgDirective">Ng Directive App</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="angular2">Angular2</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area=""  asp-controller="Home" asp-action="Schools">Schools</a></li>
+                        <li><a  asp-area="" asp-controller="Auth" asp-action="Logout" class="btn btn-warning">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a  asp-area="" asp-controller="Auth" asp-action="Login" class="btn btn-success">Login</a></li>
+                    }
                 </ul>
+
             </div>
         </div>
     </div>
