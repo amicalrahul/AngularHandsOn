@@ -15,7 +15,7 @@ using AutoMapper;
 using AngularHandsOn.Model;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AngularHandsOn.Controllers
+namespace AngularHandsOn.Controllers.Web
 {
     public class HomeController : Controller
     {

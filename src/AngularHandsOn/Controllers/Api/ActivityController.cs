@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 
-namespace AngularHandsOn.Controllers
+namespace AngularHandsOn.Controllers.Api
 {
     [Route("api/home1")]
     public class ActivityController : Controller

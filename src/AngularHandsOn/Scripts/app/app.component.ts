@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductService } from './products/product.service';
 import { DataService } from './schoolapp/services/data.service';
+import { AllSchoolsResolve } from './schoolapp/allschools.resolve';
 
 @Component({
     selector: 'pm-app',

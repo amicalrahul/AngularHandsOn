@@ -27,10 +27,10 @@ var tsProject = ts.createProject('Scripts/tsconfig.json', {
 //    return tsResult.js.pipe(gulp.dest('./wwwroot/app'));
 //});
 gulp.task('ts', function () {
-    var tsResult = tsProject.src("Scripts/**/*.ts") // instead of gulp.src(...)
+    var tsResult = gulp.src("Scripts/**/*.ts") // instead of gulp.src(...)
         .pipe(tsProject());
 
-    return tsResult.js.pipe(gulp.dest('./wwwroot/app'));
+    return tsResult.js.pipe(gulp.dest('./wwwroot'));
 });
 
 gulp.task('watch', ['watch.ts']);

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.v3;
 using System.Collections.Generic;
 
-namespace AngularHandsOn.Controllers
+namespace AngularHandsOn.Controllers.Api
 {
     [Route("api/home1")]
     public class ClassroomController : Controller

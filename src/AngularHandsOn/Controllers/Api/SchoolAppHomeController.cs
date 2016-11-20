@@ -7,7 +7,7 @@ using NuGet.Protocol.Core.v3;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AngularHandsOn.Controllers
+namespace AngularHandsOn.Controllers.Api
 {
     [Route("api/home1")]
     [Produces("application/json")]

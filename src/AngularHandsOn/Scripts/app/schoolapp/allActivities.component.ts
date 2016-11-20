@@ -7,7 +7,8 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 
 
 @Component({
-    templateUrl: '../../app/schoolapp/allActivities.component.html'
+    moduleId: module.id,
+    templateUrl: 'allActivities.component.html'
 
 })
 export class AllActivitiesComponent implements OnInit {

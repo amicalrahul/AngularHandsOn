@@ -12,11 +12,11 @@ import { ClassroomComponent } from './classroom.component';
 import { ClassRoomGuard } from './services/classroom-guard.service';
 import { SharedModule } from '../shared/shared.module';
 import { SchoolAppRoutingModule } from './schoolapp-router.module';
-
+import { AllSchoolsResolve } from './allschools.resolve';
 @NgModule({
     declarations: [HomeComponent,
         AllSchoolsComponent, AllClassroomComponent, AllActivitiesComponent, ClassroomComponent, ClassroomDetailComponent],
     imports: [SharedModule, SchoolAppRoutingModule],
-    providers: [ClassRoomGuard, DataService],
+    providers: [ClassRoomGuard, DataService, AllSchoolsResolve],
 })
 export class SchoolAppModule { }

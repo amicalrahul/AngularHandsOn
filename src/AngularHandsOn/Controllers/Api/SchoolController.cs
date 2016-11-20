@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.v3;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
-namespace AngularHandsOn.Controllers
+namespace AngularHandsOn.Controllers.Api
 {
     [Route("api/home1")]
     [Produces("application/json")]
@@ -27,6 +28,7 @@ namespace AngularHandsOn.Controllers
         {
             var result = _schoolRepository.Fetch();
             var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
+            Thread.Sleep(1000);
             return new ObjectResult(results);
         }
         [HttpGet("GetSchool/{id}")]
