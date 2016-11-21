@@ -69,7 +69,15 @@ export class DataService {
             .map((response: Response) => <ISchool[]>response.json())
             .catch(this.handleError);
     }
+    updateSchool(body: ISchool): Observable<ISchool[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
 
+        return this._http.put(`${this.schoolsUrl}${body['id']}`, JSON.stringify(body), options)
+            .map((response: Response) => <ISchool[]>response.json())
+            .catch(this.handleError);
+    }
     deleteSchool(id: string): Observable<ISchool[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         let options = new RequestOptions({ headers: headers }); // Create a request option

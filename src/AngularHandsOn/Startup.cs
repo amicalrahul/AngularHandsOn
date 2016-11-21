@@ -107,9 +107,9 @@ namespace AngularHandsOn
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
             services.AddTransient<Seeder>();
-            services.AddSingleton<ISchoolRepository<int>, SchoolRepository>();
-            services.AddSingleton<IClassroomRepository<int>, ClassroomRepository>();
-            services.AddSingleton<IActivityRepository<int>, ActivityRepository >();
+            services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
+            services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
+            services.AddScoped<IActivityRepository<int>, ActivityRepository >();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

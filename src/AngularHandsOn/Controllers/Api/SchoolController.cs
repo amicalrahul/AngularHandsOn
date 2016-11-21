@@ -56,6 +56,16 @@ namespace AngularHandsOn.Controllers.Api
             var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
             return new ObjectResult(results);
         }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody]SchoolModel school)
+        {
+            var sc = Mapper.Map<School>(school);
+            _schoolRepository.Update(sc);
+
+            var result = _schoolRepository.Fetch();
+            var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
+            return new ObjectResult(results);
+        }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {            

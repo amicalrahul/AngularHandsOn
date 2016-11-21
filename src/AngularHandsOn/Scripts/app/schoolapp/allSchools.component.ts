@@ -15,8 +15,9 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 export class AllSchoolsComponent implements OnInit {
     schools: ISchool[];
     errorMessage: string;
-    schoolname: string;
-    schoolprincipal: string;
+    schoolname: string = null;
+    schoolprincipal: string = null;
+    editing: boolean = false;
     constructor(private dataService: DataService, private route: ActivatedRoute) {
     }
 
@@ -28,13 +29,42 @@ export class AllSchoolsComponent implements OnInit {
         this.dataService.addSchool({
             name: this.schoolname,
             principal: this.schoolprincipal
-         }).subscribe(data =>
-             this.schools = data);
+        }).subscribe(data => {
+            this.schools = data;
+            this.schoolname = null;
+            this.schoolprincipal = null;
+        }
+            );
     }
 
 
-    deleteSchool(id:string): void {
-        this.dataService.deleteSchool(id).subscribe(data =>
+    deleteSchool(school: ISchool): void {
+        school.deleting = true;
+    }
+
+    removeSchool(school: ISchool): void {
+        this.dataService.deleteSchool(school.id.toString()).subscribe(data =>
             this.schools = data);
+    }
+
+    cancelRemove(school: ISchool): void {
+        school.deleting = false;
+    }
+
+    editSchool(school: ISchool): void {
+        school.editing = true;
+        this.editing = school.editing;
+    }
+
+    updateSchool(school: ISchool): void {
+        this.dataService.updateSchool(school).
+            subscribe(data => {
+                this.schools = data;
+            }
+            );
+    }
+    cancelUpdate(school: ISchool): void {
+        school.editing = false;
+        this.editing = school.editing;
     }
 }

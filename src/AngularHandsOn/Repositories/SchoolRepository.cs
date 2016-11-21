@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AngularHandsOn.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AngularHandsOn.Repositories
 {
@@ -41,6 +42,9 @@ namespace AngularHandsOn.Repositories
         }
         public void Update(School School)
         {
+            //var originalSchool = _dbContext.Schools.AsNoTracking().FirstOrDefault(p => p.SchoolId == School.SchoolId);
+            //_dbContext.Entry(originalSchool).Context.Update(School);
+
             _dbContext.Schools.Update(School);
             _dbContext.SaveChanges();
         }
