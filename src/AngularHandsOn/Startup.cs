@@ -144,7 +144,7 @@ namespace AngularHandsOn
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "ProductManagement" });
+                    defaults: new { controller = "Home", action = "Angular2" });
             });
             seeder.EnsureSeedData().Wait();
         }

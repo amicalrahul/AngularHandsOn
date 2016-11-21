@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -14,14 +14,14 @@ import { IActivity } from '../../../app/schoolapp/interfaces/activity';
 export class DataService {
 
     constructor(private _http: Http) { }
-    getSchoolsUrl: string = "/api/home1/GetSchools/";
+    schoolsUrl: string = "/api/home1/Schools/";
     getClassroomssUrl: string = "/api/home1/GetClassrooms/";
     getActivitiesUrl: string = "/api/home1/GetActivities/";
     getClassroomUrl: string = "/api/home1/GetClassroom/";
     getAllObjectCountUrl: string = "/api/home1/GetAllObjectsCount/";
 
     getAllSchools(): Observable<ISchool[]> {
-        return this._http.get(this.getSchoolsUrl)
+        return this._http.get(this.schoolsUrl)
             .map((response: Response) => <ISchool[]>response.json())
             .do(data => console.log('GetSchools: ' + JSON.stringify(data)))
             .catch(this.handleError);;
@@ -54,10 +54,29 @@ export class DataService {
     }
     getAllObjectsCountUsingForkJoin(): Observable<any> {
         return Observable.forkJoin(
-            this._http.get(this.getSchoolsUrl).map((res: Response) => res.json()),
+            this._http.get(this.schoolsUrl).map((res: Response) => res.json()),
             this._http.get(this.getClassroomssUrl).map((res: Response) => res.json()),
             this._http.get(this.getActivitiesUrl).map((res: Response) => res.json())
         );
+    }
+
+    addSchool(body: Object): Observable<ISchool[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post(this.schoolsUrl, JSON.stringify(body), options)
+            .map((response: Response) => <ISchool[]>response.json())
+            .catch(this.handleError);
+    }
+
+    deleteSchool(id: string): Observable<ISchool[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.delete(`${this.schoolsUrl}${id}`, options)
+            .map((response: Response) => <ISchool[]>response.json())
+            .catch(this.handleError);
     }
 
     private getItemsById: any = function (data: any[], id: any) {

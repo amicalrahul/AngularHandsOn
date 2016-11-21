@@ -28,5 +28,26 @@ namespace AngularHandsOn.Repositories
             }
             return _dbContext.Schools.SingleOrDefault(a => a.SchoolId == id);
         }
+
+        public int GetMaxId()
+        {
+            return _dbContext.Schools.Select(x => x.SchoolId).Max();
+        }
+
+        public void Add(School School)
+        {
+            _dbContext.Schools.Add(School);
+            _dbContext.SaveChanges();
+        }
+        public void Update(School School)
+        {
+            _dbContext.Schools.Update(School);
+            _dbContext.SaveChanges();
+        }
+        public void Delete(int Id)
+        {
+            _dbContext.Schools.Remove(_dbContext.Schools.First(x => x.SchoolId == Id));
+            _dbContext.SaveChanges();
+        }
     }
 }

@@ -9,6 +9,11 @@ namespace AngularHandsOn.Repositories
 {
     public interface ISchoolRepository<T> : IBaseRepository<School, T>
     {
+        void Update(School School);
 
+        void Add(School School);
+        void Delete(int Id);
+
+        int GetMaxId();
     }
 }

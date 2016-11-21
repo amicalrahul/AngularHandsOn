@@ -1,25 +1,30 @@
 ﻿<div class='panel panel-primary'>
     <div class='panel-body'>
         <h1 class="col-md-offset-1 col-lg-offset-1">All Schools</h1>
-        <div class="col-md-offset-1 col-lg-offset-1">
-            Total Schools:{{schools.length}}
-        </div>
         <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Registered Schools</div>
+                <div class="panel-heading" style="background-color:#2e87f5">Registered Schools: {{schools.length}}</div>
                 <!-- Table -->
                 <table class="table">
                     <thead>
                         <tr>
                             <th>School Name</th>
                             <th>Principal</th>
+                            <th></th>
                         </tr>
                     </thead>
+                    <tr>
+                        <td><input type="text" [(ngModel)]="schoolname" /></td>
+                        <td><input type="text" [(ngModel)]="schoolprincipal" /></td>
+                        <td><input type="button" value="Add School" class="btn btn-primary" (click)="addSchool()" /></td>
+                    </tr>
                     <tr *ngFor='let school of schools'>
                         <td>{{ school.name }}</td>
                         <td>{{ school.principal }}</td>
+                        <td><span class="glyphicon glyphicon-remove" (click)="deleteSchool(school.id)"></span></td>
                     </tr>
+
                 </table>
             </div>
         </div>
