@@ -30,6 +30,11 @@ namespace AngularHandsOn
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            if (env.IsDevelopment())
+            {
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
+            }
             Configuration = builder.Build();
         }
 
@@ -75,6 +80,12 @@ namespace AngularHandsOn
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
+            });
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
             });
             // Add framework services.
             services.AddMvc(config =>
@@ -132,13 +143,19 @@ namespace AngularHandsOn
             }
             app.UseStatusCodePages();
             app.UseFileServer();
-
+            app.UseSession();
+            
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<SchoolModel, School>().ReverseMap();
                 cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
                 cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
             });
             app.UseIdentity();
+            app.UseFacebookAuthentication(new FacebookOptions()
+            {
+                AppId = Configuration["Authentication:Facebook:AppId"],
+                AppSecret = Configuration["Authentication:Facebook:AppSecret"]
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
