@@ -1,0 +1,33 @@
+﻿@model ExternalLoginListViewModel
+@inject SignInManager<User> SignInManager
+<h4>Use another service to log in.</h4>
+<hr />
+@{
+    var loginProviders = SignInManager.GetExternalAuthenticationSchemes();
+    if (!loginProviders.Any())
+    {
+        <div>
+            <p>
+                No external login providers are available. Please configure the external authentication schemes.
+                For more information please follw the link <a href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/facebook-logins">here.</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <form role="form" asp-controller="Auth" asp-action="ExternalLogin" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal">
+            <div id="externalLoginList">
+                <p>
+                    @foreach (var item in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@item.AuthenticationScheme" name="provider" value="@item.AuthenticationScheme"
+                                title="Log in using your @item.DisplayName account">
+                            @item.AuthenticationScheme
+                            </button>
+                    }
+                </p>
+            </div>
+        </form>
+
+    }
+}
