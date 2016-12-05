@@ -24,8 +24,14 @@
                 <input type="password" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password"></span>
             </div>
+            <div class="form-group checkbox">                
+                <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m=> m.RememberMe)
+                </label>
+            </div>
             <div class="form-group">
-               <input type="submit" value="Login" class="btn btn-success" />
+                <input type="submit" value="Login" class="btn btn-success" />
             </div>
 
         </form>

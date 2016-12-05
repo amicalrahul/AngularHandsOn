@@ -32,7 +32,7 @@ namespace AngularHandsOn.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result =  await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, true, false);
+                var result =  await _signInManager.PasswordSignInAsync(loginModel.Username, loginModel.Password, loginModel.RememberMe, false);
 
                 if(result.Succeeded)
                 {
