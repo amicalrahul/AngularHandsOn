@@ -36,7 +36,8 @@
       "type": "platform"
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "Newtonsoft.Json": "9.0.1"
+    "Newtonsoft.Json": "9.0.1",
+    "OdeToCode.AddFeatureFolders": "1.0.4"
   },
 
   "tools": {

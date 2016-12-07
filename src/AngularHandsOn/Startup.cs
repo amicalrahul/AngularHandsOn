@@ -43,6 +43,7 @@ namespace AngularHandsOn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
             {
@@ -76,11 +77,12 @@ namespace AngularHandsOn
                         await Task.Yield();
                     }
                 };
-            
+
 
                 // User settings
                 options.User.RequireUniqueEmail = true;
             });
+            #endregion
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
@@ -101,10 +103,10 @@ namespace AngularHandsOn
             //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             //    }, ArrayPool<char>.Shared));
             //})
-                //.AddMvcOptions(o =>
-                //{
-                //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-                //})
+            //.AddMvcOptions(o =>
+            //{
+            //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            //})
             .AddJsonOptions(o =>
             {
                 if (o.SerializerSettings != null)
@@ -114,13 +116,14 @@ namespace AngularHandsOn
                     o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     //conResolver.NamingStrategy = new NamingStrategy()
                 }
-            });
+            }).
+            AddFeatureFolders();
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
             services.AddTransient<Seeder>();
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
-            services.AddScoped<IActivityRepository<int>, ActivityRepository >();
+            services.AddScoped<IActivityRepository<int>, ActivityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -144,8 +147,9 @@ namespace AngularHandsOn
             app.UseStatusCodePages();
             app.UseFileServer();
             app.UseSession();
-            
-            Mapper.Initialize(cfg => {
+
+            Mapper.Initialize(cfg =>
+            {
                 cfg.CreateMap<SchoolModel, School>().ReverseMap();
                 cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
                 cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
