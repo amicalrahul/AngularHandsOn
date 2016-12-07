@@ -53,5 +53,10 @@ namespace AngularHandsOn.Repositories
             _dbContext.Schools.Remove(_dbContext.Schools.First(x => x.SchoolId == Id));
             _dbContext.SaveChanges();
         }
+
+        public bool Save()
+        {
+            return (_dbContext.SaveChanges() >= 0);
+        }
     }
 }

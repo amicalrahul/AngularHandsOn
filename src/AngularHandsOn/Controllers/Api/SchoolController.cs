@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AngularHandsOn.Controllers.Api
 {
@@ -51,11 +52,12 @@ namespace AngularHandsOn.Controllers.Api
             sc.Date = DateTime.UtcNow;
             sc.SchoolId = _schoolRepository.GetMaxId() + 1;
             _schoolRepository.Add(sc);
-
+            
             var result = _schoolRepository.Fetch();
             var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
             return new ObjectResult(results);
         }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]SchoolModel school)
         {
