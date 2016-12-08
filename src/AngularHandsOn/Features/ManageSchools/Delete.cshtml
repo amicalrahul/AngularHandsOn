@@ -1,0 +1,15 @@
+﻿@model SchoolModel
+@{
+    ViewData["Title"] = "Edit School Details";
+}
+<h1>
+    @ViewData["Title"]
+</h1>
+@using (Html.BeginForm())
+{
+    <p> Are you sure you want to delete @Model.Name School</p>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Delete School" />
+        <a class="btn btn-default" asp-action="Index">Cancel</a>
+    </div>
+}
