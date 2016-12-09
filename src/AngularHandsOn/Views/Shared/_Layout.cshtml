@@ -39,7 +39,7 @@
                     @await Component.InvokeAsync("AngularMenu")
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area=""  asp-controller="Home" asp-action="Schools">Schools</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Schools">Schools</a></li>
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -58,6 +58,9 @@
         <!-- Library Scripts -->
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/angular/angular.min.js"> </script>
         <script src="~/lib/angular-route/angular-route.min.js"></script>
@@ -123,7 +126,7 @@
         <!-- 2. Configure SystemJS -->
         <script src="~/systemjs.config.js"></script>
         <script>
-                System.import('app').catch(function(err){ console.error(err); });
+            System.import('app').catch(function (err) { console.error(err); });
         </script>
     </environment>
     <environment names="Staging,Production">
@@ -141,4 +144,5 @@
 
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

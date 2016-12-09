@@ -24,4 +24,17 @@
     <div>
         @Html.ActionLink("Back to list", "Index")
     </div>
+
+}@section scripts {
+    <script>
+        $.validator.addMethod("cannotbered",
+            function (value, element, parameters) {
+                return value.toUpperCase() !== "RED";
+            });
+
+        $.validator.unobtrusive.adapters.add("cannotbered", [], function (options) {
+            options.rules.cannotbered = {};
+            options.messages["cannotbered"] = options.message;
+        });
+    </script>
 }
