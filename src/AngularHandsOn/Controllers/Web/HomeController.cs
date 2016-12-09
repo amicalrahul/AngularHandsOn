@@ -20,16 +20,14 @@ namespace AngularHandsOn.Controllers.Web
     public class HomeController : Controller
     {
         private AngularDbContext _dbContext;
-        ISchoolRepository<int> _schoolRepository;
 
-        public HomeController(AngularDbContext dbContext, ISchoolRepository<int> schoolRepository)
+        public HomeController(AngularDbContext dbContext)
         {
             _dbContext = dbContext;
-            _schoolRepository = schoolRepository;
         }
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult About()
@@ -39,11 +37,11 @@ namespace AngularHandsOn.Controllers.Web
             return View();
         }
 
-        [Authorize]
-        public IActionResult Schools()
+        //[Authorize]
+        public IActionResult Schools([FromServices]ISchoolRepository<int> schoolRepository)
         {
 
-            var result = _schoolRepository.Fetch();
+            var result = schoolRepository.Fetch();
             var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
             return View(results);
         }

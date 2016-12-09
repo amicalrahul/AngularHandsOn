@@ -1,5 +1,6 @@
 {
   "userSecretsId": "aspnet-AngularHandsOn-8960CD63-343C-452F-B7CB-D0FA5777E136",
+  "version": "1.0.1",
   "dependencies": {
     "AngularHandsOnTokenProvider": "1.0.0-*",
     "AutoMapper": "5.1.1",

@@ -14,7 +14,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v1.0": {
-      "AngularHandsOn/1.0.0": {
+      "AngularHandsOn/1.0.1": {
         "dependencies": {
           "AngularHandsOnTokenProvider": "1.0.0",
           "AutoMapper": "5.1.1",
@@ -3080,7 +3080,7 @@
       }
     },
     ".NETCoreApp,Version=v1.0/": {
-      "AngularHandsOn/1.0.0": {
+      "AngularHandsOn/1.0.1": {
         "dependencies": {
           "AngularHandsOnTokenProvider": "1.0.0",
           "AutoMapper": "5.1.1",
@@ -6051,7 +6051,7 @@
     }
   },
   "libraries": {
-    "AngularHandsOn/1.0.0": {
+    "AngularHandsOn/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
