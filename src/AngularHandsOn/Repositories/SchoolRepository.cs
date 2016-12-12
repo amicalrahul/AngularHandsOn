@@ -54,9 +54,9 @@ namespace AngularHandsOn.Repositories
             _dbContext.SaveChanges();
         }
 
-        public bool SchoolNameExists(string schoolName)
+        public bool SchoolNameExists(string schoolName, int schoolId)
         {
-            if (_dbContext.Schools.Any(a => a.Name.Equals(schoolName, StringComparison.OrdinalIgnoreCase)))
+            if (_dbContext.Schools.Any(a => a.Name.Equals(schoolName, StringComparison.OrdinalIgnoreCase) && a.SchoolId != schoolId))
                 return true;
             else
                 return false;

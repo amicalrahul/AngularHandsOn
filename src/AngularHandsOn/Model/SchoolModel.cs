@@ -47,14 +47,14 @@ namespace AngularHandsOn.Model
         [JsonProperty(PropertyName = "name")]
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        [Remote("IsSchoolName_Available", "Validation")]
+        [Remote("IsSchoolName_Available", "Validation", AdditionalFields = "SchoolId")]
         //[RegularExpression(@"(\S)+", ErrorMessage = "White space is not allowed.")]
         [Editable(true)]
         public string Name { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 3)]
         [JsonProperty(PropertyName = "principal")]
-        [CannotBeRed(ErrorMessage = "Red is not allowed!")]
+        //[CannotBeRed(ErrorMessage = "Red is not allowed!")]
         public string Principal { get; set; }
         [JsonProperty(PropertyName = "date")]
         public DateTime Date { get; set; }

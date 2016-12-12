@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using AngularHandsOn.Repositories;
+using AngularHandsOn.Model;
 
 namespace AngularHandsOn.Controllers
 {
@@ -21,22 +22,23 @@ namespace AngularHandsOn.Controllers
         }
 
         [HttpGet]
-        public JsonResult IsSchoolName_Available(string Name)
+        public JsonResult IsSchoolName_Available(SchoolModel schoolModel)
         {
-
-            if (!_repository.SchoolNameExists(Name))
+            int id;
+            int.TryParse(schoolModel.SchoolId, out id);
+            if (!_repository.SchoolNameExists(schoolModel.Name, id))
                 return Json(true);
 
             string suggestedUID = String.Format(CultureInfo.InvariantCulture,
-                "{0} is not available.", Name);
+                "{0} is not available.", schoolModel.Name);
 
             for (int i = 1; i < 100; i++)
             {
-                string altCandidate = Name + i.ToString();
-                if (!_repository.SchoolNameExists(altCandidate))
+                string altCandidate = schoolModel.Name + i.ToString();
+                if (!_repository.SchoolNameExists(altCandidate, id))
                 {
                     suggestedUID = String.Format(CultureInfo.InvariantCulture,
-                   "{0} is not available. Try {1}.", Name, altCandidate);
+                   "{0} is not available. Try {1}.", schoolModel.Name, altCandidate);
                     break;
                 }
             }
