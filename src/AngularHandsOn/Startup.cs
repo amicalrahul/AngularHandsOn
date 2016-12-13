@@ -15,6 +15,8 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using AngularHandsOn.Middlewares;
+using AngularHandsOn.Filters;
 
 namespace AngularHandsOn
 {
@@ -95,6 +97,10 @@ namespace AngularHandsOn
                 {
                     if (_env.IsProduction())
                         config.Filters.Add(new RequireHttpsAttribute());
+                    //Add the filters here if you want this to be executed for every controller
+                    // else define the filter as attrinute to specific controller
+                    // as I don't want UnitOfWorkFilter to be executed for all controller so commenting this line
+                    //config.Filters.AddService(typeof(UnitOfWorkFilter));
                 })
                 //    (options =>
                 //{
@@ -118,11 +124,12 @@ namespace AngularHandsOn
                     //conResolver.NamingStrategy = new NamingStrategy()
                 }
                 }).
-                AddFeatureFolders(); 
+                AddFeatureFolders();
             #endregion
 
+            services.AddScoped<UnitOfWorkFilter>();
             services.AddDbContext<AngularDbContext>(options =>
-                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));
+                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
             services.AddTransient<Seeder>();
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
@@ -166,6 +173,10 @@ namespace AngularHandsOn
                 AppId = Configuration["Authentication:Facebook:AppId"],
                 AppSecret = Configuration["Authentication:Facebook:AppSecret"]
             });
+
+            //Middleware added for example only
+            app.UseMiddleware<MyMiddleware>();
+
             #region Use MVC and defines default routes
             app.UseMvc(routes =>
                {

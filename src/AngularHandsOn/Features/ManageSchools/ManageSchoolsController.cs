@@ -1,17 +1,15 @@
 ﻿using AngularHandsOn.Entities;
+using AngularHandsOn.Filters;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AngularHandsOn.Features.ManageSchools
 {
+    [ServiceFilter(typeof(UnitOfWorkFilter))]
     public class ManageSchoolsController : Controller
     {
         private ISchoolRepository<int> _repo;
@@ -51,8 +49,9 @@ namespace AngularHandsOn.Features.ManageSchools
         }
 
         public IActionResult Edit(int id)
-        {            
-            return View(Mapper.Map<SchoolModel>(_repo.Fetch(id)));
+        {
+            var result = Mapper.Map<SchoolModel>(_repo.Fetch(id));
+            return View(result);
         }
 
         [HttpPost]
