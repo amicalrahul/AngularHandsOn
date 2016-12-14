@@ -40,6 +40,11 @@ namespace AngularHandsOn.Repositories
             _dbContext.Schools.Add(School);
             _dbContext.SaveChanges();
         }
+        public void AddRange(School[] items)
+        {
+            _dbContext.Schools.AddRange(items);
+            _dbContext.SaveChanges();
+        }
         public void Update(School School)
         {
             //var originalSchool = _dbContext.Schools.AsNoTracking().FirstOrDefault(p => p.SchoolId == School.SchoolId);
@@ -65,5 +70,6 @@ namespace AngularHandsOn.Repositories
         {
             return (_dbContext.SaveChanges() >= 0);
         }
+
     }
 }

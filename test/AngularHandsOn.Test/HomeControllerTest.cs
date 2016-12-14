@@ -36,7 +36,9 @@ namespace AngularHandsOn.Test
             var services = new ServiceCollection();
 
             services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase().UseInternalServiceProvider(efServiceProvider));
-            services.AddTransient<ISchoolRepository<int>, SchoolRepository>();
+            services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
+            services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
+            services.AddScoped<IActivityRepository<int>, ActivityRepository>();
             _serviceProvider = services.BuildServiceProvider();
 
             #region Automapper Mappings Defined
@@ -71,12 +73,13 @@ namespace AngularHandsOn.Test
             // Act
             // Arrange
             var dbContext = _serviceProvider.GetRequiredService<AngularDbContext>();
-            PopulateData(dbContext);
-            var repo = _serviceProvider.GetRequiredService<ISchoolRepository<int>>();
+            var schoolRepo = _serviceProvider.GetRequiredService<ISchoolRepository<int>>();
+            TestDataProvider.PopulatSchools(schoolRepo);
+
             var controller = new HomeController(dbContext);
 
             // Act
-            var result = controller.Schools(repo);
+            var result = controller.Schools(schoolRepo);
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -84,60 +87,6 @@ namespace AngularHandsOn.Test
             var model = Assert.IsType<List<SchoolModel>>(viewResult.Model);
 
             Assert.Equal(10, model.Count());
-        }
-
-
-        private void PopulateData(DbContext context)
-        {
-            var schools = TestAlbumDataProvider.GetSchools();
-
-            foreach (var school in schools)
-            {
-                context.Add(school);
-            }
-
-            context.SaveChanges();
-        }
-
-        private class TestAlbumDataProvider
-        {
-            public static School[] GetSchools()
-            {
-                var schools = Enumerable.Range(1, 10).Select(n =>
-                    new School()
-                    {
-                        SchoolId = n,
-                        Name = "School Name " + n,
-                        Principal = "Principal Name " + n,
-                        Date = DateTime.UtcNow.AddHours(n)
-                    }).ToArray();
-
-                var classrooms = Enumerable.Range(1, 10).Select(n =>
-                    new Classroom()
-                    {
-                        ClassroomId = n + 1,
-                        School = schools[n - 1],
-                        SchoolId = n,
-                        Teacher = "Teacher 1",
-                        Name = "Class Name " + n,
-                    }).ToArray();
-
-                var activities = Enumerable.Range(1, 10).Select(n =>
-                    new Activity()
-                    {
-                        ActivityId = n.ToString(),
-                        Classroom = classrooms[n - 1],
-                        ClassroomId = n,
-                        Name = "School Name " + n,
-                        Principal = "Principal Name " + n,
-                        Date = DateTime.UtcNow.AddHours(n),
-                        School = schools[n - 1],
-                        SchoolId = n                       
-                    }).ToArray();
-
-                return schools;
-            }
-        }
-
+        }        
     }
 }

@@ -16,6 +16,19 @@ namespace AngularHandsOn.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public void Add(Activity Activity)
+        {
+            _dbContext.Activities.Add(Activity);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddRange(Activity[] items)
+        {
+            _dbContext.Activities.AddRange(items);
+            _dbContext.SaveChanges();
+        }
+
         public IEnumerable<Activity> Fetch()
         {
             return _dbContext.Activities.Include(a => a.Classroom).Include(a => a.School).ToList();
@@ -25,5 +38,6 @@ namespace AngularHandsOn.Repositories
         {
             return _dbContext.Activities.First(a => a.ActivityId == id.ToString());
         }
+
     }
 }

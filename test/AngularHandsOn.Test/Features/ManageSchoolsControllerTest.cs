@@ -13,6 +13,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Moq;
+using AutoMapper;
 
 namespace AngularHandsOn.Test.Features
 {
@@ -29,6 +30,15 @@ namespace AngularHandsOn.Test.Features
             services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase().UseInternalServiceProvider(efServiceProvider));
 
             _serviceProvider = services.BuildServiceProvider();
+
+            #region Automapper Mappings Defined
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<SchoolModel, School>().ReverseMap();
+                cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
+                cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
+            });
+            #endregion
         }
 
         [Fact]
@@ -49,9 +59,7 @@ namespace AngularHandsOn.Test.Features
             var controller = new ManageSchoolsController(repo.Object);
             controller.ModelState.AddModelError("error", "error");
             var result = controller.Create((new Mock<SchoolModel>()).Object);
-            var viewResult = Assert.IsType<ViewResult>(result);
-
-            //Assert.IsType<SchoolModel>(viewResult.Model.GetType());
+            var viewResult = Assert.IsType<ViewResult>(result);            
 
             Assert.Null(viewResult.ViewName);
         }

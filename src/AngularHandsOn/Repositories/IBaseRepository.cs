@@ -26,7 +26,13 @@ namespace AngularHandsOn.Repositories
         /// Inserts a new item.
         /// </summary>
         /// <param name="item">The item.</param>
-        //void Insert(U item);
+        void Add(U item);
+
+        /// <summary>
+        /// Inserts a new item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        void AddRange(U[] items);
 
         ///// <summary>
         ///// Updates an item.

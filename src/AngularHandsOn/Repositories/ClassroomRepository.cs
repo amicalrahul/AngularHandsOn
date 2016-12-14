@@ -23,6 +23,17 @@ namespace AngularHandsOn.Repositories
             return _dbContext.Classrooms.Include(a => a.School).ToList();
         }
 
+        public void Add(Classroom Classroom)
+        {
+            _dbContext.Classrooms.Add(Classroom);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddRange(Classroom[] items)
+        {
+            _dbContext.Classrooms.AddRange(items);
+            _dbContext.SaveChanges();
+        }
         public Classroom Fetch(int id)
         {
             if (string.IsNullOrWhiteSpace(id.ToString()))
@@ -31,18 +42,6 @@ namespace AngularHandsOn.Repositories
             }
             return _dbContext.Classrooms.Where(a=> a.ClassroomId == id).Include(a => a.School)
                 .Include(a => a.Activity).First();
-
-
-            //.Where(a => a.ClassroomId == id.ToString()).ToList()
-            //    .Select(f => new
-            //    {
-            //        name = f.Name,
-            //        teacher = f.Teacher,
-            //        id = f.ClassroomId,
-            //        school_id = f.SchoolId,
-            //        school = _dbContext.Schools.Where(a => a.SchoolId == f.SchoolId.ToString()).First(),
-            //        activities = _dbContext.Activities.Where(a => a.ClassroomId == f.ClassroomId)
-            //    }).First();
         }
     }
 }
