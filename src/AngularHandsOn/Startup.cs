@@ -183,7 +183,7 @@ namespace AngularHandsOn
                    routes.MapRoute(
                        name: "default",
                        template: "{controller}/{action}/{id?}",
-                       defaults: new { controller = "ManageSchools", action = "Index" });
+                       defaults: new { controller = "Home", action = "Angular2" });
                }); 
             #endregion
             seeder.EnsureSeedData().Wait();

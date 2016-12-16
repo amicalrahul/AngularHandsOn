@@ -580,3 +580,6 @@ src/AngularHandsOn/wwwroot/lib1
 src/AngularHandsOn/wwwroot/app/**/*.js
 src/AngularHandsOn/wwwroot/app/**/*.map
 src/wwwroot/app
+src/AngularHandsOn/wwwroot/app/**/*.html
+src/AngularHandsOn/wwwroot/app/**/*.css
+src/AngularHandsOn/wwwroot/app/**/*.jpg

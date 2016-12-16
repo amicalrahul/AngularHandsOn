@@ -33,9 +33,29 @@ gulp.task('ts', function () {
     return tsResult.js.pipe(gulp.dest('./wwwroot'));
 });
 
-gulp.task('watch', ['watch.ts']);
+gulp.task('html', function () {
+    return gulp.src("Scripts/**/*.html").pipe(gulp.dest('./wwwroot'));
+});
+gulp.task('css', function () {
+    return gulp.src("Scripts/**/*.css").pipe(gulp.dest('./wwwroot'));
+});
+gulp.task('jpg', function () {
+    return gulp.src("Scripts/**/*.jpg").pipe(gulp.dest('./wwwroot'));
+});
+
+gulp.task('watch', ['watch.ts', 'htmlWatch.ts', 'cssWatch.ts', 'jpgWatch.ts']);
+
 gulp.task('watch.ts', ['ts'], function () {
     return gulp.watch('Scripts/**/*.ts', ['ts']);
+});
+gulp.task('htmlWatch.ts', ['html'], function () {
+    return gulp.watch('Scripts/**/*.html', ['html']);
+});
+gulp.task('cssWatch.ts', ['css'], function () {
+    return gulp.watch('Scripts/**/*.css', ['css']);
+});
+gulp.task('jpgWatch.ts', ['jpg'], function () {
+    return gulp.watch('Scripts/**/*.jpg', ['jpg']);
 });
 
 gulp.task('default', ['watch']);
