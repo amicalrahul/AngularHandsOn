@@ -10,6 +10,6 @@ namespace AngularHandsOn.Repositories
 {
     public interface IClassroomRepository<T> : IBaseRepository<Classroom, T>
     {
-
+        int GetMaxId();
     }
 }

@@ -15,9 +15,8 @@ export class DataService {
 
     constructor(private _http: Http) { }
     schoolsUrl: string = "/api/home1/Schools/";
-    getClassroomssUrl: string = "/api/home1/GetClassrooms/";
+    classroomssUrl: string = "/api/home1/Classrooms/";
     getActivitiesUrl: string = "/api/home1/GetActivities/";
-    getClassroomUrl: string = "/api/home1/GetClassroom/";
     getAllObjectCountUrl: string = "/api/home1/GetAllObjectsCount/";
 
     getAllSchools(): Observable<ISchool[]> {
@@ -27,13 +26,13 @@ export class DataService {
             .catch(this.handleError);;
     }
     getAllClassrooms(): Observable<IClassroom[]> {
-        return this._http.get(this.getClassroomssUrl)
+        return this._http.get(this.classroomssUrl)
             .map((response: Response) => <IClassroom[]>response.json())
             .do(data => console.log('GetClassrooms: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
     getClassroom(id: number): Observable<IClassroom> {
-        return this._http.get(this.getClassroomUrl + id)
+        return this._http.get(this.classroomssUrl + id)
             .map((response: Response) => (<IClassroom>response.json()))
             .do(data => console.log('GetClassroom: ' + JSON.stringify(data)))
             .catch(this.handleError);;
@@ -55,9 +54,19 @@ export class DataService {
     getAllObjectsCountUsingForkJoin(): Observable<any> {
         return Observable.forkJoin(
             this._http.get(this.schoolsUrl).map((res: Response) => res.json()),
-            this._http.get(this.getClassroomssUrl).map((res: Response) => res.json()),
+            this._http.get(this.classroomssUrl).map((res: Response) => res.json()),
             this._http.get(this.getActivitiesUrl).map((res: Response) => res.json())
         );
+    }
+
+    addClassroom(body: Object): Observable<IClassroom[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post(this.classroomssUrl, JSON.stringify(body), options)
+            .map((response: Response) => <IClassroom[]>response.json())
+            .catch(this.handleError);
     }
 
     addSchool(body: Object): Observable<ISchool[]> {

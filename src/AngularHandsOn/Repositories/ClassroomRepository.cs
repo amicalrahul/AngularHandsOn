@@ -23,6 +23,11 @@ namespace AngularHandsOn.Repositories
             return _dbContext.Classrooms.Include(a => a.School).ToList();
         }
 
+        public int GetMaxId()
+        {
+            return _dbContext.Classrooms.Select(x => x.ClassroomId).Max();
+        }
+
         public void Add(Classroom Classroom)
         {
             _dbContext.Classrooms.Add(Classroom);

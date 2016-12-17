@@ -11,12 +11,24 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 
 })
 export class AllClassroomComponent implements OnInit {
+    classroomteacher: string;
+    classroomname: string;
+    school: string = "default";
+    schools: ISchool[];
     allClassrooms: IClassroom[];
     errorMessage: string;
+    isschoolvalid: boolean;
     constructor(private _dataService: DataService) {
     }
 
     ngOnInit(): void {
+
+        this._dataService.getAllSchools()
+            .subscribe(schools => {
+                this.schools = schools;
+            },
+            error => this.errorMessage = <any>error);
+
 
         this._dataService.getAllClassrooms()
             .subscribe(classrooms => {
@@ -25,6 +37,25 @@ export class AllClassroomComponent implements OnInit {
             },
             error => this.errorMessage = <any>error);
 
+    }
+    addClassroom() {
+        this._dataService.addClassroom({
+            name: this.classroomname,
+            teacher: this.classroomteacher,
+            school_id: this.school
+        }).subscribe(data => {
+            this.allClassrooms = data;
+            this.school = 'default';
+            this.classroomname = null;
+            this.classroomteacher = null;
+        }
+            );
+    }
+    validateschoolname(school: string) {
+        if (school == 'default')
+            this.isschoolvalid = false;
+        else
+            this.isschoolvalid = true;
     }
     
 }
