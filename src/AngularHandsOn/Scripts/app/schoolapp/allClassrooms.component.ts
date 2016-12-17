@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../app/schoolapp/services/data.service';
+import { NgForm } from '@angular/forms';
 
 import { ISchool } from '../../app/schoolapp/interfaces/school';
 import { IClassroom } from '../../app/schoolapp/interfaces/classroom';
@@ -17,45 +18,50 @@ export class AllClassroomComponent implements OnInit {
     schools: ISchool[];
     allClassrooms: IClassroom[];
     errorMessage: string;
-    isschoolvalid: boolean;
+    isschoolinvalid: boolean;
     constructor(private _dataService: DataService) {
     }
 
     ngOnInit(): void {
 
         this._dataService.getAllSchools()
-            .subscribe(schools => {
-                this.schools = schools;
-            },
-            error => this.errorMessage = <any>error);
-
+            .subscribe(
+                    schools => this.schools = schools,
+                    error => this.errorMessage = <any>error
+            );
 
         this._dataService.getAllClassrooms()
-            .subscribe(classrooms => {
-                console.log(classrooms);
-                this.allClassrooms = classrooms;
-            },
-            error => this.errorMessage = <any>error);
+            .subscribe(
+                    classrooms => {
+                        console.log(classrooms);
+                        this.allClassrooms = classrooms;
+                    },
+                    error => this.errorMessage = <any>error
+            );
 
     }
-    addClassroom() {
+    addClassroom(form: NgForm) {
+
+        this.validateschoolname(this.school);
         this._dataService.addClassroom({
-            name: this.classroomname,
-            teacher: this.classroomteacher,
-            school_id: this.school
-        }).subscribe(data => {
-            this.allClassrooms = data;
-            this.school = 'default';
-            this.classroomname = null;
-            this.classroomteacher = null;
-        }
+                                name: this.classroomname,
+                                teacher: this.classroomteacher,
+                                school_id: this.school
+                            })
+                .subscribe(
+                         data => {
+                                this.allClassrooms = data;
+                                this.school = 'default';
+                                this.classroomname = null;
+                                this.classroomteacher = null;
+                            }
             );
     }
     validateschoolname(school: string) {
         if (school == 'default')
-            this.isschoolvalid = false;
+            this.isschoolinvalid = true;
         else
-            this.isschoolvalid = true;
+            this.isschoolinvalid = false;
     }
     
 }

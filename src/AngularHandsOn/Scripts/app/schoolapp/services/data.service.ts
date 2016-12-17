@@ -21,13 +21,13 @@ export class DataService {
 
     getAllSchools(): Observable<ISchool[]> {
         return this._http.get(this.schoolsUrl)
-            .map((response: Response) => <ISchool[]>response.json())
+            .map(this.mapSchoolResponse)
             .do(data => console.log('GetSchools: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
     getAllClassrooms(): Observable<IClassroom[]> {
         return this._http.get(this.classroomssUrl)
-            .map((response: Response) => <IClassroom[]>response.json())
+            .map(this.mapClassroomResponse)
             .do(data => console.log('GetClassrooms: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
@@ -65,7 +65,7 @@ export class DataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         return this._http.post(this.classroomssUrl, JSON.stringify(body), options)
-            .map((response: Response) => <IClassroom[]>response.json())
+            .map(this.mapClassroomResponse)
             .catch(this.handleError);
     }
 
@@ -75,7 +75,7 @@ export class DataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         return this._http.post(this.schoolsUrl, JSON.stringify(body), options)
-            .map((response: Response) => <ISchool[]>response.json())
+            .map(this.mapSchoolResponse)
             .catch(this.handleError);
     }
     updateSchool(body: ISchool): Observable<ISchool[]> {
@@ -84,7 +84,7 @@ export class DataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         return this._http.put(`${this.schoolsUrl}${body['id']}`, JSON.stringify(body), options)
-            .map((response: Response) => <ISchool[]>response.json())
+            .map(this.mapSchoolResponse)
             .catch(this.handleError);
     }
     deleteSchool(id: string): Observable<ISchool[]> {
@@ -92,7 +92,7 @@ export class DataService {
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
         return this._http.delete(`${this.schoolsUrl}${id}`, options)
-            .map((response: Response) => <ISchool[]>response.json())
+            .map(this.mapSchoolResponse)
             .catch(this.handleError);
     }
 
@@ -103,6 +103,12 @@ export class DataService {
         });
         return matchingItems;
     };
+    private mapSchoolResponse(response: Response) {
+        return <ISchool[]>response.json();
+    }
+    private mapClassroomResponse(response: Response) {
+        return <IClassroom[]>response.json();
+    }
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

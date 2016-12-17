@@ -22,15 +22,15 @@
                                         <input type="text" #classname="ngModel" name="classname" required [(ngModel)]="classroomname" 
                                                class="form-control" />
                                         <div *ngIf="classname.invalid && classname.touched" class="alert alert-danger">
-                                            Classroom Name is required.
+                                            Classroom name is required.
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="form-group">
+                                    <div class="form-group" [class.has-error]="isschoolinvalid">
                                        <select class="form-control" #schoolname name="schoolname"
-                                               (onblur)="validateschoolname(schoolname.value)"
-                                           (onchange)="validateschoolname(schoolname.value)" [(ngModel)]="school" >
+                                               (blur)="validateschoolname(schoolname.value)"
+                                           (change)="validateschoolname(schoolname.value)" [(ngModel)]="school" >
 
                                            <option value="default">Select a School...</option>
                                            <option value="{{school.id}}" *ngFor="let school of schools">
@@ -40,8 +40,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="form-group">
-                                        <input type="text" name="classroomteacher" [(ngModel)]="classroomteacher" class="form-control" />
+                                    <div class="form-group" [class.has-error]="teacher.invalid && teacher.touched">
+                                        <input type="text" #teacher="ngModel" required name="teacher" [(ngModel)]="classroomteacher" 
+                                               class="form-control" />
+                                        <div *ngIf="teacher.invalid && teacher.touched" class="alert alert-danger">Teacher is required.</div>
                                     </div>
                                 </td>
                                 <td>
