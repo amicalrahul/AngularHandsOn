@@ -1,6 +1,6 @@
 ﻿<div class="container">
     <h1>All Classrooms</h1>
-    <form  #form="ngForm" novalidate *ngIf="allClassrooms">
+    <form  #f="ngForm" novalidate *ngIf="allClassrooms">
         <div class='panel panel-primary'>
             <div class='panel-body'>
                     <div class="panel panel-default">
@@ -49,7 +49,7 @@
                                 <td>
                                     <div class="form-group">
                                         <button type="submit" name="addclassroom" class="btn btn-primary"
-                                               [disabled]="!form.form.valid"  (click)="addClassroom()">Add Classroom</button>
+                                               [disabled]="!f.form.valid"  (click)="addClassroom(f)">Add Classroom</button>
                                     </div>
                                 </td>
                                 
@@ -62,7 +62,8 @@
                                 <td>
                                     <a [routerLink]="['/classroom', classroom.id]">{{ classroom.teacher }}</a>
                                 </td>
-                                <td></td>
+                                <td>
+                                </td>
                             </tr>
                         </table>
                     </div>

@@ -43,6 +43,9 @@ export class AllClassroomComponent implements OnInit {
     addClassroom(form: NgForm) {
 
         this.validateschoolname(this.school);
+        if (this.isschoolinvalid)
+            return;
+        console.log("form:" + form);
         this._dataService.addClassroom({
                                 name: this.classroomname,
                                 teacher: this.classroomteacher,
@@ -50,10 +53,11 @@ export class AllClassroomComponent implements OnInit {
                             })
                 .subscribe(
                          data => {
-                                this.allClassrooms = data;
-                                this.school = 'default';
-                                this.classroomname = null;
-                                this.classroomteacher = null;
+                             this.allClassrooms = data;
+                             form.reset();
+                            this.school = 'default';
+                            this.classroomname = "";
+                            this.classroomteacher = "";
                             }
             );
     }
