@@ -16,7 +16,7 @@ export class DataService {
     constructor(private _http: Http) { }
     schoolsUrl: string = "/api/home1/Schools/";
     classroomssUrl: string = "/api/home1/Classrooms/";
-    getActivitiesUrl: string = "/api/home1/GetActivities/";
+    activitiesUrl: string = "/api/home1/Activities/";
     getAllObjectCountUrl: string = "/api/home1/GetAllObjectsCount/";
 
     getAllSchools(): Observable<ISchool[]> {
@@ -39,8 +39,8 @@ export class DataService {
     }
 
     getAllActivities(): Observable<IActivity[]> {
-        return this._http.get(this.getActivitiesUrl)
-            .map((response: Response) => <IActivity[]>response.json())
+        return this._http.get(this.activitiesUrl)
+            .map(this.mapActivityResponse)
             .do(data => console.log('GetActivities: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
@@ -55,8 +55,17 @@ export class DataService {
         return Observable.forkJoin(
             this._http.get(this.schoolsUrl).map((res: Response) => res.json()),
             this._http.get(this.classroomssUrl).map((res: Response) => res.json()),
-            this._http.get(this.getActivitiesUrl).map((res: Response) => res.json())
+            this._http.get(this.activitiesUrl).map((res: Response) => res.json())
         );
+    }
+    addActivity(body: Object): Observable<IActivity[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post(this.activitiesUrl, JSON.stringify(body), options)
+            .map(this.mapActivityResponse)
+            .catch(this.handleError);
     }
 
     addClassroom(body: Object): Observable<IClassroom[]> {
@@ -103,6 +112,9 @@ export class DataService {
         });
         return matchingItems;
     };
+    private mapActivityResponse(response: Response) {
+        return <IActivity[]>response.json();
+    }
     private mapSchoolResponse(response: Response) {
         return <ISchool[]>response.json();
     }

@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace AngularHandsOn.Controllers.Api
 {
-    [Route("api/home1")]
+    [Route("api/home1/Activities")]
     public class ActivityController : Controller
     {
         IActivityRepository<int> _activityRepository;
@@ -22,19 +22,35 @@ namespace AngularHandsOn.Controllers.Api
             _activityRepository = activityRepository;
         }
 
-        [HttpGet("GetActivities")]
+        [HttpGet("")]
         public IActionResult Get()
         {
             var result = _activityRepository.Fetch();
             var results = Mapper.Map<IEnumerable<ActivityModel>>(result);
             return new ObjectResult(results);
         }
-        [HttpGet("GetActivities/{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var result = _activityRepository.Fetch(id);
 
             var results = Mapper.Map<ActivityModel>(result);
+            return new ObjectResult(results);
+        }
+        [HttpPost("")]
+        public IActionResult Post([FromBody]ActivityModel activity)
+        {
+            var act = Mapper.Map<Activity>(activity);
+            act.ActivityId = (_activityRepository.GetMaxId() + 1).ToString();
+            act.ClassroomId = activity.ClassroomId;
+            act.SchoolId = activity.SchoolId;
+            act.Name = activity.Name;
+            act.Date = DateTime.UtcNow;
+
+            _activityRepository.Add(act);
+
+            var result = _activityRepository.Fetch();
+            var results = Mapper.Map<IEnumerable<ActivityModel>>(result);
             return new ObjectResult(results);
         }
     }

@@ -16,13 +16,16 @@ namespace AngularHandsOn.Repositories
         {
             _dbContext = dbContext;
         }
+        public int GetMaxId()
+        {
+            return _dbContext.Activities.Select(x => int.Parse(x.ActivityId)).Max();
+        }
 
         public void Add(Activity Activity)
         {
             _dbContext.Activities.Add(Activity);
             _dbContext.SaveChanges();
         }
-
         public void AddRange(Activity[] items)
         {
             _dbContext.Activities.AddRange(items);

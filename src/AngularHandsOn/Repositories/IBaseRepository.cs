@@ -34,6 +34,7 @@ namespace AngularHandsOn.Repositories
         /// <param name="item">The item.</param>
         void AddRange(U[] items);
 
+        int GetMaxId();
         ///// <summary>
         ///// Updates an item.
         ///// </summary>

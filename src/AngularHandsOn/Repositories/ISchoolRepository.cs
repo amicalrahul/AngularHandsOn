@@ -14,6 +14,5 @@ namespace AngularHandsOn.Repositories
         void Delete(int Id);
 
         bool SchoolNameExists(string schoolName, int schoolId);
-        int GetMaxId();
     }
 }
