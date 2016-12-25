@@ -1,59 +1,82 @@
-﻿﻿<div class='panel panel-primary'>
-    <div class='panel-body'>
-        <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
-            <h1>Search Activities</h1>
-            <!--<form class="form-inline">
-                <div class="form-group">
-                    <label for="classroomlist">Classroom</label>
-                    <select ng-init="activities.selectedClassroom = activities.allClassrooms[0]"
-                            ng-model="activities.selectedClassroom"
-                            ng-options="classroom as classroom.name for classroom in activities.allClassrooms"
-                            class="form-control"
-                            id="classroomlist"></select>
+﻿<div class="container">
+    <h1>All Activities</h1>
+    <form [formGroup]="activitiesForm">
+        ﻿<div class='panel panel-primary'>
+            <div class='panel-body'>
+                <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
+                    <h1>Search Activities</h1>
+                    <!--<form class="form-inline">
+                        <div class="form-group">
+                            <label for="classroomlist">Classroom</label>
+                            <select ng-init="activities.selectedClassroom = activities.allClassrooms[0]"
+                                    ng-model="activities.selectedClassroom"
+                                    ng-options="classroom as classroom.name for classroom in activities.allClassrooms"
+                                    class="form-control"
+                                    id="classroomlist"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthlist">Month</label>
+                            <select ng-model="activities.selectedMonth" class="form-control" id="monthlist">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <button (click)='activities.search()' class="btn btn-default">Search</button>
+                    </form>-->
                 </div>
-                <div class="form-group">
-                    <label for="monthlist">Month</label>
-                    <select ng-model="activities.selectedMonth" class="form-control" id="monthlist">
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </div>
-                <button (click)='activities.search()' class="btn btn-default">Search</button>
-            </form>-->
-        </div>
-        <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
-            <h1>All Activities</h1>
-            <div>
-                <div class="panel panel-default">
-                    <!-- Default panel contents -->
-                    <div class="panel-heading" style="background-color:#2e87f5">Registered Activities</div>
-                    <!-- Table -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Activity Name</th>
-                                <th>Classroom</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tr *ngFor='let activity of allActivities'>
-                            <td>{{ activity.name }}</td>
-                            <td>{{ activity.classroom.name }}</td>
-                            <td>{{ activity.date | date:'fullDate' }}</td>
-                        </tr>
-                    </table>
+                <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
+                    <!--<h1>All Activities</h1>-->
+                    <div>
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading" style="background-color:#2e87f5">Registered Activities</div>
+                            <!-- Table -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Activity Name</th>
+                                        <th>Classroom</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <input class="form-control" formControlName="activityName" placeholder="Activity name">
+                                    </td>
+                                    <td>
+                                        <select class="form-control" formControlName="classroom">
+                                            <option value="default">Select a Classroom...</option>
+                                            <option *ngFor="let classroom of classrooms" [ngValue]="classroom">{{classroom.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" formControlName="date" placeholder="">
+                                    </td>
+                                    <td><button type="submit" class="btn btn-success" [disabled]="!activitiesForm.valid"
+                                                (click)="submit()" >Add Activity</button> </td>
+                                </tr>
+                                <tr *ngFor='let activity of allActivities'>
+                                    <td>{{ activity.name }}</td>
+                                    <td>{{ activity.classroom.name }}</td>
+                                    <td>{{ activity.date | date:'fullDate' }}</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>

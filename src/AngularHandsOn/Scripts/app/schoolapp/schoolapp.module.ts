@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DataService } from './services/data.service';
 import { HomeComponent } from './home.component';
@@ -16,7 +16,7 @@ import { AllSchoolsResolve } from './allschools.resolve';
 @NgModule({
     declarations: [HomeComponent,
         AllSchoolsComponent, AllClassroomComponent, AllActivitiesComponent, ClassroomComponent, ClassroomDetailComponent],
-    imports: [SharedModule, SchoolAppRoutingModule],
+    imports: [SharedModule, SchoolAppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [ClassRoomGuard, DataService, AllSchoolsResolve],
 })
 export class SchoolAppModule { }

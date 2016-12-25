@@ -45,7 +45,7 @@ namespace AngularHandsOn.Controllers.Api
             act.ClassroomId = activity.ClassroomId;
             act.SchoolId = activity.SchoolId;
             act.Name = activity.Name;
-            act.Date = DateTime.UtcNow;
+            act.Date = activity.Date;
 
             _activityRepository.Add(act);
 
