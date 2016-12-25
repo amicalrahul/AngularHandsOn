@@ -1,0 +1,43 @@
+﻿@model SchoolModel
+@{
+    ViewData["Title"] = "Edit School Details";
+}
+<h1>
+    @ViewData["Title"]
+</h1>
+<form asp-action="Edit" asp-controller="ManageSchools" method="post" class="form-horizontal" role="form">
+    <div asp-validation-summary="All"></div>
+    @*@Html.HiddenFor(model => model.SchoolId)
+    @Html.HiddenFor(model => model.Date)*@
+    <input type="hidden" asp-for="SchoolId" />
+    <input type="hidden" asp-for="Date" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label col-md-2"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Principal" class="control-label col-md-2"></label>
+        <input asp-for="Principal" />
+        <span asp-validation-for="Principal" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Update" />
+        <a class="btn btn-default" asp-action="Index">Back to list</a>
+    </div>
+</form>
+@section scripts {
+    <script>
+        $.validator.addMethod("cannotbered",
+            function (value, element, parameters) {
+                return value.toUpperCase() != "RED";
+            });
+
+        $.validator.unobtrusive.adapters.add("cannotbered", [], function (options) {
+            options.rules.cannotbered = {};
+            options.messages["cannotbered"] = options.message;
+        });
+    </script>
+}

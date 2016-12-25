@@ -1,0 +1,73 @@
+﻿<div class="container">
+    <h1>All Classrooms</h1>
+    <form  #f="ngForm" novalidate *ngIf="allClassrooms">
+        <div class='panel panel-primary'>
+            <div class='panel-body'>
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading" style="background-color:#2e87f5">Registered Classrooms</div>
+                        <!-- Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Classroom Name</th>
+                                    <th>School</th>
+                                    <th>Teacher</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <div class="form-group" [class.has-error]="classname.invalid && classname.touched">
+                                        <input type="text" #classname="ngModel" name="classname" required [(ngModel)]="classroomname" 
+                                               class="form-control" />
+                                        <div *ngIf="classname.invalid && classname.touched" class="alert alert-danger">
+                                            Classroom name is required.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" [class.has-error]="isschoolinvalid">
+                                       <select class="form-control" #schoolname name="schoolname"
+                                               (blur)="validateschoolname(schoolname.value)"
+                                           (change)="validateschoolname(schoolname.value)" [(ngModel)]="school" >
+
+                                           <option value="default">Select a School...</option>
+                                           <option value="{{school.id}}" *ngFor="let school of schools">
+                                               {{school.name}}
+                                           </option>
+                                       </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group" [class.has-error]="teacher.invalid && teacher.touched">
+                                        <input type="text" #teacher="ngModel" required name="teacher" [(ngModel)]="classroomteacher" 
+                                               class="form-control" />
+                                        <div *ngIf="teacher.invalid && teacher.touched" class="alert alert-danger">Teacher is required.</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <button type="submit" name="addclassroom" class="btn btn-primary"
+                                               [disabled]="!f.form.valid"  (click)="addClassroom(f)">Add Classroom</button>
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                            <tr *ngFor='let classroom of allClassrooms'>
+                                <td>
+                                    <a [routerLink]="['/classroomdetail', classroom.id]">{{ classroom.name }}</a>
+                                </td>
+                                <td>{{ classroom.school.name }}</td>
+                                <td>
+                                    <a [routerLink]="['/classroom', classroom.id]">{{ classroom.teacher }}</a>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ActivityModel>
+@{
+    ViewData["Title"] = "Activities";
+}
+<h1>
+    @ViewData["Title"]
+</h1>
+
+<table class="table">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(m => m.FirstOrDefault().Name)
+        </td>
+        <td>
+           @Html.DisplayNameFor(m => m.FirstOrDefault().Classroom)
+        </td>
+        <td>
+           @Html.DisplayNameFor(m => m.FirstOrDefault().School)
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Classroom.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.School.Name)
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SchoolModel>
+@{
+    ViewData["Title"] = "Schools List";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="form-group">
+    <a asp-action="Create">Add New School</a>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.FirstOrDefault().Principal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.FirstOrDefault().Date) Created
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor((m) => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor((m) => item.Principal)
+            </td>
+            <td>
+                @Html.DisplayFor((m) => item.Date)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SchoolId">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.SchoolId">Delete</a>
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,44 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-body'>
+        <h1 class="col-md-offset-1 col-lg-offset-1">All Schools</h1>
+        <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading" style="background-color:#2e87f5">Registered Schools: {{schools.length}}</div>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>School Name</th>
+                            <th>Principal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><input type="text" [(ngModel)]="schoolname" required /></td>
+                        <td><input type="text" [(ngModel)]="schoolprincipal" required /></td>
+                        <td>
+                            <input *ngIf='!editing && schoolname && schoolprincipal' type="button" value="Add School" class="btn btn-sm btn-primary" (click)="addSchool()" />
+                            <input *ngIf='editing || !(schoolname && schoolprincipal)' type="button" value="Add School" class="btn btn-sm btn-primary disabled" />
+                        </td>
+                    </tr>
+                    <tr *ngFor='let school of schools'>
+                        <td *ngIf='!school.editing'>{{ school.name }}</td>
+                        <td *ngIf='school.editing'><input type="text" [(ngModel)]="school.name" /></td>
+                        <td *ngIf='!school.editing'>{{ school.principal }}</td>
+                        <td *ngIf='school.editing'><input type="text" [(ngModel)]="school.principal" /></td>
+                        <td>
+                            <button *ngIf='school.editing && !school.deleting' type="submit" class="btn btn-xs btn-success" (click)="updateSchool(school)">Update</button>
+                            <button *ngIf='school.editing && !school.deleting' type="submit" class="btn btn-xs btn-danger" (click)="cancelUpdate(school)">Cancel</button>
+                            <button *ngIf='!school.editing && school.deleting' class="btn btn-xs btn-success" (click)="removeSchool(school)">Remove</button>
+                            <button *ngIf='!school.editing && school.deleting' class="btn btn-xs btn-danger" (click)="cancelRemove(school)">Never Mind</button>
+                            <span *ngIf='!school.editing && !school.deleting' class="glyphicon glyphicon-edit" style="cursor:pointer" (click)="editSchool(school)"></span>
+                            <span *ngIf='!school.editing && !school.deleting' class="glyphicon glyphicon-remove" style="cursor:pointer" (click)="deleteSchool(school)"></span>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-body'>
+        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1" *ngIf='schoolCount && classroomCount && activityCount'>
+            <h1>{{ message }}</h1>
+            <h3>Number of schools listed:  {{ schoolCount }}</h3>
+            <h3>Number of classrooms listed:  {{ classroomCount }}</h3>
+            <h3>Number of activities listed:  {{ activityCount }}</h3>
+            <button (click)='refresh()' class="btn btn-primary">Refresh</button>
+        </div>
+    </div>
+</div>

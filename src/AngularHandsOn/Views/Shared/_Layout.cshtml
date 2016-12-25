@@ -35,11 +35,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="ProductManagement">ProductManagement</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Angular">Book App</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="SchoolApp">School App</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="NgDirective">Ng Directive App</a></li>
+                    @await Html.PartialAsync("_ManageDataMenuPartial")
+                    @await Component.InvokeAsync("AngularMenu")
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Schools">Schools</a></li>
+                    }
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
@@ -55,6 +58,9 @@
         <!-- Library Scripts -->
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/angular/angular.min.js"> </script>
         <script src="~/lib/angular-route/angular-route.min.js"></script>
@@ -110,6 +116,18 @@
 
         <!-- Angular Directive App -->
         <script src="~/js/ngdirectiveapp/app.js"></script>
+
+        <!-- 1. Load libraries -->
+        <!-- Polyfill(s) for older browsers -->
+        <script src="~/lib1/core-js/client/shim.min.js"></script>
+        <script src="~/lib1/zone.js/dist/zone.js"></script>
+        <script src="~/lib1/reflect-metadata/Reflect.js"></script>
+        <script src="~/lib1/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="~/systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function (err) { console.error(err); });
+        </script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -126,4 +144,5 @@
 
     @RenderSection("scripts", required: false)
 </body>
+
 </html>
