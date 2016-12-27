@@ -37,6 +37,12 @@ export class DataService {
             .do(data => console.log('GetClassroom: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
+    getClassroombyname(name: string): Observable<IClassroom[]> {
+        return this._http.get(this.classroomssUrl + '?name=' + name)
+            .map((response: Response) => (<IClassroom[]>response.json()))
+            .do(data => console.log('GetClassroom: ' + JSON.stringify(data)))
+            .catch(this.handleError);;
+    }
 
     getAllActivities(): Observable<IActivity[]> {
         return this._http.get(this.activitiesUrl)

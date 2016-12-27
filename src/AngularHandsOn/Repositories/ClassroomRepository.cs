@@ -28,6 +28,11 @@ namespace AngularHandsOn.Repositories
             return _dbContext.Classrooms.Select(x => x.ClassroomId).Max();
         }
 
+        public IEnumerable<Classroom> Find(string name)
+        {
+            return _dbContext.Classrooms.Where(a => a.Name.ToLower().Contains(name.ToLower()));
+        }
+
         public void Add(Classroom Classroom)
         {
             _dbContext.Classrooms.Add(Classroom);

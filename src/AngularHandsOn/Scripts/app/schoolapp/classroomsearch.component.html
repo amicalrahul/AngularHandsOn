@@ -1,0 +1,10 @@
+﻿<div id="search-component">
+    <h4>Classroom Search</h4>
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+    <div>
+        <div *ngFor="let classroom of classrooms | async"
+             (click)="gotoDetail(classroom)" class="search-result">
+            {{classroom.name}}
+        </div>
+    </div>
+</div>
