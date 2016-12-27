@@ -13,9 +13,13 @@ import { ClassRoomGuard } from './services/classroom-guard.service';
 import { SharedModule } from '../shared/shared.module';
 import { SchoolAppRoutingModule } from './schoolapp-router.module';
 import { AllSchoolsResolve } from './allschools.resolve';
+
+import { HighlightDirective } from './directives/highlight.directive';
+
 @NgModule({
     declarations: [HomeComponent,
-        AllSchoolsComponent, AllClassroomComponent, AllActivitiesComponent, ClassroomComponent, ClassroomDetailComponent],
+        AllSchoolsComponent, AllClassroomComponent, AllActivitiesComponent, ClassroomComponent, ClassroomDetailComponent,
+        HighlightDirective],
     imports: [SharedModule, SchoolAppRoutingModule, FormsModule, ReactiveFormsModule],
     providers: [ClassRoomGuard, DataService, AllSchoolsResolve],
 })

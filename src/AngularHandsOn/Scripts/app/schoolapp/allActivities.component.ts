@@ -17,6 +17,7 @@ export class AllActivitiesComponent implements OnInit {
     allActivities: IActivity[];
     classrooms: IClassroom[];
     errorMessage: string;
+    color: string;
     constructor(private _dataService: DataService, private _formBuilder: FormBuilder) {
     }
     private submit() {
@@ -30,6 +31,7 @@ export class AllActivitiesComponent implements OnInit {
             data => {
                 this.allActivities = data;
                 this.activitiesForm.reset();
+                this.buildForm();
             }
             );
     }
@@ -48,7 +50,7 @@ export class AllActivitiesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.buildForm();
-
+        this.color = "blue";
         this._dataService.getAllActivities()
             .subscribe(activity => {
                 console.log(activity);
