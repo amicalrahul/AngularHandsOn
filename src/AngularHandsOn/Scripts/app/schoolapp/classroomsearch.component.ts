@@ -43,7 +43,7 @@ export class ClassroomSearchComponent implements OnInit {
     }
 
     gotoDetail(classroom: IClassroom): void {
-        let link = ['/classroomdetail', classroom.id];
+        let link = ['/classroom', classroom.id];
         this.router.navigate(link);
     }
 }

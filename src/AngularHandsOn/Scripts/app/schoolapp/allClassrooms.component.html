@@ -59,7 +59,7 @@
                         </tr>
                         <tr *ngFor='let classroom of allClassrooms'>
                             <td>
-                                <a [routerLink]="['/classroomdetail', classroom.id]">{{ classroom.name }}</a>
+                                <a [routerLink]="['/classroom', classroom.id]">{{ classroom.name }}</a>
                             </td>
                             <td>{{ classroom.school.name }}</td>
                             <td>

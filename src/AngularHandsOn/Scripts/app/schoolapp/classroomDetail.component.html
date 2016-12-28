@@ -1,9 +1,30 @@
-﻿﻿<div class='panel panel-primary'>
+﻿<div class='panel panel-primary'>
     <div class='panel-body'>
-        <h1 class="col-md-offset-1 col-lg-offset-1">Classroom</h1>
-        <div class="col-md-8 col-lg-8 col-md-offset-1 col-lg-offset-1" *ngIf="classroom">
-            <h3>Name: {{ classroom.name }}</h3>
-            <h3>Teacher: {{ classroom.teacher }}</h3>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading panel-title" style="background-color:#2e87f5">Registered Activities - {{ timePeriod }}</div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Activity Name</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <!--<tr>
+                    <td>
+                        classroom: {{classroom}}
+                    </td>
+                    <td *ngIf="classroom">
+                        classroom: {{classroom.activity}}
+                    </td>
+                </tr>-->
+                <tr *ngFor="let act of (classroom.activity | filteredActivities:month)">
+                    <td>{{ act.name }}</td>
+                    <td>{{ act.date | date:'fullDate' }}</td>
+                </tr>
+            </table>
+            <div *ngIf="((classroom.activity | filteredActivities:month).length == 0)">No activities</div>
         </div>
     </div>
 </div>
