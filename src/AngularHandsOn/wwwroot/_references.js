@@ -5,6 +5,7 @@
 /// <reference path="app/app-routing.module.js" />
 /// <reference path="app/home/welcome.component.js" />
 /// <reference path="app/main.js" />
+/// <reference path="app/not-found.component.js" />
 /// <reference path="app/products/product.js" />
 /// <reference path="app/products/product.module.js" />
 /// <reference path="app/products/product.service.js" />
