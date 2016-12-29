@@ -4,7 +4,7 @@
             <!-- Default panel contents -->
             <div class="panel-heading panel-title" style="background-color:#2e87f5">Registered Activities - {{ timePeriod }}</div>
             <!-- Table -->
-            <table class="table">
+            <table class="table" *ngIf="classroom">
                 <thead>
                     <tr>
                         <th>Activity Name</th>
@@ -24,7 +24,7 @@
                     <td>{{ act.date | date:'fullDate' }}</td>
                 </tr>
             </table>
-            <div *ngIf="((classroom.activity | filteredActivities:month).length == 0)">No activities</div>
+            <div *ngIf="classroom == null || ((classroom.activity | filteredActivities:month).length == 0)">No activities</div>
         </div>
     </div>
 </div>

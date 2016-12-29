@@ -9,7 +9,8 @@ export class ClassroomDetailResolve implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot) {
         let id = route.params['id'];
-
+        if (id == null || isNaN(id))            
+            return null;
         return this.dataService.getClassroom(id);
     }
 }
