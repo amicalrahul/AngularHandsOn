@@ -34,8 +34,8 @@ import { AllSchoolsResolve } from './schoolapp/allschools.resolve';
     </div>
         </div>
     </nav>
-        <router-outlet name="popup"></router-outlet>
         <router-outlet></router-outlet>
+        <router-outlet name="popup"></router-outlet>
     `
 })
 export class AppComponent { 

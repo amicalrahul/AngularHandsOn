@@ -1,11 +1,17 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
+import { slideInDownAnimation } from './animations';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'compose-message.component.html'
+    templateUrl: 'compose-message.component.html',
+    styles: [':host { position: relative; bottom: 10%; }'],
+    animations: [slideInDownAnimation]
 })
 export class ComposeMessageComponent {
+    @HostBinding('@routeAnimation') routeAnimation = true;
+    @HostBinding('style.display') display = 'block';
+    @HostBinding('style.position') position = 'absolute';
     sending: boolean;
     details: string
     message: string;
