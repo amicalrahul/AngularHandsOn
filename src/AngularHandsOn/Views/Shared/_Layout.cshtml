@@ -4,48 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AngularHandsOn</title>
-
-    <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/app.css" />
-        <link href="~/js/ngdirectiveapp/style.css" rel="stylesheet" />
-    </environment>
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    @await Html.PartialAsync("_Styles")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AngularHandsOn</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    @await Html.PartialAsync("_ManageDataMenuPartial")
-                    @await Component.InvokeAsync("AngularMenu")
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Schools">Schools</a></li>
-                    }
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </div>
+    @await Html.PartialAsync("_Navigation")
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -54,93 +16,7 @@
         </footer>
     </div>
 
-    <environment names="Development">
-        <!-- Library Scripts -->
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/lib/angular/angular.min.js"> </script>
-        <script src="~/lib/angular-route/angular-route.min.js"></script>
-        <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
-        <script src="~/lib/angular-mocks/angular-mocks.js"></script>
-        <script src="~/lib/angular-resource/angular-resource.js"></script>
-        <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
-        <script src="~/lib/toastr.js"></script>
-        <script src="~/lib/ui-bootstrap-tpls-0.11.0.js"></script>
-        <script src="~/lib/ui-utils.js"></script>
-        <!-- Application Script -->
-        <script src="~/js/bookapp/app.js"></script>
-        <!-- Product Controllers -->
-        <script src="~/js/bookapp/books/BooksController.js"></script>
-        <script src="~/js/bookapp/books/AddBookController.js"></script>
-        <script src="~/js/bookapp/books/EditBookController.js"></script>
-
-        <!-- Services -->
-        <script src="~/js/bookapp/services/dataService.js"></script>
-        <script src="~/js/bookapp/services/loggerService.js"></script>
-        <script src="~/js/bookapp/services/constantService.js"></script>
-        <script src="~/js/bookapp/services/badgeService.js"></script>
-        <script src="~/js/bookapp/services/bookResource.js"></script>
-        <script src="~/js/bookapp/services/bookResourceMock.js"></script>
-
-        <!-- Application Script -->
-        <script src="~/js/prodmanagmentapp/app.js"></script>
-        <!-- Services -->
-        <script src="~/js/common/services/common.services.js"></script>
-        <script src="~/js/common/services/productResource.js"></script>
-        <script src="~/js/common/services/productResourceMock.js"></script>
-        <!-- Product Controllers -->
-        <script src="~/js/prodmanagmentapp/products/productListCtrl.js"></script>
-        <script src="~/js/prodmanagmentapp/products/productDetailCtrl.js"></script>
-        <script src="~/js/prodmanagmentapp/products/productEditCtrl.js"></script>
-
-
-        <link href="~/css/bootstrap.cerulean.min.css" rel="stylesheet" />
-        <!-- Application Script -->
-        <script src="~/js/schoolapp/app.js"></script>
-        <!-- Product Controllers -->
-        <script src="~/js/schoolapp/filters/activityMonthFilter.js"></script>
-        <script src="~/js/schoolapp/controllers/HomeController.js"></script>
-        <script src="~/js/schoolapp/controllers/ClassroomController.js"></script>
-        <script src="~/js/schoolapp/controllers/AllActivitiesController.js"></script>
-        <script src="~/js/schoolapp/controllers/AllClassroomsController.js"></script>
-        <script src="~/js/schoolapp/controllers/AllSchoolsController.js"></script>
-
-        <!-- Services -->
-        <script src="~/js/schoolapp/services/helper.js"></script>
-        <script src="~/js/schoolapp/services/dataService.js"></script>
-        <script src="~/js/schoolapp/services/notifier.js"></script>
-
-        <!-- Angular Directive App -->
-        <script src="~/js/ngdirectiveapp/app.js"></script>
-
-        <!-- 1. Load libraries -->
-        <!-- Polyfill(s) for older browsers -->
-        <script src="~/lib1/core-js/client/shim.min.js"></script>
-        <script src="~/lib1/zone.js/dist/zone.js"></script>
-        <script src="~/lib1/reflect-metadata/Reflect.js"></script>
-        <script src="~/lib1/systemjs/dist/system.src.js"></script>
-        <!-- 2. Configure SystemJS -->
-        <script src="~/systemjs.config.js"></script>
-        <script>
-            System.import('app').catch(function (err) { console.error(err); });
-        </script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-
-    </environment>
+    @await Html.PartialAsync("_Scripts")
 
     @RenderSection("scripts", required: false)
 </body>
