@@ -48,11 +48,13 @@ namespace AngularHandsOn.Controllers.Api
         [HttpPost("")]
         public IActionResult Post([FromBody]SchoolModel school)
         {
-            var sc = Mapper.Map<School>(school);
-            sc.Date = DateTime.UtcNow;
-            sc.SchoolId = _schoolRepository.GetMaxId() + 1;
-            _schoolRepository.Add(sc);
-            
+            if (ModelState.IsValid)
+            {
+                var sc = Mapper.Map<School>(school);
+                sc.Date = DateTime.UtcNow;
+                sc.SchoolId = _schoolRepository.GetMaxId() + 1;
+                _schoolRepository.Add(sc);
+            }
             var result = _schoolRepository.Fetch();
             var results = Mapper.Map<IEnumerable<SchoolModel>>(result);
             return new ObjectResult(results);

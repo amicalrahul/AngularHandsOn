@@ -55,6 +55,7 @@
 /// <reference path="js/common/services/common.services.js" />
 /// <reference path="js/common/services/productresource.js" />
 /// <reference path="js/common/services/productresourcemock.js" />
+/// <reference path="js/dataservice.js" />
 /// <reference path="js/ngdirectiveapp/app.js" />
 /// <reference path="js/prodmanagmentapp/app.js" />
 /// <reference path="js/prodmanagmentapp/products/productdetailctrl.js" />

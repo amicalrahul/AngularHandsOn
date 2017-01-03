@@ -1,0 +1,9 @@
+﻿@model IEnumerable<AngularHandsOn.Model.SchoolModel>
+<h2>The Schools</h2>
+
+<ul>
+    @foreach (var item in Model)
+            {
+        <li>@item.Name : @item.Principal</li>
+    }
+</ul>

@@ -36,6 +36,10 @@ namespace AngularHandsOn.Controllers.Web
 
             return View();
         }
+        public IActionResult SchoolsList()
+        {
+            return ViewComponent("SchoolsList");
+        }
 
         //[Authorize]
         public IActionResult Schools([FromServices]ISchoolRepository<int> schoolRepository)

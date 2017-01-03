@@ -1,8 +1,9 @@
-﻿<environment names="Development">
+﻿
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+<environment names="Development">
     <!-- Library Scripts -->
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -67,10 +68,11 @@
     <script src="~/lib1/zone.js/dist/zone.js"></script>
     <script src="~/lib1/reflect-metadata/Reflect.js"></script>
     <script src="~/lib1/systemjs/dist/system.src.js"></script>
+    <script src="~/js/dataService.js"></script>
     <!-- 2. Configure SystemJS -->
     <script src="~/systemjs.config.js"></script>
     <script>
-            System.import('app').catch(function (err) { console.error(err); });
+        System.import('app').catch(function (err) { console.error(err); });
     </script>
 </environment>
 <environment names="Staging,Production">
@@ -85,3 +87,59 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
 
 </environment>
+
+@functions
+{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+<script>
+    $(document).ready(function () {
+        $('#addSchool').click(function (e) {
+            e.preventDefault();
+            var url = '@Url.Action("SchoolsList", "Home")';
+            var data = {
+                SchoolId: "",
+                Date: "1/1/2011",
+                Name: $('#Name')[0].value,
+                Principal: $('#Name')[0].value
+            };
+            addSchoolAndUpdateList(url, data);
+        })
+
+        addSchoolAndUpdateList = function (url, data) {
+            dataService.addSchool(data)
+                .done(function (data1) {
+                    $.get(url)
+                        .done(function (data1) {
+                            $('#schoolsList').html(data1);
+                        })
+                        .fail(function (jqXHR, textStatus, error) {
+                            console.log(textStatus);
+                        })
+                })
+                .fail(function(jqXHR, textStatus, error) {
+                    console.log(textStatus);
+                });
+        }
+    })
+    @*Crap Code
+    var formdata = new FormData($('form').get(0));
+    //$.post('/home/AddSchool', { id: id }, function (data) {
+    //    $('#addOrUpdateSchool').html(data);
+    //})
+    var formdata1 = new FormData();
+    formdata1.append('name', 'sdsds');
+            @*'@Url.Content("~/Home/AddSchool")';
+            @*$.ajax(PostToUrl, {
+                type: "post",
+                data: formdata,
+                dataType: "json",
+                headers: {
+                    "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+                }
+            })*@
+
+</script>
