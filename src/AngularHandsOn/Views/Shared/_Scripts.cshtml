@@ -99,6 +99,10 @@
     $(document).ready(function () {
         $('#addSchool').click(function (e) {
             e.preventDefault();
+            if (!$('form').valid())
+            {
+                return;
+            }
             var url = '@Url.Action("SchoolsList", "Home")';
             var data = {
                 SchoolId: "",
