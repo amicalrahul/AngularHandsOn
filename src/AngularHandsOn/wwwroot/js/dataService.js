@@ -12,7 +12,9 @@
         return $.ajax({
             url: schoolsUrl,
             type: 'POST',
-            contentType: 'application/json; charset=utf-8',
+            beforeSend: function(request){
+                request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+            },
             data: JSON.stringify(data)
         });
         //return $.ajax({
