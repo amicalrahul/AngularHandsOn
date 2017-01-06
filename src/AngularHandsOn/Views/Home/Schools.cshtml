@@ -1,17 +1,129 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-
-
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div id="AddOrUpdateSchool">
             @await Component.InvokeAsync("AddOrUpdateSchool")
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div id="schoolsList">
             @await Component.InvokeAsync("SchoolsList")
         </div>
     </div>
 </div>
+
+@functions
+{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+@section scripts
+    {
+    <script type="text/javascript" src="~/js/dataService.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.glyphicon-edit').click(function (e) {
+                var url = '@Url.Action("EditSchool", "Home")';
+                var id = $(this).attr('data-schoolid');
+                updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'));
+            });
+            $('.glyphicon-remove').click(function (e) {
+                var id = $(this).attr('data-schoolid');
+                dataService.deleteSchool(id)
+                   .done(function (result) {
+                       var url = '@Url.Action("SchoolsList", "Home")';
+                       updateSchoolList(url, $('#schoolsList'))
+                   })
+                   .fail(function (jqXHR, textStatus, error) {
+                       console.log(textStatus);
+                   });
+            });
+            $('#updateSchool').click(function (e) {
+                e.preventDefault();
+                if (!$('form').valid()) {
+                    return;
+                }
+                var schoolId = $('#SchoolId').value;
+                addOrUpdateSchool(getSchoolData(), schoolId);
+            });
+
+
+            $('#addSchool').click(function (e) {
+                e.preventDefault();
+                if (!$('form').valid()) {
+                    return;
+                }
+                addOrUpdateSchool(getSchoolData());
+            });
+
+            addOrUpdateSchool = function (data, id) {
+                var promise = null;
+                if (id) {
+                    promise = dataService.updateSchool(data, id);
+                }
+                else {
+                    promise = dataService.addSchool(data);
+                }
+
+                promise
+                .done(function (result) {
+                    var url = '@Url.Action("SchoolsList", "Home")';
+                    updateSchoolList(url, $('#schoolsList'))
+                })
+                .fail(function (jqXHR, textStatus, error) {
+                    console.log(textStatus);
+                });
+            }
+            updateSchoolList = function (url, selector) {
+                $.get(url)
+                .done(function (result) {
+                    selector.html(result);
+                })
+                .fail(function (jqXHR, textStatus, error) {
+                    console.log(textStatus);
+                })
+            }
+
+            getSchoolData = function () {
+                var schoolId = $('#SchoolId').value;
+                var date = $('#Date')[0].value;
+                if (date) {
+                    date = '1/1/2001';
+                }
+                if (schoolId) {
+                    schoolId = "";
+                }
+                var data = {
+                    SchoolId: schoolId,
+                    Date: date,
+                    Name: $('#Name')[0].value,
+                    Principal: $('#Principal')[0].value,
+                };
+                return data;
+            };
+        })
+        @*Crap Code
+    var formdata = new FormData($('form').get(0));
+    //$.post('/home/AddSchool', { id: id }, function (data) {
+    //    $('#addOrUpdateSchool').html(data);
+    //})
+    var formdata1 = new FormData();
+    formdata1.append('name', 'sdsds');
+            @*'@Url.Content("~/Home/AddSchool")';
+            @*$.ajax(PostToUrl, {
+                type: "post",
+                data: formdata,
+                dataType: "json",
+                headers: {
+                    "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+                }
+            })*@
+
+    </script>
+}

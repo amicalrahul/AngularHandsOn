@@ -21,8 +21,10 @@
     </div>
     @if (Model.SchoolId != null)
     {
-        <div><input type="submit" value="Update" class="btn btn-success" /></div>
-        <div><input type="submit" value="Cancel" class="btn btn-success" /></div>
+        <div>
+            <input id="updateSchool" type="submit" value="Update" class="btn btn-success" />
+            <input id="cancelUpdate" value="Cancel" class="btn btn-success" click="clicked" />
+        </div>
     }
     else
     {

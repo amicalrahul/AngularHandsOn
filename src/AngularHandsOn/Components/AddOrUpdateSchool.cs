@@ -18,12 +18,12 @@ namespace AngularHandsOn.Components
         {
             _repo = repo;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int? SchoolId)
+        public async Task<IViewComponentResult> InvokeAsync(int SchoolId)
         {
             var school = new SchoolModel();
-            if(SchoolId.HasValue && SchoolId >0)
+            if(SchoolId >0)
             {
-                school = Mapper.Map<SchoolModel>(_repo.Fetch(SchoolId.Value));
+                school = Mapper.Map<SchoolModel>(_repo.Fetch(SchoolId));
             }
 
             await Task.FromResult(0);

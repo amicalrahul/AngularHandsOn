@@ -23,9 +23,25 @@
         //    contentType: false,
         //});
     }
-
+    updateSchool = function (data, id) {
+        return $.ajax({
+            url: schoolsUrl + id,
+            type: 'PUT',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        });
+    }
+    deleteSchool = function (id) {
+        return $.ajax({
+            url: schoolsUrl + id,
+            type: 'DELETE',
+            contentType: 'application/json; charset=utf-8'
+        });
+    }
     return {
         getSchools: getSchools,
-        addSchool: addSchool
+        addSchool: addSchool,
+        updateSchool: updateSchool,
+        deleteSchool: deleteSchool
     }
 }();
