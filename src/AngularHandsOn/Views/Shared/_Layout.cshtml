@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AngularHandsOn</title>
-    @await Html.PartialAsync("_Styles")
+        @await Html.PartialAsync("_Styles")
+
+        @await Html.PartialAsync("_Scripts")
 </head>
 <body>
     @await Html.PartialAsync("_Navigation")
@@ -15,8 +17,6 @@
             <p>&copy; 2016 - AngularHandsOn</p>
         </footer>
     </div>
-
-    @await Html.PartialAsync("_Scripts")
 
     @RenderSection("scripts", required: false)
 </body>

@@ -27,23 +27,7 @@
     <script type="text/javascript" src="~/js/dataService.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.glyphicon-edit').click(function (e) {
-                var url = '@Url.Action("EditSchool", "Home")';
-                var id = $(this).attr('data-schoolid');
-                updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'));
-            });
-            $('.glyphicon-remove').click(function (e) {
-                var id = $(this).attr('data-schoolid');
-                dataService.deleteSchool(id)
-                   .done(function (result) {
-                       var url = '@Url.Action("SchoolsList", "Home")';
-                       updateSchoolList(url, $('#schoolsList'))
-                   })
-                   .fail(function (jqXHR, textStatus, error) {
-                       console.log(textStatus);
-                   });
-            });
+        $(document).ready(function () {           
             $('#updateSchool').click(function (e) {
                 e.preventDefault();
                 if (!$('form').valid()) {
@@ -84,12 +68,18 @@
                 $.get(url)
                 .done(function (result) {
                     selector.html(result);
+                    clearSchoolData();
                 })
                 .fail(function (jqXHR, textStatus, error) {
                     console.log(textStatus);
                 })
             }
-
+            clearSchoolData = function () {
+                $('#Name')[0].value = "";
+                $('#Principal')[0].value = "";
+                $('#SchoolId').value = "";
+                $('#Date').value = "";
+            }
             getSchoolData = function () {
                 var schoolId = $('#SchoolId').value;
                 var date = $('#Date')[0].value;

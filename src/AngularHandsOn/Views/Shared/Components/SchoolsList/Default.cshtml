@@ -21,3 +21,25 @@
         </tr>
     }
 </table>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.glyphicon-edit').click(function (e) {
+            var url = '@Url.Action("EditSchool", "Home")';
+            var id = $(this).attr('data-schoolid');
+            updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'));
+        });
+        $('.glyphicon-remove').click(function (e) {
+            var id = $(this).attr('data-schoolid');
+            dataService.deleteSchool(id)
+               .done(function (result) {
+                   var url = '@Url.Action("SchoolsList", "Home")';
+                   updateSchoolList(url, $('#schoolsList'))
+               })
+               .fail(function (jqXHR, textStatus, error) {
+                   console.log(textStatus);
+               });
+        });
+    })
+</script>
