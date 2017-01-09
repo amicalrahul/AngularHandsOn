@@ -28,7 +28,7 @@
         $('.glyphicon-edit').click(function (e) {
             var url = '@Url.Action("EditSchool", "Home")';
             var id = $(this).attr('data-schoolid');
-            updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'));
+            updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'), false);
         });
         $('.glyphicon-remove').click(function (e) {
             var id = $(this).attr('data-schoolid');

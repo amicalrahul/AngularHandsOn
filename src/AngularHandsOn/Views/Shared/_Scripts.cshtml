@@ -69,14 +69,6 @@
     <script src="~/lib1/systemjs/dist/system.src.js"></script>
     <!-- 2. Configure SystemJS -->
     <script src="~/systemjs.config.js"></script>
-    <script>
-        if ($('pm-app').length > 0) {
-            System.import('app')
-                .catch(function (err) {
-                    console.error(err);
-                });
-        }
-    </script>
 </environment>
 <environment names="Staging,Production">
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

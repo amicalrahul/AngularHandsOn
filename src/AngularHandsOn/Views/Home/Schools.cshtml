@@ -27,25 +27,7 @@
     <script type="text/javascript" src="~/js/dataService.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {           
-            $('#updateSchool').click(function (e) {
-                e.preventDefault();
-                if (!$('form').valid()) {
-                    return;
-                }
-                var schoolId = $('#SchoolId').value;
-                addOrUpdateSchool(getSchoolData(), schoolId);
-            });
-
-
-            $('#addSchool').click(function (e) {
-                e.preventDefault();
-                if (!$('form').valid()) {
-                    return;
-                }
-                addOrUpdateSchool(getSchoolData());
-            });
-
+        $(document).ready(function () {
             addOrUpdateSchool = function (data, id) {
                 var promise = null;
                 if (id) {
@@ -58,17 +40,18 @@
                 promise
                 .done(function (result) {
                     var url = '@Url.Action("SchoolsList", "Home")';
-                    updateSchoolList(url, $('#schoolsList'))
+                    updateSchoolList(url, $('#schoolsList'), true)
                 })
                 .fail(function (jqXHR, textStatus, error) {
                     console.log(textStatus);
                 });
             }
-            updateSchoolList = function (url, selector) {
+            updateSchoolList = function (url, selector, clearData) {
                 $.get(url)
                 .done(function (result) {
                     selector.html(result);
-                    clearSchoolData();
+                    if (clearData)
+                        clearSchoolData();
                 })
                 .fail(function (jqXHR, textStatus, error) {
                     console.log(textStatus);
@@ -77,23 +60,23 @@
             clearSchoolData = function () {
                 $('#Name')[0].value = "";
                 $('#Principal')[0].value = "";
-                $('#SchoolId').value = "";
-                $('#Date').value = "";
+                $('#SchoolId')[0].value = "";
+                $('#Date')[0].value = "";
             }
             getSchoolData = function () {
-                var schoolId = $('#SchoolId').value;
+                var schoolId = $('#SchoolId')[0].value;
                 var date = $('#Date')[0].value;
-                if (date) {
+                if (!date) {
                     date = '1/1/2001';
                 }
-                if (schoolId) {
-                    schoolId = "";
+                if (!schoolId) {
+                    schoolId = null;
                 }
                 var data = {
-                    SchoolId: schoolId,
-                    Date: date,
-                    Name: $('#Name')[0].value,
-                    Principal: $('#Principal')[0].value,
+                    id: schoolId,
+                    date: date,
+                    name: $('#Name')[0].value,
+                    principal: $('#Principal')[0].value,
                 };
                 return data;
             };

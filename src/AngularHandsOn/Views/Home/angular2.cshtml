@@ -1,3 +1,16 @@
 ﻿<h1>Angula2 App</h1>
 
 <pm-app>loading...</pm-app>
+
+@section scripts
+{
+<script type="text/javascript">
+        if ($('pm-app').length > 0)
+        {
+            System.import('app')
+                .catch(function (err) {
+                    console.error(err);
+                });
+        }
+</script>
+    }
