@@ -32,6 +32,8 @@
                 var promise = null;
                 if (id) {
                     promise = dataService.updateSchool(data, id);
+                    var url = '/Home/EditSchool';
+                    updateSchoolList(url, $('#AddOrUpdateSchool'), true);
                 }
                 else {
                     promise = dataService.addSchool(data);

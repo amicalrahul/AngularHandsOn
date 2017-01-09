@@ -32,21 +32,28 @@
     }
 </form>
 <script type="text/javascript">
-    $('#updateSchool').click(function (e) {
-        e.preventDefault();
-        if (!$('form').valid()) {
-            return;
-        }
-        var schoolId = $('#SchoolId')[0].value;
-        addOrUpdateSchool(getSchoolData(), schoolId);
-    });
+    $(document).ready(function () {
+        $('#updateSchool').click(function (e) {
+            e.preventDefault();
+            if (!$('form').valid()) {
+                return;
+            }
+            var schoolId = $('#SchoolId')[0].value;
+            addOrUpdateSchool(getSchoolData(), schoolId);
+        });
 
+        $('#cancelUpdate').click(function (e) {
+            e.preventDefault();
+            var url = '/Home/EditSchool';
+            updateSchoolList(url, $('#AddOrUpdateSchool'), true);
+        });
 
-    $('#addSchool').click(function (e) {
-        e.preventDefault();
-        if (!$('form').valid()) {
-            return;
-        }
-        addOrUpdateSchool(getSchoolData());
-    });
+        $('#addSchool').click(function (e) {
+            e.preventDefault();
+            if (!$('form').valid()) {
+                return;
+            }
+            addOrUpdateSchool(getSchoolData());
+        });
+    })
 </script>
