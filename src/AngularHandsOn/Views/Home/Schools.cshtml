@@ -43,6 +43,8 @@
                 .done(function (result) {
                     var url = '@Url.Action("SchoolsList", "Home")';
                     updateSchoolList(url, $('#schoolsList'), true)
+
+                    toastr.success("Save Successful");
                 })
                 .fail(function (jqXHR, textStatus, error) {
                     console.log(textStatus);
