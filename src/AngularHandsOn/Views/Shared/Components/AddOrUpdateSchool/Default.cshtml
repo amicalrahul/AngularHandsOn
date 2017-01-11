@@ -38,7 +38,7 @@
             if (!$('form').valid()) {
                 return;
             }
-            var schoolId = $('#SchoolId')[0].value;
+            var schoolId = $('#SchoolId').val();
             addOrUpdateSchool(getSchoolData(), schoolId);
         });
 

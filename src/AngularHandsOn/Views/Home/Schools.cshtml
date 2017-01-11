@@ -27,7 +27,7 @@
     <script type="text/javascript" src="~/js/dataService.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () {            
             addOrUpdateSchool = function (data, id) {
                 var promise = null;
                 if (id) {
@@ -62,25 +62,25 @@
                 })
             }
             clearSchoolData = function () {
-                $('#Name')[0].value = "";
-                $('#Principal')[0].value = "";
-                $('#SchoolId')[0].value = "";
-                $('#Date')[0].value = "";
+                $('#Name').val("");
+                $('#Principal').val("");
+                $('#SchoolId').val("");
+                $('#Date').val("");
             }
             getSchoolData = function () {
-                var schoolId = $('#SchoolId')[0].value;
-                var date = $('#Date')[0].value;
+                var schoolId = $('#SchoolId').val();
+                var date = $('#Date').val();
                 if (!date) {
                     date = '1/1/2001';
                 }
-                if (!schoolId) {
+                if (!schoolId || schoolId.length === 0) {
                     schoolId = null;
                 }
                 var data = {
                     id: schoolId,
                     date: date,
-                    name: $('#Name')[0].value,
-                    principal: $('#Principal')[0].value,
+                    name: $('#Name').val(),
+                    principal: $('#Principal').val(),
                 };
                 return data;
             };
