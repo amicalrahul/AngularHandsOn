@@ -30,6 +30,7 @@
                         <th>Available</th>
                         <th>Price</th>
                         <th>5 Star Rating</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,7 @@
                                      (ratingClicked)='onRatingClicked($event)'>
                             </ai-star>
                         </td>
+                        <td><a [routerLink]="['/productedit']" class="btn btn-primary" >Edit</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -26,5 +26,6 @@
             </table>
             <div *ngIf="classroom == null || ((classroom.activity | filteredActivities:month).length == 0)">No activities</div>
         </div>
+        <div><a [routerLink]="['/activities']">Back to Activities</a> </div>
     </div>
 </div>

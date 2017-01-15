@@ -1,0 +1,29 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size:large">
+        {{title}}
+    </div>
+
+    <div class="panel-body">
+        <div class="wizard">
+            <a [routerLink]="['/basicinfo']">
+                Basic Information
+            </a>
+            <a [routerLink]="['/pricedetail']">
+                Price Details
+            </a>
+            <a [routerLink]="['/searchtags']">
+                Search Tags
+            </a>
+        </div>
+
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="panel-footer">
+        <a class="btn btn-default" [routerLink]="['/products']"
+           style="width:80px">
+            <I class="glyphicon glyphicon-chevron-left"></I>
+            Back
+        </a>
+    </div>
+</div>
