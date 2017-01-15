@@ -2,16 +2,15 @@
     <div class="panel-heading" style="font-size:large">
         {{title}}
     </div>
-
     <div class="panel-body">
         <div class="wizard">
-            <a [routerLink]="['/basicinfo']">
+            <a (click)="navigateToInfo()">
                 Basic Information
             </a>
-            <a [routerLink]="['/pricedetail']">
+            <a  (click)="navigateToPrice()">
                 Price Details
             </a>
-            <a [routerLink]="['/searchtags']">
+            <a  (click)="navigateToTags()">
                 Search Tags
             </a>
         </div>

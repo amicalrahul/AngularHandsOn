@@ -52,7 +52,7 @@
                                      (ratingClicked)='onRatingClicked($event)'>
                             </ai-star>
                         </td>
-                        <td><a [routerLink]="['/productedit']" class="btn btn-primary" >Edit</a></td>
+                        <td><a [routerLink]="['/productedit',product.productId,'info']" class="btn btn-primary" >Edit</a></td>
                     </tr>
                 </tbody>
             </table>

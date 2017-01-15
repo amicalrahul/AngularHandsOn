@@ -20,7 +20,7 @@ const editRoutes: Routes = [
                 component: ProductPriceDetailComponent
             },
             {
-                path: ':id/searchtag',
+                path: ':id/tags',
                 component: ProductSearchTagsComponent
             },
             {
