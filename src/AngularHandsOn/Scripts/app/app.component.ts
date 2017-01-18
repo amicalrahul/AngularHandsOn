@@ -30,6 +30,7 @@ import { AllSchoolsResolve } from './schoolapp/allschools.resolve';
         <li><a [routerLink]="['/allclassrooms']">Classrooms</a></li>
         <li><a [routerLink]="['/activities']">Activities</a></li>
         <li><a [routerLink]="[{outlets: { popup: ['compose']}}]">Contact</a></li>
+        <li><a [routerLink]="['/signup']">Sign Up</a></li>
         </ul>
     </div>
         </div>

@@ -12,10 +12,11 @@ import { WelcomeComponent } from './home/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './not-found.component';
 import { ComposeMessageComponent } from './compose-message.component';
+import { CustomerComponent } from './customersignup/customer.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, ProductModule, SchoolAppModule, AppRoutingModule],
-    declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent, ComposeMessageComponent],
+    declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent, ComposeMessageComponent, CustomerComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
