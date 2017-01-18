@@ -48,9 +48,9 @@ export class AllActivitiesComponent implements OnInit {
                 );
 
                 this.activitiesForm = this._formBuilder.group({
-                        activityName: this._formBuilder.control(null, Validators.required),
-                        classroom: this._formBuilder.control('default', [Validators.required]),
-                        date: this._formBuilder.control(null, Validators.required)
+                        activityName: [null, Validators.required],
+                        classroom: ['default', Validators.required],
+                        date: [null, Validators.required]
                 });
                 this.isclassroominvalid = true;
     }
