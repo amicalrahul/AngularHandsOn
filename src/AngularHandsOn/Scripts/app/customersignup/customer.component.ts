@@ -29,6 +29,11 @@ function ratingRange(minValue: number, maxValue: number): ValidatorFn {
 export class CustomerComponent implements OnInit {
     customer: Customer = new Customer();
     customerForm: FormGroup;
+    emailMessage: string;
+    private validationMessages = {
+        "required": "Email is required.",
+        "pattern": "Email is not valid"
+    };
 
     constructor(private fb: FormBuilder) {
     }
@@ -46,8 +51,23 @@ export class CustomerComponent implements OnInit {
             rating: ['', ratingRange(1, 5)],
             sendCatalog: true
         });
-    }
 
+        this.customerForm.get('notification').valueChanges
+            .subscribe(value => this.setNotification(value));
+
+        let emailControl = this.customerForm.get('emailGroup.email');
+        emailControl.valueChanges
+            .subscribe(value => this.setEmailValidationMessage(emailControl));
+    }
+    setEmailValidationMessage(c: AbstractControl): void {
+        this.emailMessage = '';
+
+        if ((c.dirty || c.touched) && c.errors) {
+            this.emailMessage = "Email is required.";
+            //this.emailMessage = Object.keys(c.errors).map(key =>
+            //    this.validationMessages[key]).join(' ');
+        }
+    }
     ngOnInit() {
         this.buildForm();
     }
