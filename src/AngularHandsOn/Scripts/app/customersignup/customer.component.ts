@@ -31,8 +31,8 @@ export class CustomerComponent implements OnInit {
     customerForm: FormGroup;
     emailMessage: string;
     private validationMessages = {
-        "required": "Email is required.",
-        "pattern": "Email is not valid"
+        required: "Email is required.",
+        pattern: "Email is not valid"
     };
 
     constructor(private fb: FormBuilder) {
@@ -61,11 +61,9 @@ export class CustomerComponent implements OnInit {
     }
     setEmailValidationMessage(c: AbstractControl): void {
         this.emailMessage = '';
-
         if ((c.dirty || c.touched) && c.errors) {
-            this.emailMessage = "Email is required.";
-            //this.emailMessage = Object.keys(c.errors).map(key =>
-            //    this.validationMessages[key]).join(' ');
+            this.emailMessage = Object.keys(c.errors).map(key =>
+                (<any>this.validationMessages)[key]).join(' ');
         }
     }
     ngOnInit() {
