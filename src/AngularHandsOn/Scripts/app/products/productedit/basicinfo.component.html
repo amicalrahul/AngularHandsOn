@@ -36,6 +36,23 @@
         </div>
 
         <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <button (click)="addTag()" 
+                        class="btn btn-default">Add Tags</button>
+            </div>
+        </div>
+        <div formArrayName="tags" *ngFor="let tag of tags.controls;">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"
+                       >Tag</label>
+                <div class="col-sm-8">
+                    <input class="form-control" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-2 control-label"
                    for="description">Description</label>
             <div class="col-sm-10">
