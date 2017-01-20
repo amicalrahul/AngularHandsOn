@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 import { Customer } from './customer';
 import 'rxjs/add/operator/debounceTime';
 
@@ -17,8 +17,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     confirmEmailMessage: string;
     validationMessages: { [key: string]: { [key: string]: string } }
     displayMessage: { [key: string]: string };
-
-    //private 
 
     constructor(private fb: FormBuilder) {
         this.validationMessages = {
@@ -65,8 +63,25 @@ export class CustomerComponent implements OnInit, AfterViewInit {
             phone: [''],
             notification: ['email'],
             rating: ['', ValidatorService.ratingRange(1, 5)],
-            sendCatalog: true
+            sendCatalog: true,
+            addresses: this.fb.array([this.buildAddress()])
         });
+    }
+    buildAddress(): FormGroup {
+        return this.fb.group({
+            addressType:'home',
+            street1: '',
+            street2: '',
+            city: '',
+            state:'',
+            zip: ''
+        });
+    }
+    get addresses():FormArray {
+        return <FormArray>this.customerForm.get('addresses');
+    }
+    addAddress() {
+        this.addresses.push(this.buildAddress());
     }
     ngAfterViewInit(): void {
         this.subscribeControlToEvents();
