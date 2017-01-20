@@ -48,6 +48,7 @@
 /// <reference path="app/schoolapp/services/data.service.spec.js" />
 /// <reference path="app/shared/shared.module.js" />
 /// <reference path="app/shared/star.component.js" />
+/// <reference path="app/shared/validator.service.js" />
 /// <reference path="js/bookapp/app.js" />
 /// <reference path="js/bookapp/books/AddBookController.js" />
 /// <reference path="js/bookapp/books/BooksController.js" />
