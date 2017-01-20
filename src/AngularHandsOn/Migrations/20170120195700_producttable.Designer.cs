@@ -8,9 +8,10 @@ using AngularHandsOn.Entities;
 namespace AngularHandsOn.Migrations
 {
     [DbContext(typeof(AngularDbContext))]
-    partial class AngularDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170120195700_producttable")]
+    partial class producttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -90,7 +91,7 @@ namespace AngularHandsOn.Migrations
 
                     b.Property<string>("ReleaseDate");
 
-                    b.Property<double?>("StarRating");
+                    b.Property<int?>("StarRating");
 
                     b.HasKey("ProductId");
 

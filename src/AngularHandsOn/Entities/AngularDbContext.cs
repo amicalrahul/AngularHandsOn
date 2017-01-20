@@ -11,12 +11,13 @@ namespace AngularHandsOn.Entities
     {
         public AngularDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
         public DbSet<Books> Books { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 
 
