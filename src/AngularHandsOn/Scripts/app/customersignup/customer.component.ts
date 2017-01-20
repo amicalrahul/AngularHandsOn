@@ -36,14 +36,17 @@ export class CustomerComponent implements OnInit, AfterViewInit {
             },
             firstName: {
                 required: "First Name is required.",
-                minLength: "First Name cannot be less than 3 characters"
+                minlength: "First Name cannot be less than 3 characters"
             },
             lastName: {
                 required: "Last Name is required.",
-                maxLength: "Last Name cannot exceed 50 characters"
+                maxlength: "Last Name cannot exceed 50 characters"
             },
             phone: {
                 required: "Phone is required."
+            },
+            rating: {
+                range: "Rating range is from 1 to 5"
             }
         };
     }
@@ -71,50 +74,10 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     subscribeControlToEvents() {
         this.customerForm.valueChanges.debounceTime(800)
             .subscribe(a => {
-                this.displayMessage = this.setEmailValidationMessage(this.customerForm);
+                this.displayMessage = ValidatorService.processValidations(this.customerForm, this.validationMessages);
             });
     }
 
-    setEmailValidationMessage(formGroup: FormGroup): { [key: string]: string } {
-        let messages: { [key: string]: string } = {};
-        //  1. FormGroup.controls => property is of type {key: AbstractControl}
-        //      so controlKey refers to the string i.e the value of control name
-        //  2. hasOwnProperty is the property of an Object not the controls array
-        //      and hasOwnProperty checks if the oject array contails the key or not
-        for (let controlKey in formGroup.controls) {
-            if (formGroup.controls.hasOwnProperty(controlKey)) {
-                let control = formGroup.controls[controlKey];
-                if (control instanceof FormGroup) {
-                    let childMessages = this.setEmailValidationMessage(control);
-                    //Object.assign => copies all childMessages to messages string
-                    Object.assign(messages, childMessages);
-                    if (this.validationMessages[controlKey]) {
-                        messages[controlKey] = '';
-                        if ((control.dirty || control.touched) && control.errors) {
-                            Object.keys(control.errors).map(key => {
-                                if (this.validationMessages[controlKey][key]) {
-                                    messages[controlKey] += this.validationMessages[controlKey][key] + ' ';
-                                }
-                            });
-                        }
-                    }
-                }
-                else {
-                    if (this.validationMessages[controlKey]) {
-                        messages[controlKey] = '';
-                        if ((control.dirty || control.touched) && control.errors) {
-                            Object.keys(control.errors).map(key => {
-                                if (this.validationMessages[controlKey][key]) {
-                                    messages[controlKey] += this.validationMessages[controlKey][key] + ' ';
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        }
-        return messages;
-    }
     setNotification(notifyVia: string) {
         const phoneControl = this.customerForm.get('phone');
         if (notifyVia === 'text') {
