@@ -1,18 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngularHandsOn.Entities
+namespace AngularHandsOn.Model
 {
-    public class Product
+    public class ProductModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [JsonProperty(PropertyName = "productId")]
         public string ProductId { get; set; }
 
@@ -38,6 +34,6 @@ namespace AngularHandsOn.Entities
         public string ImageUrl { get; set; }
 
         [JsonProperty(PropertyName = "tags")]
-        public string Tags { get; set; }
+        public string[] Tags { get; set; }
     }
 }

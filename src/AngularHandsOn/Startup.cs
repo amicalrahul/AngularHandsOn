@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using AngularHandsOn.Middlewares;
 using AngularHandsOn.Filters;
+using System.Text;
 
 namespace AngularHandsOn
 {
@@ -134,6 +135,7 @@ namespace AngularHandsOn
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
+            services.AddScoped<IProductRepository<string>, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -164,6 +166,14 @@ namespace AngularHandsOn
                     cfg.CreateMap<SchoolModel, School>().ReverseMap();
                     cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
                     cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
+                    cfg.CreateMap<ProductModel, Product>()
+                        .ForMember(dest => dest.Tags,
+                            opt => opt.MapFrom
+                            (src => ConvertArrayToString(src.Tags)))
+                    .ReverseMap()
+                        .ForMember(dest => dest.Tags,
+                            opt => opt.MapFrom
+                            (src => ConvertStringToArray(src.Tags)));
                 }); 
             #endregion
 
@@ -187,6 +197,20 @@ namespace AngularHandsOn
                }); 
             #endregion
             seeder.EnsureSeedData().Wait();
+        }
+        private string ConvertArrayToString(string[] strArr)
+        {
+            if (strArr == null)
+                return string.Empty;
+            return String.Join(",", strArr);
+        }
+        private string[] ConvertStringToArray(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+            return str.Split(',');
         }
     }
 }

@@ -1,9 +1,39 @@
 ﻿import { Injectable } from '@angular/core';
-import { IProduct } from '../../app/products/product';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 
+import { IProduct } from '../../app/products/product';
 @Injectable()
 export class ProductService {
 
+    constructor(private _http: Http) { }
+
+
+    productsUrl: string = "/api/home1/Products/";
+
+    getAllProducts(): Observable<IProduct[]> {
+        return this._http.get(this.productsUrl)
+            .map(this.mapProductResponse)
+            .do(data => console.log('GetProducts: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+    private mapProductResponse(response: Response) {
+        return <IProduct[]>response.json();
+    }
+    private handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
+
+    getProduct(id: number): Observable<IProduct> {
+        return this._http.get(this.productsUrl + id)
+            .map((response: Response) => (<IProduct>response.json()))
+            .do(data => console.log('GetProductByID: ' + JSON.stringify(data)))
+            .catch(this.handleError);;
+    }
     getProducts(): IProduct[] {
         return [
             {
@@ -14,7 +44,8 @@ export class ProductService {
                 "description": "15 gallon capacity rolling garden cart",
                 "price": 32.99,
                 "starRating": 4.2,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
+                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png",
+                "tags":[]
             },
             {
                 "productId": 5,
@@ -24,7 +55,8 @@ export class ProductService {
                 "description": "Curved claw steel hammer",
                 "price": 8.9,
                 "starRating": 4.8,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
+                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png",
+                "tags": []
             }
         ];
     }
