@@ -206,7 +206,7 @@ namespace AngularHandsOn
         }
         private string[] ConvertStringToArray(string str)
         {
-            if (!string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(str))
             {
                 return null;
             }

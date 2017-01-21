@@ -15,6 +15,7 @@ import { IProduct } from '../product';
 export class ProductBasicInfoComponent implements OnInit {
     productInfoForm: FormGroup;
     private sub: Subscription;
+    product: IProduct;
     validationMessages : {
         [key: string]: {
             [key: string]: string
@@ -78,6 +79,7 @@ export class ProductBasicInfoComponent implements OnInit {
             });
     }
     onProductRetrived(data: IProduct) {
+        this.product = data;
         this.productInfoForm.patchValue({
             productName: data.productName,
             productCode: data.productCode,
@@ -86,5 +88,22 @@ export class ProductBasicInfoComponent implements OnInit {
         });
         this.productInfoForm.setControl('tags', this.fb.array(data.tags));
     }
+    delete() {
+        this.productService.deleteProduct(this.product.productId)
+            .subscribe(data => this.onSaveCompleted());
+    }
+    submit() {
+        if (this.productInfoForm.dirty && this.productInfoForm.valid) {
+            
+            Object.assign(this.product, this.productInfoForm.value);
+            this.productService.updateProduct(this.product)
+                .subscribe(data => this.onSaveCompleted());
+        }
 
+    }
+    onSaveCompleted() {
+        // Reset the form to clear the flags
+        this.productInfoForm.reset();
+        this.router.navigate(['/products']);
+    }
 }

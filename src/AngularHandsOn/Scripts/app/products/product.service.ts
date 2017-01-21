@@ -34,6 +34,32 @@ export class ProductService {
             .do(data => console.log('GetProductByID: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
+    addProduct(body: Object): Observable<IProduct[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post(this.productsUrl, JSON.stringify(body), options)
+            .map(this.mapProductResponse)
+            .catch(this.handleError);
+    }
+    updateProduct(body: IProduct): Observable<IProduct[]> {
+        //let bodyString = JSON.stringify(body); // Stringify payload
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.put(`${this.productsUrl}${body['productId']}`, JSON.stringify(body), options)
+            .map(this.mapProductResponse)
+            .catch(this.handleError);
+    }
+    deleteProduct(id: number): Observable<IProduct[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.delete(`${this.productsUrl}${id}`, options)
+            .map(this.mapProductResponse)
+            .catch(this.handleError);
+    }
     getProducts(): IProduct[] {
         return [
             {
