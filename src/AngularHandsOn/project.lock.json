@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
-      "AutoMapper/5.1.1": {
+      "AutoMapper/5.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
@@ -18,6 +18,21 @@
         },
         "runtime": {
           "lib/netstandard1.3/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "5.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.Extensions.DependencyModel": "1.0.0",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -4577,21 +4592,31 @@
     }
   },
   "libraries": {
-    "AutoMapper/5.1.1": {
-      "sha512": "Q3uFSWccBUE1Q9BW88C6RO2Y/iFkPztTKK1ciyx1jhWPdOi5+pvzZ2EwcJKPiV0cr2EXZUWqQOsSpA5jVjfQBg==",
+    "AutoMapper/5.0.2": {
+      "sha512": "eHfVW+cn4X7c8iMUKqqR81PN7hOiT+WTSx5oW6cs+W8vlGrwkZp/SYLvalcUTxhbf5tF8VaW9s2gzWJTYj3DKA==",
       "type": "package",
-      "path": "AutoMapper/5.1.1",
+      "path": "AutoMapper/5.0.2",
       "files": [
-        "AutoMapper.5.1.1.nupkg.sha512",
+        "AutoMapper.5.0.2.nupkg.sha512",
         "AutoMapper.nuspec",
         "lib/net45/AutoMapper.dll",
         "lib/net45/AutoMapper.xml",
         "lib/netstandard1.1/AutoMapper.dll",
         "lib/netstandard1.1/AutoMapper.xml",
         "lib/netstandard1.3/AutoMapper.dll",
-        "lib/netstandard1.3/AutoMapper.xml",
-        "lib/portable-net45+win8+wpa81/AutoMapper.dll",
-        "lib/portable-net45+win8+wpa81/AutoMapper.xml"
+        "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+      "sha512": "bdGt4Xl1dhPFUrD5HAEm+UNlg+MolWsf4F/fxemcDpwss5VUGZC/gkibUTzPAdgQxTGVXX9zy3TdZDOTTK6IbA==",
+      "type": "package",
+      "path": "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2",
+      "files": [
+        "AutoMapper.Extensions.Microsoft.DependencyInjection.1.1.2.nupkg.sha512",
+        "AutoMapper.Extensions.Microsoft.DependencyInjection.nuspec",
+        "lib/net451/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "lib/netstandard1.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
     "Libuv/1.9.0": {
@@ -11538,7 +11563,7 @@
   "projectFileDependencyGroups": {
     "": [
       "AngularHandsOnTokenProvider >= 1.0.0-*",
-      "AutoMapper >= 5.1.1",
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 1.1.2",
       "Microsoft.AspNetCore.Authentication.Facebook >= 1.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",

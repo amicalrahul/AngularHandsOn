@@ -61,10 +61,11 @@
              *ngFor="let tag of tags.controls; let i=index">
             <label class="col-sm-2 control-label"
                    [attr.for]="i">Tag</label>
-            <div class="col-sm-8">
+            <div class="col-sm-5">
                 <input class="form-control" [id]="i" placeholder="Tag"
-                       [formControlName]="i" />
+                       [formControlName]="i" />                
             </div>
+            <span class="col-sm-2 glyphicon glyphicon-remove" style="cursor:pointer"></span>
         </div>
 
         <div class="form-group">

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "6898949988b49683eab720409c5cca92932c14b2"
+    "signature": "dc0b4d3b86bc86cd27406cd36d2b67a72e9f8bf0"
   },
   "compilationOptions": {
     "defines": [
@@ -17,7 +17,7 @@
       "AngularHandsOn/1.0.1": {
         "dependencies": {
           "AngularHandsOnTokenProvider": "1.0.0",
-          "AutoMapper": "5.1.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "1.1.2",
           "Microsoft.AspNetCore.Authentication.Facebook": "1.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics": "1.0.0",
@@ -52,7 +52,7 @@
           "AngularHandsOn.dll": {}
         }
       },
-      "AutoMapper/5.1.1": {
+      "AutoMapper/5.0.2": {
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
           "NETStandard.Library": "1.6.1",
@@ -63,6 +63,17 @@
         },
         "compile": {
           "lib/netstandard1.3/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+        "dependencies": {
+          "AutoMapper": "5.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+          "Microsoft.Extensions.DependencyModel": "1.0.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -3084,7 +3095,7 @@
       "AngularHandsOn/1.0.1": {
         "dependencies": {
           "AngularHandsOnTokenProvider": "1.0.0",
-          "AutoMapper": "5.1.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "1.1.2",
           "Microsoft.AspNetCore.Authentication.Facebook": "1.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics": "1.0.0",
@@ -3119,7 +3130,7 @@
           "AngularHandsOn.dll": {}
         }
       },
-      "AutoMapper/5.1.1": {
+      "AutoMapper/5.0.2": {
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
           "NETStandard.Library": "1.6.1",
@@ -3130,6 +3141,17 @@
         },
         "runtime": {
           "lib/netstandard1.3/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+        "dependencies": {
+          "AutoMapper": "5.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+          "Microsoft.Extensions.DependencyModel": "1.0.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -6058,10 +6080,15 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/5.1.1": {
+    "AutoMapper/5.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Q3uFSWccBUE1Q9BW88C6RO2Y/iFkPztTKK1ciyx1jhWPdOi5+pvzZ2EwcJKPiV0cr2EXZUWqQOsSpA5jVjfQBg=="
+      "sha512": "sha512-eHfVW+cn4X7c8iMUKqqR81PN7hOiT+WTSx5oW6cs+W8vlGrwkZp/SYLvalcUTxhbf5tF8VaW9s2gzWJTYj3DKA=="
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bdGt4Xl1dhPFUrD5HAEm+UNlg+MolWsf4F/fxemcDpwss5VUGZC/gkibUTzPAdgQxTGVXX9zy3TdZDOTTK6IbA=="
     },
     "Libuv/1.9.0": {
       "type": "package",

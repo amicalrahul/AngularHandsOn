@@ -128,6 +128,22 @@ namespace AngularHandsOn
                 AddFeatureFolders();
             #endregion
 
+            services.AddCors((cfg) =>
+           {
+               cfg.AddPolicy("rahul", bldr =>
+               {
+                   bldr.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .WithOrigins("http://rahul.com");
+               });
+               cfg.AddPolicy("AnyGet", bldr =>
+               {
+                   bldr.AllowAnyHeader()
+                   .WithMethods("GET")
+                   .AllowAnyOrigin();
+               });
+           });
+            services.AddAutoMapper();
             services.AddScoped<UnitOfWorkFilter>();
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
@@ -168,8 +184,10 @@ namespace AngularHandsOn
                     cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
                     cfg.CreateMap<ProductModel, Product>()
                         .ForMember(dest => dest.Tags,
-                            opt => opt.MapFrom
-                            (src => ConvertArrayToString(src.Tags)))
+                            opt => opt.ResolveUsing((src, dest, unused, cxt) =>
+                            {
+                                return ConvertArrayToString(src.Tags);
+                            }))
                     .ReverseMap()
                         .ForMember(dest => dest.Tags,
                             opt => opt.MapFrom
