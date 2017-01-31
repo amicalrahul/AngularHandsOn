@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using AngularHandsOn.Middlewares;
 using AngularHandsOn.Filters;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AngularHandsOn
 {
@@ -46,6 +47,7 @@ namespace AngularHandsOn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
             #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
@@ -201,6 +203,22 @@ namespace AngularHandsOn
                 AppId = Configuration["Authentication:Facebook:AppId"],
                 AppSecret = Configuration["Authentication:Facebook:AppSecret"]
             });
+
+            #region JWT Middleware
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Audience"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                    ValidateLifetime = true
+                }
+            }); 
+            #endregion
 
             //Middleware added for example only
             app.UseMiddleware<MyMiddleware>();
