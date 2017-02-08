@@ -25,10 +25,15 @@ import { AllSchoolsResolve } from './schoolapp/allschools.resolve';
         <ul class='nav navbar-nav'>
         <li><a [routerLink]="['/welcome']">Home</a></li>
         <li><a [routerLink]="['/products']">Product List</a></li>
-        <li><a [routerLink]="['/schoolapphome']">School App</a></li>
-        <li><a [routerLink]="['/allschools']">Schools</a></li>
-        <li><a [routerLink]="['/allclassrooms']">Classrooms</a></li>
-        <li><a [routerLink]="['/activities']">Activities</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">School App <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a [routerLink]="['/schoolapphome']">School Home</a></li>
+                <li><a [routerLink]="['/allschools']">Schools</a></li>
+                <li><a [routerLink]="['/allclassrooms']">Classrooms</a></li>
+                <li><a [routerLink]="['/activities']">Activities</a></li>
+            </ul>
+        </li>
         <li><a [routerLink]="[{outlets: { popup: ['compose']}}]">Contact</a></li>
         <li><a [routerLink]="['/signup']">Sign Up</a></li>
         </ul>
