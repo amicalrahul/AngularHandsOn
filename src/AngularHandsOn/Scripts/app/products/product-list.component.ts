@@ -23,7 +23,8 @@ export class ProductListComponent implements OnInit {
     };
     ngOnInit(): void {
 
-       this.products = this._productService.getProducts();
+        this._productService.getAllProducts()
+            .subscribe(data => this.products = data);
     }
 
     onRatingClicked(message: string): void {

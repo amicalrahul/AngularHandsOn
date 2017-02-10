@@ -10,6 +10,7 @@ import { ClassroomDetailComponent } from './classroomDetail.component';
 import { ClassroomComponent } from './classroom.component';
 import { ClassRoomGuard } from './services/classroom-guard.service';
 import { AllSchoolsResolve } from './allschools.resolve';
+import { ClassroomDetailResolve } from './classroomDetail.resolve';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'schoolapphome', component: HomeComponent },
@@ -22,8 +23,10 @@ import { AllSchoolsResolve } from './allschools.resolve';
         { path: 'allclassrooms', component: AllClassroomComponent },
         { path: 'activities', component: AllActivitiesComponent },
         {
-            path: 'classroomdetail/:id',
-            component: ClassroomDetailComponent
+            path: 'classroomdetail',
+            component: ClassroomDetailComponent, resolve: {
+                classroomdetail: ClassroomDetailResolve
+            }
         },
     ])],
     exports: [RouterModule]

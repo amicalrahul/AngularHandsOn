@@ -36,6 +36,15 @@ namespace AngularHandsOn.Controllers.Web
 
             return View();
         }
+        public IActionResult SchoolsList()
+        {
+            return ViewComponent("SchoolsList");
+        }
+
+        public IActionResult EditSchool(int id)
+        {
+            return ViewComponent("AddOrUpdateSchool", new { SchoolId = id});
+        }
 
         //[Authorize]
         public IActionResult Schools([FromServices]ISchoolRepository<int> schoolRepository)

@@ -26,8 +26,9 @@ form legend {
     padding: 10px 40px 10px;
     position: relative;
     text-decoration: none;
+    cursor: pointer;
 }
-.wizard .active {
+.wizard a .active {
     background: #007ACC;
     color: #fff;
 }

@@ -34,7 +34,13 @@ export class DataService {
     getClassroom(id: number): Observable<IClassroom> {
         return this._http.get(this.classroomssUrl + id)
             .map((response: Response) => (<IClassroom>response.json()))
-            .do(data => console.log('GetClassroom: ' + JSON.stringify(data)))
+            .do(data => console.log('GetClassroomByID: ' + JSON.stringify(data)))
+            .catch(this.handleError);;
+    }
+    getClassroombyname(name: string): Observable<IClassroom[]> {
+        return this._http.get(this.classroomssUrl + '?name=' + name)
+            .map((response: Response) => (<IClassroom[]>response.json()))
+            .do(data => console.log('GetClassroomByName: ' + JSON.stringify(data)))
             .catch(this.handleError);;
     }
 
@@ -104,7 +110,12 @@ export class DataService {
             .map(this.mapSchoolResponse)
             .catch(this.handleError);
     }
-
+    getMonthName(month: number) {
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        return monthNames[month - 1];
+    }
     private getItemsById: any = function (data: any[], id: any) {
 
         var matchingItems = data.filter(function (item) {

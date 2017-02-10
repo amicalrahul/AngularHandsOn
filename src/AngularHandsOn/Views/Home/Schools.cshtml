@@ -1,36 +1,106 @@
-﻿@model IEnumerable<AngularHandsOn.Model.SchoolModel>
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-
-    <div class="col-md-6">
-        <h1>Your Schools</h1>
-        <p>This will be a fun website soon!</p>
-
-        <form>
-            <div class="form-group">
-                <label>School Name</label>
-                <input class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Principal</label>
-                <input class="form-control" />
-            </div>
-            <div><input type="submit" value="Add" class="btn btn-success" /></div>
-        </form>
+    <div class="col-md-5">
+        <div id="AddOrUpdateSchool">
+            @await Component.InvokeAsync("AddOrUpdateSchool")
+        </div>
     </div>
-
-    <div class="col-md-6">
-        <h2>The Schools</h2>
-
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li>@item.Name : @item.Principal</li>
-            }
-        </ul>
-
+    <div class="col-md-7">
+        <div id="schoolsList">
+            @await Component.InvokeAsync("SchoolsList")
+        </div>
     </div>
-
 </div>
+
+@functions
+{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+@section scripts
+    {
+    <script type="text/javascript" src="~/js/dataService.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {            
+            addOrUpdateSchool = function (data, id) {
+                var promise = null;
+                if (id) {
+                    promise = dataService.updateSchool(data, id);
+                    var url = '/Home/EditSchool';
+                    updateSchoolList(url, $('#AddOrUpdateSchool'), true);
+                }
+                else {
+                    promise = dataService.addSchool(data);
+                }
+
+                promise
+                .done(function (result) {
+                    var url = '@Url.Action("SchoolsList", "Home")';
+                    updateSchoolList(url, $('#schoolsList'), true)
+
+                    toastr.success("Save Successful");
+                })
+                .fail(function (jqXHR, textStatus, error) {
+                    console.log(textStatus);
+                });
+            }
+            updateSchoolList = function (url, selector, clearData) {
+                $.get(url)
+                .done(function (result) {
+                    selector.html(result);
+                    if (clearData)
+                        clearSchoolData();
+                })
+                .fail(function (jqXHR, textStatus, error) {
+                    console.log(textStatus);
+                })
+            }
+            clearSchoolData = function () {
+                $('#Name').val("");
+                $('#Principal').val("");
+                $('#SchoolId').val("");
+                $('#Date').val("");
+            }
+            getSchoolData = function () {
+                var schoolId = $('#SchoolId').val();
+                var date = $('#Date').val();
+                if (!date) {
+                    date = '1/1/2001';
+                }
+                if (!schoolId || schoolId.length === 0) {
+                    schoolId = null;
+                }
+                var data = {
+                    id: schoolId,
+                    date: date,
+                    name: $('#Name').val(),
+                    principal: $('#Principal').val(),
+                };
+                return data;
+            };
+        })
+        @*Crap Code
+    var formdata = new FormData($('form').get(0));
+    //$.post('/home/AddSchool', { id: id }, function (data) {
+    //    $('#addOrUpdateSchool').html(data);
+    //})
+    var formdata1 = new FormData();
+    formdata1.append('name', 'sdsds');
+            @*'@Url.Content("~/Home/AddSchool")';
+            @*$.ajax(PostToUrl, {
+                type: "post",
+                data: formdata,
+                dataType: "json",
+                headers: {
+                    "RequestVerificationToken": '@GetAntiXsrfRequestToken()'
+                }
+            })*@
+
+    </script>
+}

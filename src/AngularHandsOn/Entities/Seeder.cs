@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using AngularHandsOn.Entities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 public class Seeder
 {
@@ -57,7 +58,7 @@ public class Seeder
 
             await _dbContext.SaveChangesAsync();
         }
-        catch (System.Exception ex)
+        catch (Exception)
         {
 
         }

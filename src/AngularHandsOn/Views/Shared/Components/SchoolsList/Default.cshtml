@@ -1,0 +1,45 @@
+﻿@model IEnumerable<AngularHandsOn.Model.SchoolModel>
+<h2>The Schools</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th >School Name</th>
+            <th >Principal</th>
+            <th ></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Principal</td>
+            <td class="col-md-2">
+                <span class="glyphicon glyphicon-edit" data-schoolid="@item.SchoolId" style="cursor:pointer" ></span>
+                <span class="glyphicon glyphicon-remove" data-schoolid="@item.SchoolId" style="cursor:pointer"></span>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.glyphicon-edit').click(function (e) {
+            var url = '@Url.Action("EditSchool", "Home")';
+            var id = $(this).attr('data-schoolid');
+            updateSchoolList(url + '/' + id, $('#AddOrUpdateSchool'), false);
+        });
+        $('.glyphicon-remove').click(function (e) {
+            var id = $(this).attr('data-schoolid');
+            dataService.deleteSchool(id)
+               .done(function (result) {
+                   var url = '@Url.Action("SchoolsList", "Home")';
+                   updateSchoolList(url, $('#schoolsList'))
+               })
+               .fail(function (jqXHR, textStatus, error) {
+                   console.log(textStatus);
+               });
+        });
+    })
+</script>

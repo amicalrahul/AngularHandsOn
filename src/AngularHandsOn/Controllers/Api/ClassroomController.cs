@@ -19,10 +19,18 @@ namespace AngularHandsOn.Controllers.Api
         }
 
         [HttpGet()]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery]string name)
         {
-            var result = _classroomRepository.Fetch();
-            var results = Mapper.Map<IEnumerable<ClassroomModel>>(result);            
+            IEnumerable<Classroom> result;
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                result = _classroomRepository.Find(name);
+            }
+            else
+            {
+                result = _classroomRepository.Fetch();
+            }
+            var results = Mapper.Map<IEnumerable<ClassroomModel>>(result);
             return new ObjectResult(results);
         }
         [HttpGet("{id}")]
@@ -33,6 +41,7 @@ namespace AngularHandsOn.Controllers.Api
             var results = Mapper.Map<ClassroomModel>(result);
             return new ObjectResult(results);
         }
+
         [HttpPost("")]
         public IActionResult Post([FromBody]ClassroomModel classroom)
         {

@@ -1,0 +1,102 @@
+﻿<form class="form-horizontal" novalidate [formGroup]="productInfoForm">
+    <fieldset>
+        <legend>Basic Product Information</legend>
+        <div class="form-group"  [ngClass]="{ 'has-error': displayMessage?.productName }">
+            <label class="col-sm-2 control-label"
+                   for="productName">Product Name</label>
+            <div class="col-sm-4">
+                <input class="form-control" formControlName="productName"
+                       placeholder="Product Name" />
+                <span class="help-block" *ngIf="displayMessage?.productName" >
+                    {{displayMessage?.productName}}
+                </span>
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': displayMessage?.productCode }">
+            <label class="col-sm-2 control-label" for="productCode">Product Code</label>
+            <div class="col-sm-4">
+                <input class="form-control"
+                       formControlName="productCode" />
+                <span class="help-block" *ngIf="displayMessage?.productCode">
+                    {{displayMessage?.productCode}}
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': displayMessage?.starRating }">
+            <label class="col-sm-2 control-label" for="starRating">Star Rating (1-5)</label>
+            <div class="col-sm-4">
+                <input class="form-control"
+                       formControlName="starRating" />
+                <span class="help-block" *ngIf="displayMessage?.starRating">
+                    {{displayMessage?.starRating}}
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"
+                   for="availabilityDate">Availability</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input class="form-control"
+                           formControlName="availabilityDate"
+                           type="text" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default"
+                                (click)="open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <button (click)="addTag()" 
+                        class="btn btn-default">Add Tags</button>
+            </div>
+        </div>
+        <div class="form-group" formArrayName="tags"
+             *ngFor="let tag of tags.controls; let i=index">
+            <label class="col-sm-2 control-label"
+                   [attr.for]="i">Tag</label>
+            <div class="col-sm-5">
+                <input class="form-control" [id]="i" placeholder="Tag"
+                       [formControlName]="i" />                
+            </div>
+            <span class="col-sm-2 glyphicon glyphicon-remove" style="cursor:pointer"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"
+                   for="description">Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control"
+                          formControlName="description"
+                          placeholder="Description"
+                          rows="3" ></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <span>
+                    <button class="btn btn-primary"
+                            style="width:80px;margin-right:10px"
+                            (click)="submit()">
+                        Save
+                    </button>
+                </span>
+                <span>
+                    <button class="btn btn-default"
+                            style="width:70px"
+                            (click)="delete()">
+                        Delete
+                    </button>
+                </span>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

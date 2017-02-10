@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using AngularHandsOn.Middlewares;
 using AngularHandsOn.Filters;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AngularHandsOn
 {
@@ -45,6 +47,7 @@ namespace AngularHandsOn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
             #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
@@ -127,6 +130,22 @@ namespace AngularHandsOn
                 AddFeatureFolders();
             #endregion
 
+            services.AddCors((cfg) =>
+           {
+               cfg.AddPolicy("rahul", bldr =>
+               {
+                   bldr.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .WithOrigins("http://rahul.com");
+               });
+               cfg.AddPolicy("AnyGet", bldr =>
+               {
+                   bldr.AllowAnyHeader()
+                   .WithMethods("GET")
+                   .AllowAnyOrigin();
+               });
+           });
+            services.AddAutoMapper();
             services.AddScoped<UnitOfWorkFilter>();
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
@@ -134,6 +153,7 @@ namespace AngularHandsOn
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
+            services.AddScoped<IProductRepository<string>, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -164,6 +184,16 @@ namespace AngularHandsOn
                     cfg.CreateMap<SchoolModel, School>().ReverseMap();
                     cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
                     cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
+                    cfg.CreateMap<ProductModel, Product>()
+                        .ForMember(dest => dest.Tags,
+                            opt => opt.ResolveUsing((src, dest, unused, cxt) =>
+                            {
+                                return ConvertArrayToString(src.Tags);
+                            }))
+                    .ReverseMap()
+                        .ForMember(dest => dest.Tags,
+                            opt => opt.MapFrom
+                            (src => ConvertStringToArray(src.Tags)));
                 }); 
             #endregion
 
@@ -173,6 +203,22 @@ namespace AngularHandsOn
                 AppId = Configuration["Authentication:Facebook:AppId"],
                 AppSecret = Configuration["Authentication:Facebook:AppSecret"]
             });
+
+            #region JWT Middleware
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Audience"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                    ValidateLifetime = true
+                }
+            }); 
+            #endregion
 
             //Middleware added for example only
             app.UseMiddleware<MyMiddleware>();
@@ -187,6 +233,20 @@ namespace AngularHandsOn
                }); 
             #endregion
             seeder.EnsureSeedData().Wait();
+        }
+        private string ConvertArrayToString(string[] strArr)
+        {
+            if (strArr == null)
+                return string.Empty;
+            return String.Join(",", strArr);
+        }
+        private string[] ConvertStringToArray(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return null;
+            }
+            return str.Split(',');
         }
     }
 }

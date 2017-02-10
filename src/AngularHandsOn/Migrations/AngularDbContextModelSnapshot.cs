@@ -74,6 +74,31 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Classrooms");
                 });
 
+            modelBuilder.Entity("AngularHandsOn.Entities.Product", b =>
+                {
+                    b.Property<string>("ProductId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<double?>("Price");
+
+                    b.Property<string>("ProductCode");
+
+                    b.Property<string>("ProductName");
+
+                    b.Property<string>("ReleaseDate");
+
+                    b.Property<double?>("StarRating");
+
+                    b.Property<string>("Tags");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("AngularHandsOn.Entities.School", b =>
                 {
                     b.Property<int>("SchoolId");
@@ -102,6 +127,10 @@ namespace AngularHandsOn.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 

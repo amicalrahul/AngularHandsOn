@@ -7,4 +7,5 @@
     price: number;
     starRating: number;
     imageUrl: string;
+    tags: string[];
 }

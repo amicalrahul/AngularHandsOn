@@ -1,0 +1,194 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Sign Up!
+    </div>
+    <div class='panel-body'>
+        <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="customerForm">
+            <fieldset>
+                <div class="form-group" [ngClass]="{ 'has-error': displayMessage?.firstName }">
+                    <label class="col-sm-2 control-label" for="firstName">First Name</label>
+                    <div>
+                        <div class="col-sm-8">
+                            <input class="form-control" formControlName="firstName"
+                                   placeholder="First Name (required)" />
+                            <span class="help-block" *ngIf="displayMessage?.firstName">
+                                {{displayMessage?.firstName}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': displayMessage?.lastName }">
+                    <label class="col-sm-2 control-label" for="lastName">Last Name</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" formControlName="lastName"
+                               placeholder="Last Name (required)" />
+                        <span class="help-block" *ngIf="displayMessage?.lastName">
+                            {{displayMessage?.lastName}}
+                        </span>
+                    </div>
+                </div>
+                <div formGroupName="emailGroup"
+                     [ngClass]="{ 'has-error': customerForm.get('emailGroup').errors }">
+                    <div class="form-group" [ngClass]="{'has-error':  displayMessage?.email}">
+                        <label class="col-sm-2 control-label" for="email">Email</label>
+                        <div class="col-sm-8">
+                            <input class="form-control"
+                                   formControlName="email" placeholder="Email" />
+                            <span class="help-block" *ngIf="displayMessage?.email">
+                                {{ displayMessage.email }}
+                            </span>
+                            <span class="help-block" *ngIf="displayMessage?.emailGroup">
+                                {{ displayMessage.emailGroup }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error':  displayMessage?.confirmEmail}">
+                        <label class="col-sm-2 control-label" for="confirmEmail">Confirm Email</label>
+                        <div class="col-sm-8">
+                            <input class="form-control"
+                                   formControlName="confirmEmail" placeholder="Confirm Email" />
+                            <span class="help-block" *ngIf="displayMessage?.confirmEmail">
+                                {{ displayMessage.confirmEmail }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{'has-error':  displayMessage?.phone}">
+                    <label for="phone" class="col-sm-2 control-label">Phone</label>
+                    <div class="col-sm-8">
+                        <input class="form-control"
+                               formControlName="phone" placeholder="Phone" />
+                        <span class="help-block" *ngIf="displayMessage?.phone">
+                            {{displayMessage?.phone}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Send Notifications</label>
+                    <div class="col-sm-8">
+                        <label class="radio-inline">
+                            <input type="radio" value="email"
+                                   formControlName="notification">Email
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="text"
+                                   formControlName="notification">Text
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" [ngClass]="{'has-error':  displayMessage?.rating}">
+                    <label class="col-sm-2 control-label" for="email">Rating</label>
+                    <div class="col-sm-8">
+                        <input class="form-control"
+                               formControlName="rating" placeholder="Rating" range />
+                        <span class="help-block" *ngIf="displayMessage?.rating">
+                            {{displayMessage?.rating}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-8 checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   formControlName="sendCatalog">
+                            Send me your catalog
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="customerForm.get('sendCatalog').value">
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary"
+                                    (click)="addAddress()">
+                                Add Another Address
+                            </button>
+                        </div>
+                    </div>
+                    <div formArrayName="addresses"
+                         *ngFor="let address of addresses?.controls; let i=index">
+                        <div [formGroupName]="i">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Address Type</label>
+                                <div class="col-sm-8">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="home"
+                                               formControlName="addressType">Home
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="work"
+                                               formControlName="addressType">Work
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="other"
+                                               formControlName="addressType">Other
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label attr.for ="{{ 'street1Id' + i }}" class="col-sm-2 control-label">
+                                    Street Address1
+                                </label>
+                                <div class="col-sm-8">
+                                    <input id="{{ 'street1Id' + i }}" class="form-control" 
+                                           formControlName="street1" 
+                                           placeholder="Street address" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="street2" class="col-sm-2 control-label">
+                                    Street Address2
+                                </label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" formControlName="street2"
+                                           placeholder="Street address (second line)" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="col-sm-2 control-label">
+                                    City, State, Zip Code
+                                </label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" formControlName="city"
+                                           placeholder="City" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="form-control" formControlName="state">
+                                        <option value="" disabled selected hidden>Select a State...</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input class="form-control" formControlName="zip"
+                                           placeholder="Zip Code" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <span>
+                            <button class="btn btn-primary" type="submit"
+                                    [disabled]="!customerForm.valid">
+                                Save
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<br>Dirty: {{ customerForm.dirty }}
+<br>Touched: {{ customerForm.touched }}
+<br>Valid: {{ customerForm.valid }}
+<br>Value: {{ customerForm.value | json }}

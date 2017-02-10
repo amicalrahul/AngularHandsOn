@@ -1,0 +1,13 @@
+﻿<h1>School App Contact Service</h1>
+<div *ngIf="sending">{{details}}</div>
+<div>
+    <div><label>Message:</label></div>
+    <div>
+        <textarea [(ngModel)]="message" rows="10" cols="30"
+                  [disabled]="sending"></textarea>
+    </div>
+</div>
+<p *ngIf="!sending">
+    <button (click)="send()">Send</button>
+    <button (click)="cancel()">Cancel</button>
+</p>

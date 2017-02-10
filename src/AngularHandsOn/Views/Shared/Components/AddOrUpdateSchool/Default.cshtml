@@ -1,0 +1,59 @@
+﻿@model AngularHandsOn.Model.SchoolModel
+<h1>Your Schools</h1>
+<p>This will be a fun website soon!</p>
+
+@*<form asp-controller="Home" asp-action="AddSchool" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#schoolsList">*@
+
+
+<form name="addschoolform" role="form">
+    <input type="hidden" asp-for="SchoolId" />
+    <input type="hidden" asp-for="Date" />
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label>School Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label>Principal</label>
+        <input asp-for="Principal" class="form-control" />
+        <span asp-validation-for="Principal"></span>
+    </div>
+    @if (Model.SchoolId != null)
+    {
+        <div>
+            <input id="updateSchool" type="submit" value="Update" class="btn btn-success" />
+            <input id="cancelUpdate" value="Cancel" class="btn btn-success" click="clicked" />
+        </div>
+    }
+    else
+    {
+        <div><input id="addSchool" type="submit" value="Add" class="btn btn-success" /></div>
+    }
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#updateSchool').click(function (e) {
+            e.preventDefault();
+            if (!$('form').valid()) {
+                return;
+            }
+            var schoolId = $('#SchoolId').val();
+            addOrUpdateSchool(getSchoolData(), schoolId);
+        });
+
+        $('#cancelUpdate').click(function (e) {
+            e.preventDefault();
+            var url = '/Home/EditSchool';
+            updateSchoolList(url, $('#AddOrUpdateSchool'), true);
+        });
+
+        $('#addSchool').click(function (e) {
+            e.preventDefault();
+            if (!$('form').valid()) {
+                return;
+            }
+            addOrUpdateSchool(getSchoolData());
+        });
+    })
+</script>

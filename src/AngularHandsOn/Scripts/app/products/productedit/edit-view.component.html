@@ -1,0 +1,28 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size:large">
+        {{title}}
+    </div>
+    <div class="panel-body">
+        <div class="wizard">
+            <a (click)="navigateToInfo()">
+                Basic Information
+            </a>
+            <a  (click)="navigateToPrice()">
+                Price Details
+            </a>
+            <a  (click)="navigateToTags()">
+                Search Tags
+            </a>
+        </div>
+
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="panel-footer">
+        <a class="btn btn-default" [routerLink]="['/products']"
+           style="width:80px">
+            <I class="glyphicon glyphicon-chevron-left"></I>
+            Back
+        </a>
+    </div>
+</div>
