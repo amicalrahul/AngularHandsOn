@@ -11,7 +11,7 @@
       "target": "project"
     },
     "Moq": "4.6.38-alpha",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.2.0-preview1-22852"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0-rc2-final"
   },
   "frameworks": {
     "netcoreapp1.0": {
