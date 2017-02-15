@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var app = angular.module('app', ['ngRoute', 'ngCookies', 'common.services']);
+    var app = angular.module('app', ['ui.router', 'ngCookies', 'common.services']);
 
     app.provider('books', ['constants', function (constants) {
 
@@ -28,23 +28,27 @@
 
     }]);
 
-    app.config(['booksProvider', 'constants', 'dataServiceProvider', '$routeProvider', '$logProvider', function (booksProvider, constants, dataServiceProvider, $routeProvider, $logProvider) {
+    app.config(['booksProvider', 'constants', 'dataServiceProvider', '$urlRouterProvider', '$stateProvider', '$logProvider',
+        function (booksProvider, constants, dataServiceProvider, $urlRouterProvider, $stateProvider, $logProvider) {
 
         booksProvider.setIncludeVersionInTitle(true);
         $logProvider.debugEnabled(false);
-
-        $routeProvider
-           .when('/', {
+        $urlRouterProvider.otherwise("/");
+            $stateProvider
+           .state('home', {
+               url: "/",
                templateUrl: '../../js/bookapp/templates/books.html',
                controller: 'BooksController',
                controllerAs: 'books'
            })
-           .when('/AddBook', {
+           .state('AddBook', {
+               url: "/book/add",
                templateUrl: '../../js/bookapp/templates/addBook.html',
                controller: 'AddBookController',
                controllerAs: 'addBook'
            })
-           .when('/EditBook/:bookID', {
+           .state('EditBook', {
+               url: "/book/edit/:bookID",
                templateUrl: '../../js/bookapp/templates/editBook.html',
                controller: 'EditBookController',
                controllerAs: 'bookEditor',
@@ -54,8 +58,7 @@
                        return dataService.getAllBooks();
                    }
                }
-           })
-           .otherwise('/');
+           });
 
         console.log('title from constants service: ' + constants.APP_TITLE);
 

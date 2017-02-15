@@ -4,14 +4,14 @@
     <ul>
         <li ng-repeat="book in books.allBooks">
             {{ book.title }} - {{ book.author }}
-            <a href="#/EditBook/{{book.book_id}}">Edit</a>
+            <a ui-sref="EditBook({bookID: books.book.book_id})">Edit</a>
         </li>
     </ul>
 </div>
 
 <ul>
-    <li> <a href="#/AddBook">Add New Book</a></li>
-    <li> <a href="#/EditBook/{{ books.lastEdited.book_id }}">Open Last Edited</a></li>
+    <li> <a ui-sref="AddBook">Add New Book</a></li>
+    <li> <a ui-sref="EditBook({bookID: books.lastEdited.book_id})">Open Last Edited</a></li>
 </ul>
 <h3>All Readers</h3>
 <div>

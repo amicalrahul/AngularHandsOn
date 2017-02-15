@@ -96,32 +96,11 @@
 
         function getAllReaders() {
 
-            var readersArray = [
-                {
-                    reader_id: 1,
-                    name: 'Marie',
-                    weeklyReadingGoal: 315,
-                    totalMinutesRead: 5600
-                },
-                {
-                    reader_id: 2,
-                    name: 'Daniel',
-                    weeklyReadingGoal: 210,
-                    totalMinutesRead: 3000
-                },
-                {
-                    reader_id: 3,
-                    name: 'Lanier',
-                    weeklyReadingGoal: 140,
-                    totalMinutesRead: 600
-                }
-            ];
-
             var deferred = $q.defer();
 
             $timeout(function () {
 
-                deferred.resolve(readersArray);
+                deferred.resolve(constants.readersArray);
 
             }, 50);
 

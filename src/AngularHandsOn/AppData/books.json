@@ -29,10 +29,10 @@
         "author": "H. A. Rey",
         "year_published": "1941"
     },
-    {
-        "book_id": 6,
-        "title": "Alice's Adventures in Wonderland",
-        "author": "1865",
-        "year_published": "Lewis Carroll"
-    }
+  {
+    "book_id": 6,
+    "title": "Alice's Adventures in Wonderland",
+    "author": "Lewis Carroll",
+    "year_published": "1865"
+  }
 ]

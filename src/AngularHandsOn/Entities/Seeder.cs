@@ -55,12 +55,18 @@ public class Seeder
                 List<Activity> activities = JsonConvert.DeserializeObject<List<Activity>>(dataText);
                 _dbContext.AddRange(activities);
             }
+            if (!_dbContext.Books.Any())
+            {
+                var dataText = System.IO.File.ReadAllText(@"~/../AppData/books.json");
+                List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
+                _dbContext.AddRange(books);
+            }
 
             await _dbContext.SaveChangesAsync();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            Console.WriteLine(ex.Message);
         }
     }
     
