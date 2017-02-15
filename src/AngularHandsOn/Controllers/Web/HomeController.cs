@@ -171,19 +171,18 @@ namespace AngularHandsOn.Controllers.Web
         [HttpGet]
         public JsonStringResult GetBooks()
         {
-
-            var json = System.IO.File.ReadAllText((@"~/../AppData/books.json"));
-            
-            //var abc = new List<MyClass>()
-            //{
-            //    new MyClass() { book_id = 1, author = "J.K. Rowling", title =  "Harry Potter and the Deathly Hallows", yearPublished = 2000},
-            //    new MyClass() { book_id = 2, author = "Dr. Seuss", title =  "The Cat in the Hat", yearPublished = 1957},
-            //    new MyClass() { book_id = 3, author = "Donald J. Sobol", title =  "Encyclopedia Brown, Boy Detective", yearPublished = 1234}
-
-            //};
-
-            return new JsonStringResult(json);
+            return new JsonStringResult(_dbContext.Books.ToJson());
         }
+        //[HttpGet]
+        //public JsonStringResult GetBooks(int id)
+        //{
+        //    if (string.IsNullOrWhiteSpace(id.ToString()))
+        //    {
+        //        return new JsonStringResult("");
+        //    }
+        //    var str = _dbContext.Books.First(a => a.Bookid == id).ToJson();
+        //    return new JsonStringResult(str);
+        //}
     }
 }
 public class JsonStringResult : ContentResult
