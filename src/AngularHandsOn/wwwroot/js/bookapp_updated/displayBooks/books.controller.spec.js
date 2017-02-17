@@ -12,6 +12,9 @@ describe("BooksController", function () {
         var ds = {
             getAllBooks: function () {
                 return $q.when(books);
+            },            
+            getAllReaders: function () {
+                return $q.when(books);
             }
         };
 
@@ -35,8 +38,17 @@ describe("BooksController", function () {
     it("should check books have empty array before activation", function () {
         expect(controller.allBooks).to.exist;
     });
-    it("should check has length above 0 after activation", function () {
-        $rootScope.$apply();
-        expect(controller.allBooks).to.have.length.above(0);
+    describe("after activation", function () {
+
+        beforeEach(function () {
+            $rootScope.$apply();
+        });
+
+        it("should check has length above 0", function () {
+            expect(controller.allBooks).to.have.length.above(0);
+        });
+        it("should have mock books", function () {
+            expect(controller.allBooks).to.have.length(books.length);
+        });
     });
 });

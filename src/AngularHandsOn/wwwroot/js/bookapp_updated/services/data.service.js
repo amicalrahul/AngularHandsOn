@@ -1,13 +1,14 @@
 ﻿(function () {
 
     angular.module('bookapp')
-        .factory('dataService', ['$http', dataService]);
+        .factory('dataService', ['$http','$q','constants', dataService]);
 
 
-    function dataService($http) {
+    function dataService($http, $q, constants) {
 
         return {
-            getAllBooks: getAllBooks
+            getAllBooks: getAllBooks,
+            getAllReaders: getAllReaders
         };
         function getAllBooks() {
             return $http.get('/api/home1/Books')
@@ -20,5 +21,7 @@
         function fail(e) {
             return "failed";
         }
+
+        function getAllReaders() { return $q.when(constants.readersArray); }
     }
 }());

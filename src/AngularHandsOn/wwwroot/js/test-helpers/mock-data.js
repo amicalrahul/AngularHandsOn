@@ -1,10 +1,9 @@
-﻿/// <reference path="../bookapp_updated/displaybooks/books.controller.spec.js" />
-/// <reference path="../bookapp_updated/displaybooks/books.controller.js" />
-/* jshint -W079 */
+﻿/* jshint -W079 */
 var mockData = (function () {
     return {
         getMockBook: getMockBook,
-        getMockStates: getMockStates
+        getMockStates: getMockStates,
+        getMockReaders: getMockReaders
     };
 
     function getMockStates() {
@@ -23,7 +22,13 @@ var mockData = (function () {
           }
         ];
     }
-
+    function getMockReaders() {
+        return [
+                { reader_id: 1, name: 'Marie', weeklyReadingGoal: 315, totalMinutesRead: 5600 },
+                { reader_id: 2, name: 'Daniel', weeklyReadingGoal: 210, totalMinutesRead: 3000 },
+                { reader_id: 3, name: 'Lanier', weeklyReadingGoal: 140, totalMinutesRead: 600 }
+        ];
+    }
     function getMockBook() {
         return [
             { "book_id": 1, "title": "Goodnight Moon", "author": "Margaret Wise Brown", "year_published": 1953 },

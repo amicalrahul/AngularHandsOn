@@ -1,6 +1,6 @@
 ﻿angular.module('bookapp')
-        .controller('BooksController', ['dataService', BooksController]);
-function BooksController(dataService) {
+        .controller('BooksController', ['dataService', 'constants', BooksController]);
+function BooksController(dataService, constants) {
 
     var vm = this;
 
@@ -10,12 +10,12 @@ function BooksController(dataService) {
             .then(function (data) {
                 vm.allBooks = data;
             });
-    //dataService.getAllReaders()
-    //        .then(function (data) {
-    //            vm.allReaders = data;
-    //        });
+    dataService.getAllReaders()
+            .then(function (data) {
+                vm.allReaders = data;
+            });
 
-    //vm.getBadge = badgeService.retrieveBadge;
+    vm.getBadge = constants.retrieveBadge;
     //vm.favoriteBook = $cookies.favoriteBook;
 
 
