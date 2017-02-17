@@ -6,12 +6,15 @@
 
     function bookResource($resource) {
 
-        return $resource("/Home/GetBooks");
+        return {
+            getAllBooks: $resource("/Home/GetBooks").query().$promise
+            
+        };
 
-        //return $resource('/api/books1/:book_id', { book_id: '@book_id' },
-        //    {
-        //        'update': { method: 'PUT' }
-        //    }
+                //return $resource('/api/books1/:book_id', { book_id: '@book_id' },
+                //    {
+                //        'update': { method: 'PUT' }
+                //    }
         //);
     }
 

@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace AngularHandsOn.Entities
 {
     public class AngularDbContext : IdentityDbContext<User>
@@ -23,12 +27,17 @@ namespace AngularHandsOn.Entities
 
     public class Books
     {
-
+        
+        [JsonIgnore]
         public int Id { get; set; }
 
+        [JsonProperty(PropertyName = "book_id")]
         public int Bookid { get; set; }
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
+        [JsonProperty(PropertyName = "author")]
         public string Author { get; set; }
+        [JsonProperty(PropertyName = "year_published")]
         public int YearPublished { get; set; }
 
 

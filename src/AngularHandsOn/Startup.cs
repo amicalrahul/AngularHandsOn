@@ -184,6 +184,7 @@ namespace AngularHandsOn
                     cfg.CreateMap<SchoolModel, School>().ReverseMap();
                     cfg.CreateMap<ClassroomModel, Classroom>().ReverseMap();
                     cfg.CreateMap<ActivityModel, Activity>().ReverseMap();
+                    cfg.CreateMap<BookModel, Books>().ReverseMap();
                     cfg.CreateMap<ProductModel, Product>()
                         .ForMember(dest => dest.Tags,
                             opt => opt.ResolveUsing((src, dest, unused, cxt) =>
