@@ -154,6 +154,7 @@ namespace AngularHandsOn
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
             services.AddScoped<IProductRepository<string>, ProductRepository>();
+            services.AddScoped<IBookRepository<int>, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
