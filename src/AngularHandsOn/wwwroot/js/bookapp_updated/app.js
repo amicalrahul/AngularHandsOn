@@ -10,7 +10,7 @@
            .state('home', {
                url: "/",
                templateUrl: '../../js/bookapp_updated/displayBooks/books.html',
-               controller: 'booksController',
+               controller: 'BooksController',
                controllerAs: 'vm'
            });
 

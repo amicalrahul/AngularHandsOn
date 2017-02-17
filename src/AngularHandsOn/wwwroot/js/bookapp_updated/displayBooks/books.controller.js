@@ -1,12 +1,12 @@
 ﻿angular.module('bookapp')
-        .controller('booksController', ['$resource', booksController]);
-function booksController($resource) {
+        .controller('BooksController', ['dataService', BooksController]);
+function BooksController(dataService) {
 
     var vm = this;
 
     //vm.appName = books.appName;
-
-    bookResource($resource).Get
+    vm.allBooks = [];
+    dataService.getAllBooks()
             .then(function (data) {
                 vm.allBooks = data;
             });
@@ -19,10 +19,4 @@ function booksController($resource) {
     //vm.favoriteBook = $cookies.favoriteBook;
 
 
-    function bookResource($resource) {
-        return {
-            Get: $resource("/api/home1/Books").query().$promise
-
-        };
-    }
 }

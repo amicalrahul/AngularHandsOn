@@ -1,3 +1,4 @@
+/// <reference path="wwwroot/js/test-helpers/mock-data.js" />
 // Karma configuration
 // Generated on Fri Feb 17 2017 17:31:30 GMT+0530 (India Standard Time)
 
@@ -21,6 +22,7 @@ module.exports = function(config) {
         'wwwroot/lib/angular-ui-router/angular-ui-router.js',
       'wwwroot/lib/angular-mocks/angular-mocks.js',
       'node_modules/bardjs/dist/bard.js',
+      'wwwroot/js/test-helpers/mock-data.js',
       'wwwroot/js/bookapp_updated/**/*.js'
     ],
 

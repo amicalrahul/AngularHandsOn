@@ -93,6 +93,7 @@
 /// <reference path="protractor/smoke/pages/directive.page.js" />
 /// <reference path="protractor/smoke/userpanel.spec.js" />
 /// <reference path="systemjs.config.js" />
+/// <reference path="tests/lib/angular-mocks/angular-mocks.js" />
 /// <reference path="tests/lib/jasmine-2.5.2/boot.js" />
 /// <reference path="tests/lib/jasmine-2.5.2/console.js" />
 /// <reference path="tests/lib/jasmine-2.5.2/jasmine.js" />
