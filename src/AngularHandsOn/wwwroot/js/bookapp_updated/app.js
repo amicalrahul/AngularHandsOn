@@ -12,6 +12,12 @@
                templateUrl: '../../js/bookapp_updated/displayBooks/books.html',
                controller: 'BooksController',
                controllerAs: 'vm'
+           })
+           .state('editBook', {
+               url: "/editbook/:id",
+               templateUrl: '../../js/bookapp_updated/editbooks/editbook.html',
+               controller: 'EditBooksController',
+               controllerAs: 'vm'
            });
 
     }

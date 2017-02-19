@@ -24,6 +24,7 @@
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
+    "chai-jasmine": "^1.0.7",
     "gulp": "3.9.1",
     "gulp-tsc": "^1.2.5",
     "gulp-typescript": "^3.1.2",

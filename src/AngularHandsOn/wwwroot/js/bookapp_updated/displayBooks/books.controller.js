@@ -1,11 +1,12 @@
 ﻿angular.module('bookapp')
-        .controller('BooksController', ['dataService', 'constants', BooksController]);
-function BooksController(dataService, constants) {
+        .controller('BooksController', ['$state','dataService', 'constants', BooksController]);
+function BooksController($state, dataService, constants) {
 
     var vm = this;
 
     //vm.appName = books.appName;
     vm.allBooks = [];
+    vm.goToBook = goToBook;
     dataService.getAllBooks()
             .then(function (data) {
                 vm.allBooks = data;
@@ -17,6 +18,10 @@ function BooksController(dataService, constants) {
 
     vm.getBadge = constants.retrieveBadge;
     //vm.favoriteBook = $cookies.favoriteBook;
+
+    function goToBook(book) {
+        $state.go('editBook', { id: book.book_id });
+    }
 
 
 }

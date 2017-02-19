@@ -28,7 +28,7 @@ describe("dataService", function () {
         // but $httpBackend
         $httpBackend.flush();
     });
-    it.only("get books reports an error if server fails", function () {
+    it("get books reports an error if server fails", function () {
         $httpBackend
             .when('GET', '/api/home1/Books')
             .respond(500, { description: 'you fail' });
