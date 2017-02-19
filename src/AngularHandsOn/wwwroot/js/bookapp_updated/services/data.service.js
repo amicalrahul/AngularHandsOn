@@ -19,7 +19,8 @@
             return response.data;
         }
         function fail(e) {
-            return "failed";
+            var msg = "query for books failed. " + e.data.description;
+            return $q.reject(msg);
         }
 
         function getAllReaders() { return $q.when(constants.readersArray); }
