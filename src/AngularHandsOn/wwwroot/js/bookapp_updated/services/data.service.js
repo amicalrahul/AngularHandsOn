@@ -1,10 +1,11 @@
 ﻿(function () {
 
-    angular.module('bookapp')
+    angular.module('app.services')
         .factory('dataService', ['$http','$q','constants', dataService]);
 
 
     function dataService($http, $q, constants) {
+        var bookUrl = '/api/home1/Books';
 
         return {
             getAllBooks: getAllBooks,
@@ -12,12 +13,12 @@
             getBookById: getBookById
         };
         function getAllBooks() {
-            return $http.get('/api/home1/Books')
+            return $http.get(bookUrl)
                 .then(success)
                 .catch(fail);
         }
         function getBookById(id) {
-            return $http.get('/api/home1/Books/'+id)
+            return $http.get(bookUrl + '/'+id)
                 .then(success)
                 .catch(fail);
         }

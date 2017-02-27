@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('bookapp')
+    angular.module('app.services')
         .constant('constants', {
             APP_TITLE: 'Book Logger',
             APP_DESCRIPTION: 'Track which books you read.',
