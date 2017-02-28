@@ -12,8 +12,16 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('copy:lib', function () {
-    return gulp.src('node_modules/**/*')
-        .pipe(gulp.dest('./wwwroot/lib1/'));
+    return gulp.src([
+            'core-js/client/shim.min.js',
+            'systemjs/dist/system-polyfills.js',
+            'systemjs/dist/system.src.js',
+            'reflect-metadata/Reflect.js',
+            'rxjs/**',
+            'zone.js/dist/**',
+            '@angular/**'
+    ], { cwd: "node_modules/**" })
+        .pipe(gulp.dest('./wwwroot/lib1'));
 });
 var tsProject = ts.createProject('Scripts/tsconfig.json', {
     typescript: require('typescript')
