@@ -25,8 +25,11 @@
   "devDependencies": {
     "chai-jasmine": "^1.0.7",
     "gulp": "3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.1.7",
     "gulp-tsc": "^1.2.5",
     "gulp-typescript": "^3.1.2",
+    "gulp-uglify": "^2.1.0",
     "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
     "karma-chai": "^0.1.0",

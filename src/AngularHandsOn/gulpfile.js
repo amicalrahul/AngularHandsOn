@@ -2,15 +2,37 @@
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
+"use strict";
 var ts = require('gulp-typescript');
 
 var gulp = require('gulp'),
- rimraf = require('rimraf');
+ rimraf = require('rimraf'), //A Node deletion module
+concat = require("gulp-concat"), //A module that will concatenate files based on the operating system’s newline character.
+cssmin = require("gulp-cssmin"), //A module that will minify CSS files.
+uglify = require("gulp-uglify"); // A module that minifies .js files using the UglifyJS toolkit
+
+
+
+var paths = {
+    webroot: "./wwwroot/"
+};
+paths.js = paths.webroot + "js/**/*.js";
+paths.minJs = paths.webroot + "js/**/*.min.js";
+paths.css = paths.webroot + "css/**/*.css";
+paths.minCss = paths.webroot + "css/**/*.min.css";
+paths.concatJsDest = paths.webroot + "js/site.min.js";
+paths.concatCssDest = paths.webroot + "css/site.min.css";
+
+
+
+
+
+
+
 
 gulp.task('clean', function (cb) {
     return rimraf('./wwwroot/lib1/', cb)
 });
-
 gulp.task('copy:lib', function () {
     return gulp.src([
             'core-js/client/shim.min.js',
