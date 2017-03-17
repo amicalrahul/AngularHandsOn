@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "20b54c7821617b8527988b0d90ed12f06bbaab41"
+    "signature": "d6e2dab17ee8942e4497396cfe27371b7bccae53"
   },
   "compilationOptions": {
     "defines": [
@@ -10,7 +10,8 @@
       "NETCOREAPP1_0"
     ],
     "optimize": false,
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "xmlDoc": true
   },
   "targets": {
     ".NETCoreApp,Version=v1.0": {
@@ -49,7 +50,8 @@
           "Microsoft.CodeAnalysis.Common": "1.3.0",
           "Microsoft.AspNetCore.Authentication": "1.1.0",
           "AngularJS.Intellisense": "1.0.3",
-          "Swashbuckle": "6.0.0-beta902"
+          "Swashbuckle": "6.0.0-beta902",
+          "GenFu": "1.2.1"
         },
         "runtime": {
           "AngularHandsOn.dll": {}
@@ -92,6 +94,18 @@
         },
         "compile": {
           "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "GenFu/1.2.1": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/GenFu.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/GenFu.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.0.1": {
@@ -4146,6 +4160,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-bdGt4Xl1dhPFUrD5HAEm+UNlg+MolWsf4F/fxemcDpwss5VUGZC/gkibUTzPAdgQxTGVXX9zy3TdZDOTTK6IbA=="
+    },
+    "GenFu/1.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cBqnvyXwrgAGblA8vhCfZezUuNQN//DCZ/gdf5kYhgbcTXp3YxL5e9XHn2NyfJq6b+SkcyiFMCn0oqx/JulfHA=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.1": {
       "type": "package",

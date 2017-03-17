@@ -19,6 +19,9 @@ using AngularHandsOn.Middlewares;
 using AngularHandsOn.Filters;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.Swagger.Model;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace AngularHandsOn
 {
@@ -48,6 +51,23 @@ namespace AngularHandsOn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen();
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.SingleApiVersion(new Info
+                {
+                    Version = "v1",
+                    Title = "Angular Hands On API",
+                    Description = "Angular Hand on",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Rahul Sabharwal", Email = "", Url = "" },
+                    License = new License { Name = "Rahul Sabharwal", Url = "" }
+                });
+
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "AngularHandsOn.xml");
+                options.IncludeXmlComments(xmlPath);
+            });
+
             services.AddSingleton(Configuration);
             #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
@@ -163,6 +183,7 @@ namespace AngularHandsOn
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseFileServer();
             app.UseSwagger();
             app.UseSwaggerUi();
             //Adding ConfigureAuth middleware enables token authenticaion for API calls
@@ -178,7 +199,6 @@ namespace AngularHandsOn
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStatusCodePages();
-            app.UseFileServer();
             app.UseSession();
 
             #region Automapper Mappings Defined
