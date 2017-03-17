@@ -47,6 +47,7 @@ namespace AngularHandsOn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen();
             services.AddSingleton(Configuration);
             #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
@@ -162,7 +163,8 @@ namespace AngularHandsOn
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            app.UseSwagger();
+            app.UseSwaggerUi();
             //Adding ConfigureAuth middleware enables token authenticaion for API calls
             ConfigureAuth(app);
 
