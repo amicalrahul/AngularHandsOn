@@ -51,7 +51,9 @@
           "Microsoft.AspNetCore.Authentication": "1.1.0",
           "AngularJS.Intellisense": "1.0.3",
           "Swashbuckle": "6.0.0-beta902",
-          "GenFu": "1.2.1"
+          "GenFu": "1.2.1",
+          "AngularHandsOn.Domain": "1.0.0",
+          "AngularHandsOn.Data": "1.0.0"
         },
         "compile": {
           "AngularHandsOn.dll": {}
@@ -3136,6 +3138,31 @@
           "System.Xml.XPath": "4.0.1"
         }
       },
+      "AngularHandsOn.Data/1.0.0": {
+        "dependencies": {
+          "AngularHandsOn.Domain": "1.0.0",
+          "Microsoft.Extensions.Caching.Memory": "1.1.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Design": "1.0.1",
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+          "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview4-final",
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "AngularHandsOn.Data.dll": {}
+        }
+      },
+      "AngularHandsOn.Domain/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "AngularHandsOn.Domain.dll": {}
+        }
+      },
       "AngularHandsOnTokenProvider/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
@@ -3199,7 +3226,9 @@
           "Microsoft.AspNetCore.Authentication": "1.1.0",
           "AngularJS.Intellisense": "1.0.3",
           "Swashbuckle": "6.0.0-beta902",
-          "GenFu": "1.2.1"
+          "GenFu": "1.2.1",
+          "AngularHandsOn.Domain": "1.0.0",
+          "AngularHandsOn.Data": "1.0.0"
         },
         "runtime": {
           "AngularHandsOn.dll": {}
@@ -6188,6 +6217,31 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "AngularHandsOn.Data/1.0.0": {
+        "dependencies": {
+          "AngularHandsOn.Domain": "1.0.0",
+          "Microsoft.Extensions.Caching.Memory": "1.1.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Design": "1.0.1",
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+          "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview4-final",
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "AngularHandsOn.Data.dll": {}
+        }
+      },
+      "AngularHandsOn.Domain/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "AngularHandsOn.Domain.dll": {}
+        }
+      },
       "AngularHandsOnTokenProvider/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
@@ -7460,6 +7514,16 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-FLhdYJx4331oGovQypQ8JIw2kEmNzCsjVOVYY/16kZTUoquZG85oVn7yUhBE2OZt1yGPSXAL0HTEfzjlbNpM7Q=="
+    },
+    "AngularHandsOn.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AngularHandsOn.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "AngularHandsOnTokenProvider/1.0.0": {
       "type": "project",

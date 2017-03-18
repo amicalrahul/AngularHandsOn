@@ -43,7 +43,9 @@
     "Microsoft.AspNetCore.Authentication": "1.1.0",
     "AngularJS.Intellisense": "1.0.3",
     "Swashbuckle": "6.0.0-beta902",
-    "GenFu": "1.2.1"
+    "GenFu": "1.2.1",
+    "AngularHandsOn.Domain": "1.0.0-*",
+    "AngularHandsOn.Data": "1.0.0-*"
   },
 
   "tools": {
