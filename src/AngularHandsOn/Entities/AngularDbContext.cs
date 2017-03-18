@@ -22,6 +22,8 @@ namespace AngularHandsOn.Entities
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> BooksApi { get; set; }
     }
 
 

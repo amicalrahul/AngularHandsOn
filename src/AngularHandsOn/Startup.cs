@@ -171,6 +171,7 @@ namespace AngularHandsOn
             services.AddDbContext<AngularDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
             services.AddTransient<Seeder>();
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
