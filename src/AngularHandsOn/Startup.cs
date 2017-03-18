@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
+using AngularHandsOn.Domain;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using AngularHandsOn.Repositories;
@@ -169,7 +170,9 @@ namespace AngularHandsOn
             services.AddAutoMapper();
             services.AddScoped<UnitOfWorkFilter>();
             services.AddDbContext<AngularDbContext>(options =>
-                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
+                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection"),
+                                    b => b.MigrationsAssembly("AngularHandsOn")
+                                    ));            
             services.AddTransient<Seeder>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();

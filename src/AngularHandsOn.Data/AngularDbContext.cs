@@ -1,15 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using AngularHandsOn.Domain;
 
-namespace AngularHandsOn.Entities
+namespace AngularHandsOn.Data
 {
     public class AngularDbContext : IdentityDbContext<User>
     {

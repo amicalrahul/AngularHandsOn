@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
 
 namespace AngularHandsOn.Migrations
 {
@@ -17,7 +17,7 @@ namespace AngularHandsOn.Migrations
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Activity", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Activity", b =>
                 {
                     b.Property<string>("ActivityId");
 
@@ -40,7 +40,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Author", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -64,7 +64,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Book", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -85,7 +85,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("BooksApi");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Books", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Books", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -103,7 +103,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Classroom", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Classroom", b =>
                 {
                     b.Property<int>("ClassroomId");
 
@@ -120,7 +120,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Classrooms");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Product", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Product", b =>
                 {
                     b.Property<string>("ProductId");
 
@@ -145,7 +145,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.School", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.School", b =>
                 {
                     b.Property<int>("SchoolId");
 
@@ -160,7 +160,7 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Schools");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.User", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -320,28 +320,28 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Activity", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Activity", b =>
                 {
-                    b.HasOne("AngularHandsOn.Entities.Classroom", "Classroom")
+                    b.HasOne("AngularHandsOn.Domain.Classroom", "Classroom")
                         .WithMany("Activity")
                         .HasForeignKey("ClassroomId");
 
-                    b.HasOne("AngularHandsOn.Entities.School", "School")
+                    b.HasOne("AngularHandsOn.Domain.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Book", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Book", b =>
                 {
-                    b.HasOne("AngularHandsOn.Entities.Author", "Author")
+                    b.HasOne("AngularHandsOn.Domain.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Entities.Classroom", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Classroom", b =>
                 {
-                    b.HasOne("AngularHandsOn.Entities.School", "School")
+                    b.HasOne("AngularHandsOn.Domain.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId");
                 });
@@ -356,7 +356,7 @@ namespace AngularHandsOn.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("AngularHandsOn.Entities.User")
+                    b.HasOne("AngularHandsOn.Domain.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -364,7 +364,7 @@ namespace AngularHandsOn.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("AngularHandsOn.Entities.User")
+                    b.HasOne("AngularHandsOn.Domain.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -377,7 +377,7 @@ namespace AngularHandsOn.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("AngularHandsOn.Entities.User")
+                    b.HasOne("AngularHandsOn.Domain.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

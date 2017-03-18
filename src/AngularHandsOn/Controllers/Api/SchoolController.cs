@@ -1,15 +1,12 @@
-﻿using AngularHandsOn.Entities;
+﻿using AngularHandsOn.Domain;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.v3;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AngularHandsOn.Controllers.Api
 {

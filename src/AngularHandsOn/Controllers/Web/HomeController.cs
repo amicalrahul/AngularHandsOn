@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using NuGet.Protocol.Core.v3;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using AngularHandsOn.Model;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AngularHandsOn.Controllers.Web
 {

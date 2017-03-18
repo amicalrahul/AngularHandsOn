@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngularHandsOn.Entities
+namespace AngularHandsOn.Domain
 {
     public class User : IdentityUser
     {

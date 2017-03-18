@@ -1,15 +1,12 @@
-﻿using AngularHandsOn.Controllers.Web;
-using AngularHandsOn.Entities;
+﻿
+using AngularHandsOn.Data;
+using AngularHandsOn.Domain;
 using AngularHandsOn.Features.ManageSchools;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Moq;

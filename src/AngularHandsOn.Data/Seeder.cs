@@ -1,67 +1,68 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Domain;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System;
-
-public class Seeder
+namespace AngularHandsOn.Data
 {
-    private AngularDbContext _dbContext;
-    private UserManager<User> _userManager;
-
-    public Seeder(AngularDbContext dbContext, UserManager<User> userManager)
+    public class Seeder
     {
-        _dbContext = dbContext;
-        _userManager = userManager;
-    }
+        private AngularDbContext _dbContext;
+        private UserManager<User> _userManager;
 
-    public async Task EnsureSeedData()
-    {
-
-        _dbContext.Database.EnsureCreated();
-        if (await _userManager.FindByEmailAsync("a.a@a.com") == null)
+        public Seeder(AngularDbContext dbContext, UserManager<User> userManager)
         {
-            var user = new User()
-            {
-                UserName = "testuser",
-                Email = "a.a@a.com"
-            };
-
-            await _userManager.CreateAsync(user, "P@ssw0rd!");
+            _dbContext = dbContext;
+            _userManager = userManager;
         }
 
-
-
-
-        try
+        public async Task EnsureSeedData()
         {
-            if (!_dbContext.Schools.Any())
+
+            _dbContext.Database.EnsureCreated();
+            if (await _userManager.FindByEmailAsync("a.a@a.com") == null)
             {
-                var dataText = System.IO.File.ReadAllText(@"~/../AppData/schools.json");
-                List<School> schools = JsonConvert.DeserializeObject<List<School>>(dataText);
-                _dbContext.AddRange(schools);
+                var user = new User()
+                {
+                    UserName = "testuser",
+                    Email = "a.a@a.com"
+                };
+
+                await _userManager.CreateAsync(user, "P@ssw0rd!");
             }
-            if (!_dbContext.Classrooms.Any())
+
+
+
+
+            try
             {
-                var dataText = System.IO.File.ReadAllText(@"~/../AppData/classrooms.json");
-                List<Classroom> classrooms = JsonConvert.DeserializeObject<List<Classroom>>(dataText);
-                _dbContext.AddRange(classrooms);
-            }
-            if (!_dbContext.Activities.Any())
-            {
-                var dataText = System.IO.File.ReadAllText(@"~/../AppData/activities.json");
-                List<Activity> activities = JsonConvert.DeserializeObject<List<Activity>>(dataText);
-                _dbContext.AddRange(activities);
-            }
-            if (!_dbContext.Books.Any())
-            {
-                var dataText = System.IO.File.ReadAllText(@"~/../AppData/books.json");
-                List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
-                _dbContext.AddRange(books);
-            }
-            var authors = new List<Author>()
+                if (!_dbContext.Schools.Any())
+                {
+                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/schools.json");
+                    List<School> schools = JsonConvert.DeserializeObject<List<School>>(dataText);
+                    _dbContext.AddRange(schools);
+                }
+                if (!_dbContext.Classrooms.Any())
+                {
+                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/classrooms.json");
+                    List<Classroom> classrooms = JsonConvert.DeserializeObject<List<Classroom>>(dataText);
+                    _dbContext.AddRange(classrooms);
+                }
+                if (!_dbContext.Activities.Any())
+                {
+                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/activities.json");
+                    List<Activity> activities = JsonConvert.DeserializeObject<List<Activity>>(dataText);
+                    _dbContext.AddRange(activities);
+                }
+                if (!_dbContext.Books.Any())
+                {
+                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/books.json");
+                    List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
+                    _dbContext.AddRange(books);
+                }
+                var authors = new List<Author>()
             {
                 new Author()
                 {
@@ -197,13 +198,14 @@ public class Seeder
                 }
             };
 
-            _dbContext.Authors.AddRange(authors);
-            await _dbContext.SaveChangesAsync();
+                _dbContext.Authors.AddRange(authors);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+
     }
-    
 }

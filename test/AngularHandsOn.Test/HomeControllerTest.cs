@@ -1,20 +1,17 @@
 ﻿using AngularHandsOn.Controllers.Web;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
+using AngularHandsOn.Domain;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace AngularHandsOn.Test

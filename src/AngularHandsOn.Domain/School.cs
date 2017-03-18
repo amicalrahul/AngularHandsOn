@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 
-namespace AngularHandsOn.Entities
+namespace AngularHandsOn.Domain
 {
     public class School
     {
