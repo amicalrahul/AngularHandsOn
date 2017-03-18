@@ -1,4 +1,6 @@
-﻿using AngularHandsOn.Repositories;
+﻿using AngularHandsOn.Model;
+using AngularHandsOn.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,8 +23,11 @@ namespace AngularHandsOn.Controllers.Api
         [HttpGet()]
         public IActionResult GetAuthors()
         {
+            var authorsFromRepo = _libraryRepository.GetAuthors();
 
-            return new JsonResult(_libraryRepository.GetAuthors());
+            var authors = Mapper.Map<IEnumerable<AuthorsModel>>(authorsFromRepo);
+
+            return new JsonResult(authors);
         }
     }
 }

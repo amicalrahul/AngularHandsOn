@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.Swagger.Model;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
+using AngularHandsOn.Helpers;
 
 namespace AngularHandsOn
 {
@@ -222,6 +223,12 @@ namespace AngularHandsOn
                         .ForMember(dest => dest.Tags,
                             opt => opt.MapFrom
                             (src => ConvertStringToArray(src.Tags)));
+
+                    cfg.CreateMap<Author, AuthorsModel>()
+                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                       $"{src.FirstName} {src.LastName}"))
+                       .ForMember(dest => dest.Age, opt => opt.MapFrom( src =>
+                       src.DateOfBirth.GetCurrentAge()));
                 }); 
             #endregion
 

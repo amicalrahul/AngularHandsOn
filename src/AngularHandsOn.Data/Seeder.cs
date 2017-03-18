@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using AngularHandsOn.Domain;
-using System.Threading.Tasks;
+﻿using AngularHandsOn.Domain;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace AngularHandsOn.Data
 {
     public class Seeder
@@ -20,7 +21,6 @@ namespace AngularHandsOn.Data
 
         public async Task EnsureSeedData()
         {
-
             _dbContext.Database.EnsureCreated();
             if (await _userManager.FindByEmailAsync("a.a@a.com") == null)
             {
@@ -32,9 +32,6 @@ namespace AngularHandsOn.Data
 
                 await _userManager.CreateAsync(user, "P@ssw0rd!");
             }
-
-
-
 
             try
             {
@@ -62,6 +59,14 @@ namespace AngularHandsOn.Data
                     List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
                     _dbContext.AddRange(books);
                 }
+
+
+
+
+                _dbContext.Authors.RemoveRange(_dbContext.Authors);
+                _dbContext.SaveChanges();
+
+
                 var authors = new List<Author>()
             {
                 new Author()
@@ -206,6 +211,5 @@ namespace AngularHandsOn.Data
                 Console.WriteLine(ex.Message);
             }
         }
-
     }
 }
