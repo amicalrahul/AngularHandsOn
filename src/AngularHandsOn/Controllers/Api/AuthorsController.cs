@@ -27,7 +27,22 @@ namespace AngularHandsOn.Controllers.Api
 
             var authors = Mapper.Map<IEnumerable<AuthorsModel>>(authorsFromRepo);
 
-            return new JsonResult(authors);
+            return Ok(authors);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAuthor(Guid id)
+        {
+            var authorFromRepo = _libraryRepository.GetAuthor(id);
+
+            if(authorFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var author = Mapper.Map<AuthorsModel>(authorFromRepo);
+
+            return Ok(author);
         }
     }
 }
