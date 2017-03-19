@@ -25,6 +25,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using AngularHandsOn.Helpers;
 using Microsoft.AspNetCore.Http;
+using AngularHandsOn.Model.ApiModel;
 
 namespace AngularHandsOn
 {
@@ -122,6 +123,10 @@ namespace AngularHandsOn
             #region Add MVC and define its options
             services.AddMvc(config =>
                 {
+                    // this attribute = true ensures that, if client asks for an unsupported format
+                    // as a response in the request header, then the api should send the 406 - Not Acceptable status code
+                    // and not the default result format as a response
+                    config.ReturnHttpNotAcceptable = true;
                     if (_env.IsProduction())
                         config.Filters.Add(new RequireHttpsAttribute());
                     //Add the filters here if you want this to be executed for every controller
@@ -139,6 +144,7 @@ namespace AngularHandsOn
                 //})
                 //.AddMvcOptions(o =>
                 //{
+                // if the api want to support the xml format as response type the use below code
                 //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 //})
                 .AddJsonOptions(o =>
@@ -245,6 +251,7 @@ namespace AngularHandsOn
                        $"{src.FirstName} {src.LastName}"))
                        .ForMember(dest => dest.Age, opt => opt.MapFrom( src =>
                        src.DateOfBirth.GetCurrentAge()));
+                    cfg.CreateMap<Book, BooksApiModel>();
                 }); 
             #endregion
 

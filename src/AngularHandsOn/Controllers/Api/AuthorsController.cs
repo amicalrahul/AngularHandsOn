@@ -1,4 +1,4 @@
-﻿using AngularHandsOn.Model;
+﻿using AngularHandsOn.Model.ApiModel;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
