@@ -24,6 +24,7 @@ using Swashbuckle.Swagger.Model;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using AngularHandsOn.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace AngularHandsOn
 {
@@ -201,7 +202,22 @@ namespace AngularHandsOn
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+               app.UseExceptionHandler(appbuilder =>
+               {
+                   appbuilder.Run(async context =>
+                   {
+                       if (context.Request.Path.Value.Contains("/api/"))
+                       {
+                           context.Response.StatusCode = 500;
+                           await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                       }
+                       else
+                       {
+                           context.Response.Redirect("/Home/Error");
+                       }
+                   });
+
+               });
             }
             app.UseStatusCodePages();
             app.UseSession();
