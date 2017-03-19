@@ -252,6 +252,8 @@ namespace AngularHandsOn
                        .ForMember(dest => dest.Age, opt => opt.MapFrom( src =>
                        src.DateOfBirth.GetCurrentAge()));
                     cfg.CreateMap<Book, BooksApiModel>();
+                    cfg.CreateMap<AuthorForCreationModel, Author>();
+                    cfg.CreateMap<BookForCreationModel, Book>();
                 }); 
             #endregion
 

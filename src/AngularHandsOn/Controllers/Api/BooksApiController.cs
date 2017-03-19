@@ -1,4 +1,5 @@
-﻿using AngularHandsOn.Model.ApiModel;
+﻿using AngularHandsOn.Domain;
+using AngularHandsOn.Model.ApiModel;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace AngularHandsOn.Controllers.Api
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetBookForAuthor")]
         public IActionResult GetBookForAuthor(Guid authorId, Guid id)
         {
             if (!_libraryRepository.AuthorExists(authorId))
@@ -47,6 +48,34 @@ namespace AngularHandsOn.Controllers.Api
             var books = Mapper.Map<BooksApiModel>(bookFromRepo);
 
             return Ok(books);
+        }
+
+        [HttpPost]
+        public IActionResult CreateBookForAuthor(Guid authorId, [FromBody]BookForCreationModel book)
+        {
+            if (book == null)
+            {
+                return BadRequest();
+            }
+
+            if(!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var bookEntity = Mapper.Map<Book>(book);
+
+            _libraryRepository.AddBookForAuthor(authorId, bookEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Something went wrong. Please try again later.");
+            }
+
+            var bookToReturn = Mapper.Map<BooksApiModel>(bookEntity);
+
+            return new CreatedAtRouteResult("GetBookForAuthor", new { authorId = authorId,
+                                                                    id = bookEntity.Id }, bookToReturn);
         }
     }
 }

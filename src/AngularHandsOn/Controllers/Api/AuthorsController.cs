@@ -1,4 +1,5 @@
-﻿using AngularHandsOn.Model.ApiModel;
+﻿using AngularHandsOn.Domain;
+using AngularHandsOn.Model.ApiModel;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,9 @@ namespace AngularHandsOn.Controllers.Api
             return Ok(authors);
         }
 
-        [HttpGet("{id}")]
+        //the Name can be referred in CreatedAtRoute method to refer to this route
+        // i.e. while returning the respone for the post request
+        [HttpGet("{id}", Name ="GetAuthor")]
         public IActionResult GetAuthor(Guid id)
         {
             var authorFromRepo = _libraryRepository.GetAuthor(id);
@@ -43,6 +46,27 @@ namespace AngularHandsOn.Controllers.Api
             var author = Mapper.Map<AuthorsModel>(authorFromRepo);
 
             return Ok(author);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAuthor([FromBody]AuthorForCreationModel author)
+        {
+            if(author == null)
+            {
+                return BadRequest();
+            }
+            var authorEntity = Mapper.Map<Author>(author);
+
+            _libraryRepository.AddAuthor(authorEntity);
+
+            if(!_libraryRepository.Save())
+            {
+                throw new Exception("Something went wrong. Please try again later.");
+            }
+
+            var authorToReturn = Mapper.Map<AuthorsModel>(authorEntity);
+
+            return new CreatedAtRouteResult("GetAuthor", new { id = authorEntity.Id }, authorToReturn);
         }
     }
 }
