@@ -1,4 +1,5 @@
 ﻿using AngularHandsOn.Domain;
+using AngularHandsOn.Helpers;
 using AngularHandsOn.Model.ApiModel;
 using AngularHandsOn.Repositories;
 using AutoMapper;
@@ -28,9 +29,9 @@ namespace AngularHandsOn.Controllers.Api
                 return BadRequest();
             }
 
-            var authors = Mapper.Map<IEnumerable<Author>>(authorCollections);
+            var authorEntities = Mapper.Map<IEnumerable<Author>>(authorCollections);
 
-            foreach (var author in authors)
+            foreach (var author in authorEntities)
             {
                 _libraryRepository.AddAuthor(author);
             }
@@ -40,8 +41,34 @@ namespace AngularHandsOn.Controllers.Api
                 throw new Exception("Something went wrong. Please try again later.");
             }
 
-            return Ok();
+            var authors = Mapper.Map<IEnumerable<AuthorsModel>>(authorEntities);
 
+
+            var ids = string.Join(",", authorEntities.Select(a => a.Id));
+
+
+            return new CreatedAtRouteResult("GetAuthorCollections", new { ids = ids }, authorEntities);
+
+        }
+
+        [HttpGet("{ids}", Name = "GetAuthorCollections")]
+        public IActionResult GetAuthorCollections([ModelBinder(BinderType =typeof(ArrayModelBinder))]IEnumerable<Guid> ids)
+        {
+            if(ids == null)
+            {
+                return BadRequest();
+            }
+
+            var authorEntities = _libraryRepository.GetAuthors(ids);
+
+            if(ids.Count() != authorEntities.Count())
+            {
+                return NotFound();
+            }
+
+            var authors = Mapper.Map<IEnumerable<AuthorsModel>>(authorEntities);
+
+            return Ok(authors);
         }
     }
 }

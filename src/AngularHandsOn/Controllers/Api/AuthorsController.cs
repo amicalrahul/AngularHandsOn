@@ -2,6 +2,7 @@
 using AngularHandsOn.Model.ApiModel;
 using AngularHandsOn.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,17 @@ namespace AngularHandsOn.Controllers.Api
             var authorToReturn = Mapper.Map<AuthorsModel>(authorEntity);
 
             return new CreatedAtRouteResult("GetAuthor", new { id = authorEntity.Id }, authorToReturn);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult BlockAuthorCreation(Guid id)
+        {
+            if(_libraryRepository.AuthorExists(id))
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+
+            return NotFound();
         }
     }
 }
