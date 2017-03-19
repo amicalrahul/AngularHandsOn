@@ -15,5 +15,8 @@ namespace AngularHandsOn.Model.ApiModel
         public DateTimeOffset DateOfBirth { get; set; }
                 
         public string Genre { get; set; }
+
+        public ICollection<BookForCreationModel> Books { get; set; }
+                                                        = new List<BookForCreationModel>();
     }
 }
