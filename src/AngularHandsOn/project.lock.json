@@ -97,6 +97,23 @@
           }
         }
       },
+      "Marvin.Cache.Headers/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Options": "1.0.0",
+          "Microsoft.Net.Http.Headers": "1.0.0",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/1.0.1": {
         "type": "package",
         "dependencies": {
@@ -4794,6 +4811,16 @@
         "runtimes/win7-arm/native/libuv.dll",
         "runtimes/win7-x64/native/libuv.dll",
         "runtimes/win7-x86/native/libuv.dll"
+      ]
+    },
+    "Marvin.Cache.Headers/1.0.0": {
+      "sha512": "WUtGhReCq3rgxBefEdWmT4vnN1hbhQULEn2Px7m9dweOS9a/po9nVFiYBQbIzZqtwFjsyDLmx4BD0RmMhAnEpg==",
+      "type": "package",
+      "path": "Marvin.Cache.Headers/1.0.0",
+      "files": [
+        "lib/netstandard1.6/Marvin.Cache.Headers.dll",
+        "marvin.cache.headers.1.0.0.nupkg.sha512",
+        "marvin.cache.headers.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.1": {
@@ -11788,6 +11815,7 @@
       "AngularJS.Intellisense >= 1.0.3",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 1.1.2",
       "GenFu >= 1.2.1",
+      "Marvin.Cache.Headers >= 1.0.0",
       "Microsoft.AspNetCore.Authentication >= 1.1.0",
       "Microsoft.AspNetCore.Authentication.Facebook >= 1.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 1.1.0",

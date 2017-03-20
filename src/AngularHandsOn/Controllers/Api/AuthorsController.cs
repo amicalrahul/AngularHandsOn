@@ -80,5 +80,27 @@ namespace AngularHandsOn.Controllers.Api
 
             return NotFound();
         }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAuthor(Guid id)
+        {
+            var authorEntity = _libraryRepository.GetAuthor(id);
+
+            if(authorEntity == null)
+            {
+                return NotFound();
+            }
+
+            _libraryRepository.DeleteAuthor(authorEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Something went wrong. Please try again later.");
+            }
+
+            return NoContent();
+        }
+
     }
 }

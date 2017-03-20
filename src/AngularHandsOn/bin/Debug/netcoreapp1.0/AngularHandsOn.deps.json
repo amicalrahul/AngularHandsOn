@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "ba251a4b535e9e5699b4622aebaed8d2fa53997b"
+    "signature": "b6b33109d7f8daabb439d14c2cd6f1f38686d67f"
   },
   "compilationOptions": {
     "defines": [
@@ -53,7 +53,8 @@
           "Swashbuckle": "6.0.0-beta902",
           "GenFu": "1.2.1",
           "AngularHandsOn.Domain": "1.0.0",
-          "AngularHandsOn.Data": "1.0.0"
+          "AngularHandsOn.Data": "1.0.0",
+          "Marvin.Cache.Headers": "1.0.0"
         },
         "runtime": {
           "AngularHandsOn.dll": {}
@@ -108,6 +109,22 @@
         },
         "compile": {
           "lib/netstandard1.3/GenFu.dll": {}
+        }
+      },
+      "Marvin.Cache.Headers/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+          "Microsoft.Extensions.Options": "1.1.0",
+          "Microsoft.Net.Http.Headers": "1.1.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.0.1": {
@@ -4202,6 +4219,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-cBqnvyXwrgAGblA8vhCfZezUuNQN//DCZ/gdf5kYhgbcTXp3YxL5e9XHn2NyfJq6b+SkcyiFMCn0oqx/JulfHA=="
+    },
+    "Marvin.Cache.Headers/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WUtGhReCq3rgxBefEdWmT4vnN1hbhQULEn2Px7m9dweOS9a/po9nVFiYBQbIzZqtwFjsyDLmx4BD0RmMhAnEpg=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.1": {
       "type": "package",

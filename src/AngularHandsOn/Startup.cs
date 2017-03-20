@@ -188,6 +188,17 @@ namespace AngularHandsOn
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
             services.AddScoped<IProductRepository<string>, ProductRepository>();
             services.AddScoped<IBookRepository<int>, BookRepository>();
+
+            services.AddHttpCacheHeaders(configureExpirationModelOptions =>
+                                        {
+                                            configureExpirationModelOptions.MaxAge = 600;
+                                        }
+                                        ,configureValidationModelOptions =>
+                                        {
+                                            configureValidationModelOptions.AddMustRevalidate = true;
+                                        }
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -282,6 +293,8 @@ namespace AngularHandsOn
 
             //Middleware added for example only
             app.UseMiddleware<MyMiddleware>();
+
+            app.UseHttpCacheHeaders();
 
             #region Use MVC and defines default routes
             app.UseMvc(routes =>

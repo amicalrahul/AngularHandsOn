@@ -45,6 +45,10 @@ namespace AngularHandsOn.Controllers.Api
 
             var bookFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
 
+            if (bookFromRepo == null)
+            {
+                return NotFound();
+            }
             var books = Mapper.Map<BooksApiModel>(bookFromRepo);
 
             return Ok(books);
@@ -76,6 +80,30 @@ namespace AngularHandsOn.Controllers.Api
 
             return new CreatedAtRouteResult("GetBookForAuthor", new { authorId = authorId,
                                                                     id = bookEntity.Id }, bookToReturn);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBookForAuthor(Guid authorId, Guid id)
+        {
+            if(!_libraryRepository.AuthorExists(authorId))
+            {
+                NotFound();
+            }
+
+            var bookEntity = _libraryRepository.GetBookForAuthor(authorId, id);
+
+            if(bookEntity == null)
+            {
+                return NotFound();
+            }
+
+            _libraryRepository.DeleteBook(bookEntity);
+            if(!_libraryRepository.Save())
+            {
+                throw new Exception("Something went wrong. Please try again later.");
+            }
+
+            return NoContent();
         }
     }
 }

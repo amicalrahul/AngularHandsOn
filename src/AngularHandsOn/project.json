@@ -45,7 +45,8 @@
     "Swashbuckle": "6.0.0-beta902",
     "GenFu": "1.2.1",
     "AngularHandsOn.Domain": "1.0.0-*",
-    "AngularHandsOn.Data": "1.0.0-*"
+    "AngularHandsOn.Data": "1.0.0-*",
+    "Marvin.Cache.Headers": "1.0.0"
   },
 
   "tools": {
