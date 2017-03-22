@@ -20,6 +20,13 @@ namespace AngularHandsOn.Controllers.Api
         {
             _bookRepository = bookRepository;
         }
+        [HttpGet("delayed")]
+        public IActionResult GetBooksWithSomeDelay()
+        {
+
+            Thread.Sleep(4000);
+            return new ObjectResult(new object());
+        }
 
         [HttpGet("")]
         [Authorize]

@@ -37,6 +37,12 @@
                 }
             }
         }
+        var errorHandler = function (description) {
+            return function () {
+                addDanger(description);
+            }
+        }
+
         return {
             addWarning: addWarning,
             addDanger: addDanger,
@@ -45,7 +51,8 @@
             addAlert: addAlert,
             currentAlerts: currentAlerts,
             alertTypes: alertTypes,
-            removeAlert: removeAlert
+            removeAlert: removeAlert,
+            errorHandler: errorHandler
         };
 
     };

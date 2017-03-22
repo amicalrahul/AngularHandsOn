@@ -2,14 +2,23 @@
     angular.module('app.diagnostic', []);
 
     angular.module('app.diagnostic')
-    .controller('ErrorProneController', ['alerting', ErrorProneController]);
+    .controller('ErrorProneController', ['alerting', '$http', ErrorProneController]);
 
-    function ErrorProneController(alerting) {
+    function ErrorProneController(alerting, $http) {
         var vm = this;
         vm.createAlert = createAlert;
         vm.createException = createException;
         resetForm();
+        $http.get('/api/home1/Books/delayed');
 
+
+        $http.get('/api/home1/Books22')
+            .then(function () {
+
+            })
+            .catch(
+            alerting.errorHandler("Failed To Load data!!")
+            );
         function resetForm() {
             vm.alertMessage = "";
             vm.alertTypes = alerting.alertTypes;
