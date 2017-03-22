@@ -28,6 +28,12 @@
                templateUrl: '../../js/bookapp_updated/login/login.html',
                controller: 'LoginController',
                controllerAs: 'vm'
+           })
+           .state('diagnostic', {
+               url: "/diagnostic",
+               templateUrl: '../../js/bookapp_updated/diagnostic/alertsHome.html',
+               controller: 'ErrorProneController',
+               controllerAs: 'vm'
            });
 
     }

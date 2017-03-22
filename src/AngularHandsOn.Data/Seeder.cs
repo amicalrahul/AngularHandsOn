@@ -27,7 +27,9 @@ namespace AngularHandsOn.Data
                 var user = new User()
                 {
                     UserName = "testuser",
-                    Email = "a.a@a.com"
+                    Email = "a.a@a.com",
+                    FirstName ="any",
+                    LastName = "any"
                 };
 
                 await _userManager.CreateAsync(user, "P@ssw0rd!");

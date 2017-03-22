@@ -2,15 +2,15 @@
     "use strict";
     var app = angular.module('bookapp');
 
-    app.directive('appDirective1', appDirective1);
-    app.directive('appDirective2', appDirective2);
-    app.directive('appDirective3', appDirective3);
-    app.directive('appDirective4', appDirective4);
+    //app.directive('appDirective1', appDirective1);
+    //app.directive('appDirective2', appDirective2);
+    //app.directive('appDirective3', appDirective3);
+    //app.directive('appDirective4', appDirective4);
 
 
-    app.directive('levelOne', createDirective('levelOne'));
-    app.directive('levelTwo', createDirective('levelTwo'));
-    app.directive('levelThree', createDirective('levelThree'));
+    //app.directive('levelOne', createDirective('levelOne'));
+    //app.directive('levelTwo', createDirective('levelTwo'));
+    //app.directive('levelThree', createDirective('levelThree'));
 
 
     function createDirective(name) {

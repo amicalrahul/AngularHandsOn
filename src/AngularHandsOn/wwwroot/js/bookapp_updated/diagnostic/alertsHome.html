@@ -1,0 +1,25 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <h4>Alerts</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="vm.alertMessage" />
+                </div>
+                <div class="form-group">
+                    <select class="form-control" ng-model="vm.alertType" 
+                            ng-options="type for type in vm.alertTypes"></select>
+                </div>
+                <button class="btn btn-default btn-lg" ng-click="vm.createAlert()">Create Alert</button>
+            </div>
+            <hr />
+            <div>
+                <h4>Exceptions</h4>
+                <button class="btn btn-default btn-lg" ng-click="vm.createException()">Throw Exception</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <alerts></alerts>
+        </div>
+    </div>
+</div>
