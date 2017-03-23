@@ -8,6 +8,7 @@
         var vm = this;
         vm.createAlert = createAlert;
         vm.createException = createException;
+       // vm.employees = employees;
         resetForm();
         $http.get('/api/home1/Books/delayed');
 
@@ -19,6 +20,25 @@
             .catch(
             alerting.errorHandler("Failed To Load data!!")
             );
+
+        vm.name = "Alex";
+        vm.rating="3;"
+       vm.employees = [{
+                            "name": "Alex",
+                            "rating": 2
+                        },
+                        {
+                            "name": "Raven",
+                            "rating": 5
+                        },
+                        {
+                            "name": "Rocky",
+                            "rating": 3
+                        },
+                        {
+                            "name": "John",
+                            "rating": 4
+                        }]
         function resetForm() {
             vm.alertMessage = "";
             vm.alertTypes = alerting.alertTypes;

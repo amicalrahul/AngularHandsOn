@@ -19,7 +19,8 @@
                     var result = bindingFunction.apply(this, arguments);
                     var trimmedResult = result.trim();
                     var log = trimmedResult ? $log.info : $log.warn;
-                    log.call($log, bindingExpression + " = " + trimmedResult);
+                    if (log === $log.warn)
+                        log.call($log, bindingExpression + " = " + trimmedResult);
                     return result;
                 };
             };

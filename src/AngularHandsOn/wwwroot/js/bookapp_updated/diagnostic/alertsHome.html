@@ -1,13 +1,24 @@
-﻿<div class="container">
+﻿<!--<nav ng-include="'template/nav.html'"></nav>-->
+<div class="container">
     <div class="row">
         <div class="col-md-8">
+            <h4>Ratings</h4>
+            <div>
+                <table>
+                    <tr ng-repeat="employee in vm.employees">
+                        <td>{{employee.name}}</td>
+                        <td>  <my-rating value="employee.rating" min="1" max="5"></my-rating></td>
+                    </tr>
+                </table>
+            </div>
+
             <div>
                 <h4>Alerts</h4>
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="vm.alertMessage" />
                 </div>
                 <div class="form-group">
-                    <select class="form-control" ng-model="vm.alertType" 
+                    <select class="form-control" ng-model="vm.alertType"
                             ng-options="type for type in vm.alertTypes"></select>
                 </div>
                 <button class="btn btn-default btn-lg" ng-click="vm.createAlert()">Create Alert</button>
