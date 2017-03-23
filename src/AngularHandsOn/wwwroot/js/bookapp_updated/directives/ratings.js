@@ -3,39 +3,50 @@
     var app = angular.module("app.directive");
 
     app.directive("myRating", myRating);
+    app.controller("RatingsController", RatingsController);
 
     function myRating(){
-        return{
-            restrict:"E",
+        return {
+            require:"myRating",
+            restrict: "E",
+            templateUrl:"../../js/bookapp_updated/templates/ratings.html",
             scope:{
                 value:"="
             },
-            link: function(scope, element, attributes){
+            controller: "RatingsController",
+            link: function(scope, element, attributes, controller){
                 var min = parseInt(attributes.min || "1");
-                var max = parseInt(attributes.max || "5");
+                var max = parseInt(attributes.max || "10");
 
-                scope.$watch("value", function(newValue){
-                    element.empty();
-                    for (var i = 0; i < newValue; i++) {
-                        element.append("<button class='btn btn-default btn-xs'><span class='glyphicon glyphicon-star'></span></button>");
-                    }
-                });
-
-                element.on("click", function () {
-                    scope.$apply(function () {
-                        if (scope.value < max) {
-                            scope.value += 1;
-                        }
-                        else {
-                            scope.value = min;
-                        }
-
-                    });
-
-                })
-
+                controller.initialize(min, max);
             }
 
+        }
+    }
+
+    function RatingsController($scope) {
+        this.initialize = function (min, max) {
+            $scope.preview = -1;
+            $scope.stars = new Array(max - min + 1);
+        };
+
+        $scope.click = function ($index) {
+            $scope.value = $index + 1;
+        };
+
+        $scope.mouseover = function ($index) {
+            $scope.preview = $index;
+        }
+        $scope.mouseout = function ($index) {
+            $scope.preview = -1;
+        }
+        $scope.styles = function ($index) {
+            return {
+                "glyphicon": true,
+                "glyphicon-star": $index < $scope.value,
+                "glyphicon-star-empty": $index >= $scope.value,
+                "starpreview": $index <= $scope.preview
+            };
         }
     }
 }());
