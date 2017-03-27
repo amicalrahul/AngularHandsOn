@@ -46,7 +46,8 @@
     "GenFu": "1.2.1",
     "AngularHandsOn.Domain": "1.0.0-*",
     "AngularHandsOn.Data": "1.0.0-*",
-    "Marvin.Cache.Headers": "1.0.0"
+    "Marvin.Cache.Headers": "1.0.0",
+    "NLog.Extensions.Logging": "1.0.0-rtm-beta4"
   },
 
   "tools": {

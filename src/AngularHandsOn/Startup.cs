@@ -26,6 +26,8 @@ using System.IO;
 using AngularHandsOn.Helpers;
 using Microsoft.AspNetCore.Http;
 using AngularHandsOn.Model.ApiModel;
+using Microsoft.AspNetCore.Diagnostics;
+using NLog.Extensions.Logging;
 
 namespace AngularHandsOn
 {
@@ -205,24 +207,34 @@ namespace AngularHandsOn
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Seeder seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddDebug(LogLevel.Trace);
+            loggerFactory.AddProvider(new NLogLoggerProvider());
+            loggerFactory.AddNLog();
             app.UseFileServer();
             app.UseSwagger();
             app.UseSwaggerUi();
             //Adding ConfigureAuth middleware enables token authenticaion for API calls
             ConfigureAuth(app);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseBrowserLink();
+            //}
+            //else
             {
                app.UseExceptionHandler(appbuilder =>
                {
                    appbuilder.Run(async context =>
                    {
+                       var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                       if (exceptionHandlerFeature != null)
+                       {
+                           var logger = loggerFactory.CreateLogger("Global exception logger");
+
+                           logger.LogError(500, exceptionHandlerFeature.Error, exceptionHandlerFeature.Error.Message);
+                       }
+
                        if (context.Request.Path.Value.Contains("/api/"))
                        {
                            context.Response.StatusCode = 500;
@@ -264,7 +276,8 @@ namespace AngularHandsOn
                        src.DateOfBirth.GetCurrentAge()));
                     cfg.CreateMap<Book, BooksApiModel>();
                     cfg.CreateMap<AuthorForCreationModel, Author>();
-                    cfg.CreateMap<BookForCreationModel, Book>();
+                    cfg.CreateMap<BookForCreationModel, Book>().ReverseMap();
+                    cfg.CreateMap<BookForUpdateModel, Book>().ReverseMap();
                 }); 
             #endregion
 
@@ -294,7 +307,7 @@ namespace AngularHandsOn
             //Middleware added for example only
             app.UseMiddleware<MyMiddleware>();
 
-            app.UseHttpCacheHeaders();
+            //app.UseHttpCacheHeaders();
 
             #region Use MVC and defines default routes
             app.UseMvc(routes =>
