@@ -1,4 +1,5 @@
-﻿/*
+﻿/// <binding />
+/*
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
@@ -11,7 +12,15 @@ concat = require("gulp-concat"), //A module that will concatenate files based on
 cssmin = require("gulp-cssmin"), //A module that will minify CSS files.
 uglify = require("gulp-uglify"); // A module that minifies .js files using the UglifyJS toolkit
 
+var args = require('yargs').argv;
+var $ = require('gulp-load-plugins')({ lazy: true });
+var config = require('./gulp.config.js')();
 
+//var jscs = require('gulp-jscs');
+//var jshint = require('gulp-jshint');
+//var util = require('gulp-util');
+//var gulpprint = require('gulp-print');
+//var gulpif = require('gulp-if');
 
 var paths = {
     webroot: "./wwwroot/"
@@ -29,10 +38,25 @@ paths.concatCssDest = paths.webroot + "css/site.min.css";
 
 
 
+gulp.task("vet", function () {
+    log("Analyzing the source code");
+    return gulp
+            .src(config.bookappjs)
+            .pipe($.if(args.verbose, $.print()))
+            .pipe($.jscs())
+            .pipe($.jshint())
+            .pipe($.jshint.reporter('jshint-stylish', { verbose: true }))
+            .pipe($.jshint.reporter('fail'));
+
+});
+
 
 gulp.task('clean', function (cb) {
-    return rimraf('./wwwroot/lib1/', cb)
+    return rimraf('./wwwroot/lib1/', cb);
 });
+
+
+
 gulp.task('copy:lib', function () {
     return gulp.src([
             'core-js/client/shim.min.js',
@@ -89,3 +113,18 @@ gulp.task('jpgWatch.ts', ['jpg'], function () {
 });
 
 gulp.task('default', ['watch']);
+
+
+////////////
+
+function log(msg) {
+    if (typeof (msg) === 'object') {
+        for (var item in msg) {
+            if (msg.hasOwnProperty(item)) {
+                $.util.log($.util.colors.blue(msg[item]));
+            }
+        }
+    } else {
+        $.util.log($.util.colors.blue(msg));
+    }
+}

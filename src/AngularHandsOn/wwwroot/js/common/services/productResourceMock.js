@@ -7,7 +7,7 @@
     var app = angular
                 .module("productResourceMock",
                         ["ngMockE2E"]);
-
+    /* jshint -W109 */ //via this we can ignore a particular type of warning issued by Jshint using the warning code
     app.run(function($httpBackend) {
         var products = [
             {
