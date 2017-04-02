@@ -1,4 +1,6 @@
 ﻿module.exports = function () {
+    var ang2Code = 'Scripts/**/';
+
     var config = {
 
         angular2Lib:[
@@ -10,7 +12,12 @@
             'zone.js/dist/**',
             '@angular/**'
         ],
-
+        angular2Code: [
+            '*.html',
+            '*.css',
+            '*.jpg'
+        ],
+        scriptsTs: ang2Code + '*.ts',
         bookappjs: ['./wwwroot/js/common/services/*.js']
 
     };

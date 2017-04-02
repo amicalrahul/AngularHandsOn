@@ -51,67 +51,43 @@ gulp.task("vet", function () {
 });
 
 
+//Here cb is for callback function
+//it means if I use 'clean' task as a dependency to some other task, 
+//it makes sure to call the another task once clean is finished
 gulp.task('clean', function (cb) {
     return rimraf('./wwwroot/lib1/', cb);
 });
 
 
-
-gulp.task('copy:lib', function () {
-    return gulp.src([
-            'core-js/client/shim.min.js',
-            'systemjs/dist/system-polyfills.js',
-            'systemjs/dist/system.src.js',
-            'reflect-metadata/Reflect.js',
-            'rxjs/**',
-            'zone.js/dist/**',
-            '@angular/**'
-    ], { cwd: "node_modules/**" })
+//here, cwd - is for current working directory
+gulp.task('copy:lib', ['clean'], function () {
+    return gulp.src(config.angular2Lib, { cwd: "node_modules/**" })
         .pipe(gulp.dest('./wwwroot/lib1'));
 });
 var tsProject = ts.createProject('Scripts/tsconfig.json', {
     typescript: require('typescript')
 });
-//gulp.task('ts', function (done) {
-//    //var tsResult = tsProject.src()
-//    var tsResult = gulp.src([
-//            "Scripts/**/*.ts"
-//    ])
-//        .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
-//    return tsResult.js.pipe(gulp.dest('./wwwroot/app'));
-//});
 gulp.task('ts', function () {
-    var tsResult = gulp.src("Scripts/**/*.ts") // instead of gulp.src(...)
+    var tsResult = gulp.src(config.scriptsTs) // instead of gulp.src(...)
         .pipe(tsProject());
 
     return tsResult.js.pipe(gulp.dest('./wwwroot'));
 });
 
-gulp.task('html', function () {
-    return gulp.src("Scripts/**/*.html").pipe(gulp.dest('./wwwroot'));
+gulp.task('copy:ang2App', function () {
+    return gulp
+        .src(config.angular2Code, { cwd: "Scripts/**" })
+        .pipe(gulp.dest('./wwwroot'));
 });
-gulp.task('css', function () {
-    return gulp.src("Scripts/**/*.css").pipe(gulp.dest('./wwwroot'));
-});
-gulp.task('jpg', function () {
-    return gulp.src("Scripts/**/*.jpg").pipe(gulp.dest('./wwwroot'));
-});
-
-gulp.task('watch', ['watch.ts', 'htmlWatch.ts', 'cssWatch.ts', 'jpgWatch.ts']);
 
 gulp.task('watch.ts', ['ts'], function () {
-    return gulp.watch('Scripts/**/*.ts', ['ts']);
+    return gulp.watch(config.scriptsTs, ['ts']);
 });
-gulp.task('htmlWatch.ts', ['html'], function () {
-    return gulp.watch('Scripts/**/*.html', ['html']);
-});
-gulp.task('cssWatch.ts', ['css'], function () {
-    return gulp.watch('Scripts/**/*.css', ['css']);
-});
-gulp.task('jpgWatch.ts', ['jpg'], function () {
-    return gulp.watch('Scripts/**/*.jpg', ['jpg']);
+gulp.task('watch:ang2App', ['copy:ang2App'], function () {
+    return gulp.watch(config.angular2Code, { cwd: "Scripts/**" }, ['copy:ang2App']);
 });
 
+gulp.task('watch', ['watch.ts', 'watch:ang2App']);
 gulp.task('default', ['watch']);
 
 
