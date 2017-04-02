@@ -50,6 +50,7 @@ gulp.task("vet", function () {
 
 });
 gulp.task('wiredep', function () {
+    log("wiredep the source code");
     var options = config.getWiredepDefaultOptions();
     var wiredep = require('wiredep').stream;
 

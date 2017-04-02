@@ -23,8 +23,9 @@
         scriptsTs: ang2Code + '*.ts',
         bookappjs: [clientApp + 'common/services/*.js'],
         scriptLoc: scriptLoc,
-        index: scriptLoc + '_Scripts.cshtml',
+        index: scriptLoc + '_GulpGeneratedScripts.cshtml',
         js: [
+            client + 'lib/ui-bootstrap-tpls-0.11.0.js',
             clientApp + '**/*.module.js',
             clientApp + '**/app.js',
             clientApp + '**/*.services.js',
