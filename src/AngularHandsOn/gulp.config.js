@@ -40,7 +40,7 @@
         bower: {
             json: require('./bower.json'),
             directory: client + 'lib',
-            ignorePath: '../..'
+            ignorePath: 'wwwroot/'
         }
 
     };
@@ -53,6 +53,12 @@
 
         return options;
     };
+    config.getInjectOptions = function () {
+        var options = {
+            ignorePath: config.bower.ignorePath
+        };
 
+        return options;
+    }
     return config;
 }

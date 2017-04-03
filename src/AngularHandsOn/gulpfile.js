@@ -1,4 +1,4 @@
-﻿/// <binding />
+﻿/// <binding BeforeBuild='wiredep' />
 /*
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
@@ -53,12 +53,13 @@ gulp.task('wiredep', function () {
     log("wiredep the source code");
     var options = config.getWiredepDefaultOptions();
     var wiredep = require('wiredep').stream;
+    var injectOptions = config.getInjectOptions();
 
     return gulp
             .src(config.index)
             .pipe(wiredep(options))
-            .pipe($.inject(gulp.src(config.js)))
-            .pipe($.inject(gulp.src(config.css)))
+            .pipe($.inject(gulp.src(config.js), injectOptions))
+            .pipe($.inject(gulp.src(config.css), injectOptions))
             .pipe(gulp.dest(config.scriptLoc));
 });
 
