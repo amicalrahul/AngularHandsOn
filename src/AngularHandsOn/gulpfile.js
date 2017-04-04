@@ -35,6 +35,34 @@ paths.concatCssDest = paths.webroot + "css/site.min.css";
 
 
 
+gulp.task('build-specs', ['copy:testLib'], function () {
+    log('building the spec runner');
+
+    var wiredep = require('wiredep').stream;
+    var options = config.getWiredepDefaultOptions();
+    var specs = config.specs;
+
+    options.devDependencies = true;
+
+    if (args.startServers) {
+        specs = [].concat(specs, config.serverIntegrationSpecs);
+    }
+    var injectOptions = config.getInjectOptions();
+
+    return gulp
+        .src(config.specRunner)
+        .pipe(wiredep(options))
+        .pipe($.inject(gulp.src(config.testlibraries),
+            { name: 'inject:testlibraries', read: false, ignorePath: config.bower.ignorePath }))
+        .pipe($.inject(gulp.src(config.js), injectOptions))
+        .pipe($.inject(gulp.src(config.specHelpers),
+            { name: 'inject:spechelpers', read: false, ignorePath: config.bower.ignorePath }))
+        .pipe($.inject(gulp.src(specs),
+            { name: 'inject:specs', read: false, ignorePath: config.bower.ignorePath }))
+        //.pipe($.inject(gulp.src(config.temp + config.templateCache.file),
+        //    { name: 'inject:templates', read: false }))
+        .pipe(gulp.dest(config.client));
+});
 
 
 
@@ -77,6 +105,11 @@ gulp.task('copy:lib', ['clean'], function () {
     return gulp.src(config.angular2Lib, { cwd: "node_modules/**" })
         .pipe(gulp.dest('./wwwroot/lib1'));
 });
+//here, cwd - is for current working directory
+gulp.task('copy:testLib', function () {
+    return gulp.src(config.nodeTestlibraries, { cwd: "node_modules/**" })
+        .pipe(gulp.dest('./wwwroot/lib'));
+});
 var tsProject = ts.createProject('Scripts/tsconfig.json', {
     typescript: require('typescript')
 });
@@ -104,7 +137,61 @@ gulp.task('watch', ['watch.ts', 'watch:ang2App']);
 gulp.task('default', ['watch']);
 
 
+gulp.task('test', [], function (done) {
+    startTests(true /* singleRun */, done);
+});
+
+gulp.task('autotest', [], function (done) {
+    startTests(false /* singleRun */, done);
+});
 ////////////
+
+function startTests(singleRun, done) {
+    var karmaServer = require('karma').Server;
+    var excludeFiles = [];
+    var serverSpecs = config.serverIntegrationSpecs;
+
+    var child;
+    /* This section will crank up the node server to run tests that requires server apis to return real data
+    ** As, we are using IISExpress MVC.net Core, so this is not applicable for this app
+    var fork = require('child_process').fork;
+    if (args.startServers) { // gulp test --startServers
+        log('Starting server');
+        var savedEnv = process.env;
+        savedEnv.NODE_ENV = 'dev';
+        savedEnv.PORT = 8888;
+        child = fork(config.nodeServer);
+    } else {
+        if (serverSpecs && serverSpecs.length) {
+            excludeFiles = serverSpecs;
+        }
+    }*/
+
+    var karmaConfig = {
+        configFile: __dirname + '/karma.conf.js',
+        exclude: excludeFiles,
+        singleRun: !!singleRun
+    };
+
+    excludeFiles = serverSpecs;
+
+    var karma = new karmaServer(karmaConfig, karmaCompleted);
+    karma.start();
+
+    function karmaCompleted(karmaResult) {
+        log('Karma completed!');
+        if (child) {
+            log('Shutting down the child process');
+            child.kill();
+        }
+        if (karmaResult === 1) {
+            done('karma: tests failed with code ' + karmaResult);
+        } else {
+            done();
+        }
+    }
+
+}
 
 function log(msg) {
     if (typeof (msg) === 'object') {
