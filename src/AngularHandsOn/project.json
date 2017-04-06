@@ -69,8 +69,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true,
-    "xmlDoc": true
+    "preserveCompilationContext": true
+    //,"xmlDoc": true => commented to remove cluttering of "missing xml doc warning" druing build in dev mode
   },
 
   "runtimeOptions": {

@@ -584,3 +584,5 @@ src/AngularHandsOn/wwwroot/app/**/*.html
 src/AngularHandsOn/wwwroot/app/**/*.css
 src/AngularHandsOn/wwwroot/app/**/*.jpg
 src/AngularHandsOn/wwwroot/lib/**
+src/AngularHandsOn/obj/**/*.*
+src/AngularHandsOn/bin/**/*.*

@@ -68,10 +68,11 @@ namespace AngularHandsOn
                     Contact = new Contact { Name = "Rahul Sabharwal", Email = "", Url = "" },
                     License = new License { Name = "Rahul Sabharwal", Url = "" }
                 });
-
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var xmlPath = Path.Combine(basePath, "AngularHandsOn.xml");
-                options.IncludeXmlComments(xmlPath);
+                //The below section is commented as I have set "xmlDoc": true in project.json file
+                //  to remove cluttering of "missing xml doc warning" druing build in dev mode 
+                //var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                //var xmlPath = Path.Combine(basePath, "AngularHandsOn.xml");
+                //options.IncludeXmlComments(xmlPath);
             });
 
             services.AddSingleton(Configuration);
@@ -210,6 +211,16 @@ namespace AngularHandsOn
             loggerFactory.AddDebug(LogLevel.Trace);
             loggerFactory.AddProvider(new NLogLoggerProvider());
             loggerFactory.AddNLog();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    OnPrepareResponse = (context) =>
+            //    {
+            //        // Disable caching for all static files.
+            //        context.Context.Response.Headers["Cache-Control"] = "no-cache, nostore";
+            //        context.Context.Response.Headers["Pragma"] = "no-cache";
+            //        context.Context.Response.Headers["Expires"] = "-1";
+            //    }
+            //});
             app.UseFileServer();
             app.UseSwagger();
             app.UseSwaggerUi();
