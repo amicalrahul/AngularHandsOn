@@ -34,6 +34,7 @@
             clientApp + '**/*.module.js',
             clientApp + '**/app.js',
             clientApp + '**/*.services.js',
+            clientApp + '**/*.service.js',
             clientApp + '**/*.js',
             '!' + clientApp + '**/*.spec.js',
             '!' + clientApp + '**/*.min.js'

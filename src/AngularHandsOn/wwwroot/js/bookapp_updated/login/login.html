@@ -1,20 +1,13 @@
-﻿<form class="form-horizontal" name="loginForm" novalidate>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">UserName:</label>
-        <div class="col-sm-4">
-            <input type="text" ng-model="vm.username" class="form-control" required />
+﻿<div>
+    <form ng-if="!nav.user.loggedIn" name="loginForm" ng-submit="vm.login(loginForm)" novalidate>
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" type="text" placeholder="Username" class="form-control" ng-model="vm.username" required />
         </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Password:</label>
-        <div class="col-sm-4">
-            <input type="password" ng-model="vm.password" class="form-control" required />
+        <div class="form-group">
+            <label>Password</label>
+            <input name="password" type="password" placeholder="Password" class="form-control" ng-model="vm.password" required />
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4 col-sm-offset-2">
-            <button type="submit" class="btn btn-default" ng-click="vm.login()">Login</button>
-        </div>
-    </div>
-</form>
+        <input class="btn btn-default" type="submit" value="Login" />
+    </form>
+</div>

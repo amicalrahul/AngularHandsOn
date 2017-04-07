@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('app.services').factory("alerting", alerting);
+    angular.module('common.services').factory("alerting", alerting);
 
     function alerting($timeout) {
         var currentAlerts = [];

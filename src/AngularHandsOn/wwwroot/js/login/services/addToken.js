@@ -1,13 +1,13 @@
 ﻿(function () {
-    angular.module('app.services')
+    angular.module('loginapp.services')
     .factory('addToken', ['$q', 'currentUser', addToken]);
 
 
     function addToken($q, currentUser) {
 
         function request(config) {
-            if (currentUser.token) {
-                config.headers.Authorization = "Bearer " + currentUser.token.token;
+            if (currentUser.profile.loggedIn) {
+                config.headers.Authorization = "Bearer " + currentUser.profile.token;
             }
             return $q.when(config);
         }
@@ -17,7 +17,7 @@
         }
 
     }
-    angular.module('app.services')
+    angular.module('loginapp.services')
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('addToken');
     }]);
