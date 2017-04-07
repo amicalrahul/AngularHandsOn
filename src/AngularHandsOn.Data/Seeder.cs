@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,32 +35,38 @@ namespace AngularHandsOn.Data
 
                 await _userManager.CreateAsync(user, "P@ssw0rd!");
             }
-
+            var baseDirectory = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "AngularHandsOn.Data\\AppData");
             try
             {
                 if (!_dbContext.Schools.Any())
                 {
-                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/schools.json");
+                    var dataText = File.ReadAllText(Path.Combine(baseDirectory, "schools.json"));
                     List<School> schools = JsonConvert.DeserializeObject<List<School>>(dataText);
                     _dbContext.AddRange(schools);
                 }
                 if (!_dbContext.Classrooms.Any())
                 {
-                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/classrooms.json");
+                    var dataText = File.ReadAllText(Path.Combine(baseDirectory, "classrooms.json"));
                     List<Classroom> classrooms = JsonConvert.DeserializeObject<List<Classroom>>(dataText);
                     _dbContext.AddRange(classrooms);
                 }
                 if (!_dbContext.Activities.Any())
                 {
-                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/activities.json");
+                    var dataText = File.ReadAllText(Path.Combine(baseDirectory, "activities.json"));
                     List<Activity> activities = JsonConvert.DeserializeObject<List<Activity>>(dataText);
                     _dbContext.AddRange(activities);
                 }
                 if (!_dbContext.Books.Any())
                 {
-                    var dataText = System.IO.File.ReadAllText(@"~/../AppData/books.json");
+                    var dataText = File.ReadAllText(Path.Combine(baseDirectory, "books.json"));
                     List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
                     _dbContext.AddRange(books);
+                }
+                if (!_dbContext.Products.Any())
+                {
+                    var dataText = File.ReadAllText(Path.Combine(baseDirectory,"products.json"));
+                    List<Product> products = JsonConvert.DeserializeObject<List<Product>>(dataText);
+                    _dbContext.AddRange(products);
                 }
 
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Newtonsoft.Json;
 using AngularHandsOn.Domain;
+using System.Data.SqlClient;
 
 namespace AngularHandsOn.Data
 {
@@ -9,8 +10,12 @@ namespace AngularHandsOn.Data
     {
         public AngularDbContext(DbContextOptions options) : base(options)
         {
-
+            //example of using a stored procedure using entity framwork dbcontext
+            //SqlParameter category = new SqlParameter("@CategoryName", "Test");
+            //this.Database.ExecuteSqlCommand("NewCategory @CategoryName", category);
         }
+
+
         public DbSet<Books> Books { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
