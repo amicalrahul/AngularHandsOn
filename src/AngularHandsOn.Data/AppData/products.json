@@ -8,7 +8,8 @@
     "cost": 9.00,
     "price": 19.95,
     "category": "garden",
-    "tags":  "leaf, tool" ,
+    "tags": "leaf, tool",
+    "starRating": 3.2,
     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png"
   },
   {
@@ -20,7 +21,8 @@
     "cost": 20.00,
     "price": 32.99,
     "category": "garden",
-    "tags":  "barrow,cart,wheelbarrow" ,
+    "starRating": 4.2,
+    "tags": "barrow,cart,wheelbarrow",
     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
   },
   {
@@ -32,7 +34,8 @@
     "cost": 1.00,
     "price": 8.99,
     "category": "toolbox",
-    "tags":  "tool" ,
+    "tags": "tool",
+    "starRating": 4.8,
     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
   },
   {
@@ -44,7 +47,8 @@
     "cost": 6.95,
     "price": 11.55,
     "category": "garden",
-    "tags":  "garden,mower" ,
+    "tags": "garden,mower",
+    "starRating": 3.2,
     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png"
   },
   {
@@ -56,7 +60,8 @@
     "cost": 2.22,
     "price": 35.95,
     "category": "gaming",
-    "tags":  "gaming,controller,video game" ,
+    "tags": "gaming,controller,video game",
+    "starRating": 2.6,
     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png"
   }
 ]
