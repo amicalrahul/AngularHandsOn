@@ -7,7 +7,7 @@ export class AuthService {
     constructor(private http: Http) {
     }
     login(username: string, password: string): any {
-        var url = "api/auth/token"; // JwtProvider's LoginPath
+        var url = "/api/auth/token"; // JwtProvider's LoginPath
         var data = {
             UserName: username,
             Password: password,

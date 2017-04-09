@@ -35,3 +35,6 @@ form legend {
 .starpreview{
     color:rgba(255, 255, 128, 0.9);
 }
+.pointercursor{
+    cursor:pointer;
+}

@@ -1,32 +1,10 @@
 ﻿import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "./shared/auth.service";
+import { AuthService } from "../shared/auth.service";
 @Component({
     selector: "login",
-    template: `
-<div class="login-container">
-<h2 class="form-login-heading">Login</h2>
-<div class="alert alert-danger" role="alert"
-*ngIf="loginError"><strong>Warning:</strong> Username or Password
-mismatch</div>
-<form class="form-login" [formGroup]="loginForm"
-(submit)="performLogin($event)">
-<input formControlName="username" type="text" class="form-control"
-placeholder="Your username or e-mail address" required autofocus />
-<input formControlName="password" type="password" class="formcontrol"
-placeholder="Your password" required />
-<div class="checkbox">
-<label>
-<input type="checkbox" value="remember-me">
-Remember me
-</label>
-</div>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-in</button>
-</form>
-</div>
-`
+    templateUrl:'../../app/user/login.component.html'
 })
 export class LoginComponent {
     title = "Login";
