@@ -21,9 +21,9 @@
             '@angular/**'
         ],
         angular2Code: [
-            '*.html',
-            '*.css',
-            '*.jpg'
+            ang2Code + '*.html',
+            ang2Code + '*.css',
+            ang2Code + '*.jpg'
         ],
         bookappjs: [clientApp + 'common/services/*.js'],
         client: client,

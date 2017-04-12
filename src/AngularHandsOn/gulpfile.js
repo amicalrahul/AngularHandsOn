@@ -122,7 +122,7 @@ gulp.task('ts', function () {
 
 gulp.task('copy:ang2App', function () {
     return gulp
-        .src(config.angular2Code, { cwd: "Scripts/**" })
+        .src(config.angular2Code)
         .pipe(gulp.dest('./wwwroot'));
 });
 
@@ -130,7 +130,7 @@ gulp.task('watch.ts', ['ts'], function () {
     return gulp.watch(config.scriptsTs, ['ts']);
 });
 gulp.task('watch:ang2App', ['copy:ang2App'], function () {
-    return gulp.watch(config.angular2Code, { cwd: "Scripts/**" }, ['copy:ang2App']);
+    return gulp.watch(config.angular2Code, ['copy:ang2App']);
 });
 
 gulp.task('watch', ['watch.ts', 'watch:ang2App']);
