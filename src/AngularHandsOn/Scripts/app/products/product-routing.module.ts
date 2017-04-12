@@ -8,7 +8,7 @@ import { ProductEditViewComponent } from './productedit/edit-view.component';
     imports: [RouterModule.forChild([
         { path: 'products', component: ProductListComponent },
         {
-            path: 'product/:id',
+            path: 'products/:id',
             component: ProductDetailComponent
         },
         {

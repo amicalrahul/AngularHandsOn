@@ -28,7 +28,7 @@ export class LoginComponent {
                 this.loginError = false;
                 var auth = this.authService.getAuth();
                 alert("Our Token is: " + auth.token);
-                this.router.navigate([""]);
+                this.router.navigate(["/products"]);
             },
             (err : any) => {
                 console.log(err);
