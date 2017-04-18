@@ -29,5 +29,5 @@
 
 <h3>Current Favorite Book</h3>
 <div>
-    {{ vm.favoriteBook }}
+    <a ng-click="vm.goToBook(vm.favoriteBook)" style="cursor: pointer">{{ vm.favoriteBook.title }}</a>
 </div>

@@ -1,8 +1,9 @@
 ﻿(function () {
     "use strict";
     angular.module('bookapp')
-        .controller('BooksController', ['$state', 'dataService', 'constants', 'alerting', BooksController]);
-        function BooksController($state, dataService, constants, alerting) {
+        .controller('BooksController', ['$cookies', '$state', 'dataService', 'constants', 'alerting',
+            'bookService', BooksController]);
+    function BooksController($cookies, $state, dataService, constants, alerting, bookService) {
 
             var vm = this;
             //vm.appName = books.appName;
@@ -19,7 +20,7 @@
                     });
 
             vm.getBadge = constants.retrieveBadge;
-            //vm.favoriteBook = $cookies.favoriteBook;
+            vm.favoriteBook = $cookies.favoriteBook;
 
             function goToBook(book) {
                 $state.go('editBook', { id: book.book_id });

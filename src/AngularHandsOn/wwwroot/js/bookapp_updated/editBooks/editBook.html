@@ -1,6 +1,7 @@
 <h3>Edit Book</h3>
 
 <form class="form-horizontal" role="form">
+    <alerts></alerts>
     <div class="form-group">
         <label for="bookTitle" class="col-sm-1 control-label">Title</label>
         <div class="col-sm-4">
@@ -21,8 +22,9 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-1 col-sm-5">
-            <button class="btn btn-default">Save</button>
+            <button class="btn btn-default" ng-click="vm.back()" >Back</button>
             <button class="btn btn-default" ng-click="vm.setAsFavorite()">Set as Favorite</button>
+            <button class="btn btn-default">Save</button>
         </div>
     </div>
 </form>
