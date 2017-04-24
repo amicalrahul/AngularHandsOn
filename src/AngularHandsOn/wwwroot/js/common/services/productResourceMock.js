@@ -86,7 +86,7 @@
 
                 if (id > 0) {
                     for (var i = 0; i < products.length; i++) {
-                        if (products[i].productId === id) {
+                        if (products[i].productId === +id) {
                             product = products[i];
                             break;
                         }
@@ -106,7 +106,7 @@
                 } else {
                     // Updated product
                     for (var i = 0; i < products.length; i++) {
-                        if (products[i].productId == product.productId) {
+                        if (products[i].productId === +product.productId) {
                             products[i] = product;
                             break;
                         }
