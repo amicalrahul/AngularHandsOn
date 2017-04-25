@@ -62,6 +62,8 @@ namespace AngularHandsOn.Data
                     List<Books> books = JsonConvert.DeserializeObject<List<Books>>(dataText);
                     _dbContext.AddRange(books);
                 }
+                _dbContext.Products.RemoveRange(_dbContext.Products);
+                _dbContext.SaveChanges();
                 if (!_dbContext.Products.Any())
                 {
                     var dataText = File.ReadAllText(Path.Combine(baseDirectory,"products.json"));

@@ -31,6 +31,9 @@ namespace AngularHandsOn.Domain
         [JsonProperty(PropertyName = "price")]
         public double? Price { get; set; }
 
+        [JsonProperty(PropertyName = "cost")]
+        public double? Cost { get; set; }
+
         [JsonProperty(PropertyName = "starRating")]
         public double? StarRating { get; set; }
 

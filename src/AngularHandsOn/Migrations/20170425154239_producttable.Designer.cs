@@ -8,7 +8,7 @@ using AngularHandsOn.Data;
 namespace AngularHandsOn.Migrations
 {
     [DbContext(typeof(AngularDbContext))]
-    [Migration("20170120195700_producttable")]
+    [Migration("20170425154239_producttable")]
     partial class producttable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -16,6 +16,24 @@ namespace AngularHandsOn.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AngularHandsOn.Data.Books", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<int>("Bookid");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("YearPublished");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
 
             modelBuilder.Entity("AngularHandsOn.Domain.Activity", b =>
                 {
@@ -40,22 +58,49 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Domain.Books", b =>
+            modelBuilder.Entity("AngularHandsOn.Domain.Author", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Author");
+                    b.Property<DateTimeOffset>("DateOfBirth");
 
-                    b.Property<int>("Bookid");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<int>("YearPublished");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("AngularHandsOn.Domain.Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AuthorId");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("BooksApi");
                 });
 
             modelBuilder.Entity("AngularHandsOn.Domain.Classroom", b =>
@@ -79,6 +124,8 @@ namespace AngularHandsOn.Migrations
                 {
                     b.Property<string>("ProductId");
 
+                    b.Property<double?>("Cost");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("ImageUrl");
@@ -91,7 +138,9 @@ namespace AngularHandsOn.Migrations
 
                     b.Property<string>("ReleaseDate");
 
-                    b.Property<int?>("StarRating");
+                    b.Property<double?>("StarRating");
+
+                    b.Property<string>("Tags");
 
                     b.HasKey("ProductId");
 
@@ -126,6 +175,10 @@ namespace AngularHandsOn.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -278,6 +331,14 @@ namespace AngularHandsOn.Migrations
                     b.HasOne("AngularHandsOn.Domain.School", "School")
                         .WithMany()
                         .HasForeignKey("SchoolId");
+                });
+
+            modelBuilder.Entity("AngularHandsOn.Domain.Book", b =>
+                {
+                    b.HasOne("AngularHandsOn.Domain.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AngularHandsOn.Domain.Classroom", b =>

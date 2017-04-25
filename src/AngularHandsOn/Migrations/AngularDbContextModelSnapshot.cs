@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using AngularHandsOn.Data;
 
 namespace AngularHandsOn.Migrations
@@ -14,6 +15,24 @@ namespace AngularHandsOn.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AngularHandsOn.Data.Books", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<int>("Bookid");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("YearPublished");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
 
             modelBuilder.Entity("AngularHandsOn.Domain.Activity", b =>
                 {
@@ -83,24 +102,6 @@ namespace AngularHandsOn.Migrations
                     b.ToTable("BooksApi");
                 });
 
-            modelBuilder.Entity("AngularHandsOn.Domain.Books", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Author");
-
-                    b.Property<int>("Bookid");
-
-                    b.Property<string>("Title");
-
-                    b.Property<int>("YearPublished");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Books");
-                });
-
             modelBuilder.Entity("AngularHandsOn.Domain.Classroom", b =>
                 {
                     b.Property<int>("ClassroomId");
@@ -121,6 +122,8 @@ namespace AngularHandsOn.Migrations
             modelBuilder.Entity("AngularHandsOn.Domain.Product", b =>
                 {
                     b.Property<string>("ProductId");
+
+                    b.Property<double?>("Cost");
 
                     b.Property<string>("Description");
 

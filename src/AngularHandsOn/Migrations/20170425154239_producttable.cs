@@ -13,13 +13,15 @@ namespace AngularHandsOn.Migrations
                 columns: table => new
                 {
                     ProductId = table.Column<string>(nullable: false),
+                    Cost = table.Column<double>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: true),
                     ProductCode = table.Column<string>(nullable: true),
                     ProductName = table.Column<string>(nullable: true),
                     ReleaseDate = table.Column<string>(nullable: true),
-                    StarRating = table.Column<int>(nullable: true)
+                    StarRating = table.Column<double>(nullable: true),
+                    Tags = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
