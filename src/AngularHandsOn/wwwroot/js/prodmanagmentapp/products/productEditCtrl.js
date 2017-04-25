@@ -7,15 +7,37 @@
     angular
         .module("productManagement")
         .controller("ProductEditCtrl",
-        ["product",
+        ["product","productService",
             "$state",
             ProductEditCtrl]);
 
 
-    function ProductEditCtrl(product, $state) {
+    function ProductEditCtrl(product, productService, $state) {
         var vm = this;
 
         vm.product = product;
+        vm.priceOption = "percent";
+
+        vm.marginPercent = function () {
+            return productService.calculateMarginPercent(vm.product.price,
+                                                         vm.product.cost)
+        };
+
+        /* Calculate the price based on a markup */
+        vm.calculatePrice = function () {
+            var price = 0;
+
+            if (vm.priceOption === 'amount') {
+                price = productService.calculatePriceFromMarkupAmount(
+                    vm.product.cost, vm.markupAmount);
+            }
+
+            if (vm.priceOption === 'percent') {
+                price = productService.calculatePriceFromMarkupPercent(
+                    vm.product.cost, vm.markupPercent);
+            }
+            vm.product.price = price;
+        };
 
         if (vm.product && vm.product.productId) {
             vm.title = "Edit: " + vm.product.productName;
@@ -33,10 +55,16 @@
         };
 
         vm.submit = function () {
-            vm.product.$save(function (data) {
-                toastr.success("Save Successful");
+            if (vm.product.productId > 0) {
+                vm.product.$update({ productId: vm.product.productId }, function (data) {
+                    toastr.success("Save Successful");
+                });
             }
-            );
+            else {
+                vm.product.$save(function (data) {
+                    toastr.success("Save Successful");
+                });
+            }
         }
 
         vm.cancel = function () {

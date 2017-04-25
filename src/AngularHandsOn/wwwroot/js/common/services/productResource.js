@@ -11,7 +11,11 @@
                  productResource]);
 
     function productResource($resource) {
-        return $resource("../../api/products/:productId");
+        return $resource("/api/home1/Products/:productId", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
     }
 
 }());

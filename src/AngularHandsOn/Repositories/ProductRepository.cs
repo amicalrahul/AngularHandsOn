@@ -40,6 +40,11 @@ namespace AngularHandsOn.Repositories
 
         public Product Fetch(string id)
         {
+            if(id == "0")
+            {
+                return new Product();
+            }
+
             return _dbContext.Products.First(a => a.ProductId == id);
         }
 
