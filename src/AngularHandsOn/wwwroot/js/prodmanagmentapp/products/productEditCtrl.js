@@ -8,11 +8,11 @@
         .module("productManagement")
         .controller("ProductEditCtrl",
         ["product","productService",
-            "$state",
+            "$state", "$filter",
             ProductEditCtrl]);
 
 
-    function ProductEditCtrl(product, productService, $state) {
+    function ProductEditCtrl(product, productService, $state, $filter) {
         var vm = this;
 
         vm.product = product;
@@ -55,6 +55,7 @@
         };
 
         vm.submit = function () {
+            vm.product.releaseDate = $filter('date')(vm.product.releaseDate, "MMMM d, y");
             if (vm.product.productId > 0) {
                 vm.product.$update({ productId: vm.product.productId }, function (data) {
                     toastr.success("Save Successful");
