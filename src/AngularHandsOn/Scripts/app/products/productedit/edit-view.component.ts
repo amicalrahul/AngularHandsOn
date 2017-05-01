@@ -6,7 +6,7 @@ import { ProductService } from '../product.service';
     templateUrl: '../../app/products/productedit/edit-view.component.html'
 })
 export class ProductEditViewComponent implements OnInit {
-    title: string = "Edit View";
+    title: string = 'Edit View';
     id: number;
     constructor(private service: ProductService, private route: ActivatedRoute,
         private router: Router) {

@@ -1,28 +1,28 @@
-﻿import { Injectable, EventEmitter } from "@angular/core";
-import { Http, Headers, Response, RequestOptions } from "@angular/http";
-import { Observable } from "rxjs/Observable";
+﻿import { Injectable, EventEmitter } from '@angular/core';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
-    authKey = "auth";
+    authKey = 'auth';
     constructor(private http: Http) {
     }
     login(username: string, password: string): any {
-        var url = "/api/auth/token"; // JwtProvider's LoginPath
-        var data = {
+        let url = '/api/auth/token'; // JwtProvider's LoginPath
+        let data = {
             UserName: username,
             Password: password,
-            client_id: "OpenGameList",
+            client_id: 'OpenGameList',
             // required when signing up with username/password
-            grant_type: "password",
+            grant_type: 'password',
             // space-separated list of scopes for which the token is issued
-            scope: "offline_access profile email"
+            scope: 'offline_access profile email'
         };
 
 
-        //let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        //let options = new RequestOptions({ headers: headers }); // Create a request option
+        // let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        // let options = new RequestOptions({ headers: headers }); // Create a request option
 
-        //return this.http.post(url, JSON.stringify(data), options)
+        // return this.http.post(url, JSON.stringify(data), options)
         //    .map(this.mapSchoolResponse)
         //    .catch(this.handleError);
 
@@ -31,12 +31,12 @@ export class AuthService {
             JSON.stringify(data),
             new RequestOptions({
                 headers: new Headers({
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 })
             }))
             .map(response => {
-                var auth = response.json();
-                console.log("The following auth JSON object has been received:");
+                let auth = response.json();
+                console.log('The following auth JSON object has been received:');
                 console.log(auth);
                 this.setAuth(auth);
                 return auth;
@@ -48,12 +48,12 @@ export class AuthService {
     }
     // Converts a Json object to urlencoded format
     toUrlEncodedString(data: any) {
-        var body = "";
-        for (var key in data) {
+        let body = '';
+        for (let key in data) {
             if (body.length) {
-                body += "&";
+                body += '&';
             }
-            body += key + "=";
+            body += key + '=';
             body += encodeURIComponent(data[key]);
         }
         return body;
@@ -70,7 +70,7 @@ export class AuthService {
     }
     // Retrieves the auth JSON object (or NULL if none)
     getAuth(): any {
-        var i = localStorage.getItem(this.authKey);
+        let i = localStorage.getItem(this.authKey);
         if (i) {
             return JSON.parse(i);
         }

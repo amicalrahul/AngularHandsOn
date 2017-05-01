@@ -56,7 +56,7 @@ export class AllActivitiesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.buildForm();
-        this.color = "blue";
+        this.color = 'blue';
         this._dataService.getAllActivities()
             .subscribe(activity => {
                 console.log(activity);
@@ -65,7 +65,7 @@ export class AllActivitiesComponent implements OnInit {
             error => this.errorMessage = <any>error);
     }
     validateclassroom(classroom:string) {
-        if (classroom == 'default')
+        if (classroom === 'default')
             this.isclassroominvalid = true;
         else
             this.isclassroominvalid = false;

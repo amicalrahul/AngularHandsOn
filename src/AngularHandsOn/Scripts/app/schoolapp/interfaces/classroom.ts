@@ -10,9 +10,9 @@ export interface IClassroom {
 //    school: ISchool;
 }
 
-//export interface IClassroomRaw {
+// export interface IClassroomRaw {
 //    id: number;
 //    name: string;
 //    teacher: string;
 //    school_id: number;
-//}
+// }

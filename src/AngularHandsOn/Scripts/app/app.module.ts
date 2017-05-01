@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './not-found.component';
 import { ComposeMessageComponent } from './compose-message.component';
 import { CustomerComponent } from './customersignup/customer.component';
-import { AuthService } from "./shared/auth.service";
+import { AuthService } from './shared/auth.service';
 import { UserModule } from './user/user.module';
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, ProductModule, SchoolAppModule, UserModule, AppRoutingModule],

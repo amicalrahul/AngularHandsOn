@@ -8,17 +8,17 @@ export class ValidatorService {
         if (email.pristine || confirmEmail.pristine)
             return null;
 
-        if (email.value != confirmEmail.value)
+        if (email.value !== confirmEmail.value)
             return { 'match': true };
         return null;
     }
     static ratingRange(minValue: number, maxValue: number): ValidatorFn {
         return (crtl: AbstractControl): { [key: string]: boolean } | null => {
             let cValue = crtl.value;
-            if ((cValue != undefined) && (isNaN(cValue) || cValue < minValue || cValue > maxValue))
+            if ((cValue !== undefined) && (isNaN(cValue) || cValue < minValue || cValue > maxValue))
                 return { 'range': true };
             return null;
-        }
+        };
     }
 
     static processValidations(formGroup: FormGroup, validationMessages: { [key: string]: { [key: string]: string } }): { [key: string]: string } {
@@ -32,7 +32,7 @@ export class ValidatorService {
                 let control = formGroup.controls[controlKey];
                 if (control instanceof FormGroup) {
                     let childMessages = this.processValidations(control, validationMessages);
-                    //Object.assign => copies all childMessages to messages string
+                    // Object.assign => copies all childMessages to messages string
                     Object.assign(messages, childMessages);
                     messages[controlKey] = this.getValidationMessage(controlKey, control, validationMessages);
                 }

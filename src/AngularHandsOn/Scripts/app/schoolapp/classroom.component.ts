@@ -15,17 +15,17 @@ export class ClassroomComponent implements OnInit {
 
 
     classroom: IClassroom;
-    errorMessage: string = "";
+    errorMessage: string = '';
     constructor(private _dataService: DataService, private _route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
         this._dataService.getClassroom(this._route.snapshot.params['id'])
             .subscribe(result => {
-                this.classroom = result
+                this.classroom = result;
             },
             error => this.errorMessage = <any>error);
-        if (this.errorMessage != "") {
+        if (this.errorMessage !== '') {
             console.log(this.errorMessage);
         }
     }

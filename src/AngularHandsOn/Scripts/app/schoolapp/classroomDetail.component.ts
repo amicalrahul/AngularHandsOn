@@ -16,7 +16,7 @@ export class ClassroomDetailComponent implements OnInit {
     classroom: IClassroom;
     timePeriod: string;
     month: number;
-    errorMessage: string = "";
+    errorMessage: string = '';
     selectedId: number;
     constructor(private dataService: DataService, private route: ActivatedRoute) {
     }
