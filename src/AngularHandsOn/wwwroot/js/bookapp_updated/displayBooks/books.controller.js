@@ -2,8 +2,8 @@
     "use strict";
     angular.module('bookapp')
         .controller('BooksController', ['$cookies', '$state', 'dataService', 'constants', 'alerting',
-            'bookService', BooksController]);
-    function BooksController($cookies, $state, dataService, constants, alerting, bookService) {
+            BooksController]);
+    function BooksController($cookies, $state, dataService, constants, alerting) {
 
             var vm = this;
             //vm.appName = books.appName;
