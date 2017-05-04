@@ -6,5 +6,5 @@
 })
 
 export class WelcomeComponent {
-    pageTitle: string = "Welcome";
+    pageTitle: string = 'Welcome';
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, Valid
 import { Customer } from './customer';
 import 'rxjs/add/operator/debounceTime';
 
-import { ValidatorService } from '../shared/validator.service'
+import { ValidatorService } from '../shared/validator.service';
 
 
 @Component({
@@ -15,36 +15,36 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     customerForm: FormGroup;
     emailMessage: string;
     confirmEmailMessage: string;
-    validationMessages: { [key: string]: { [key: string]: string } }
+    validationMessages: { [key: string]: { [key: string]: string } };
     displayMessage: { [key: string]: string };
 
     constructor(private fb: FormBuilder) {
         this.validationMessages = {
             emailGroup: {
-                match: "Email and Confirm Email do not match"
+                match: 'Email and Confirm Email do not match'
             },
             email: {
-                required: "Email is required.",
-                pattern: "Email is not valid"
+                required: 'Email is required.',
+                pattern: 'Email is not valid'
             },
             confirmEmail: {
-                required: "Email is required.",
-                pattern: "Email is not valid",
-                match: "Email and Confirm Email do not match"
+                required: 'Email is required.',
+                pattern: 'Email is not valid',
+                match: 'Email and Confirm Email do not match'
             },
             firstName: {
-                required: "First Name is required.",
-                minlength: "First Name cannot be less than 3 characters"
+                required: 'First Name is required.',
+                minlength: 'First Name cannot be less than 3 characters'
             },
             lastName: {
-                required: "Last Name is required.",
-                maxlength: "Last Name cannot exceed 50 characters"
+                required: 'Last Name is required.',
+                maxlength: 'Last Name cannot exceed 50 characters'
             },
             phone: {
-                required: "Phone is required."
+                required: 'Phone is required.'
             },
             rating: {
-                range: "Rating range is from 1 to 5"
+                range: 'Rating range is from 1 to 5'
             }
         };
     }
@@ -57,7 +57,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
             firstName: ['', [Validators.required, Validators.minLength(3)]],
             lastName: ['', [Validators.required, Validators.maxLength(50)]],
             emailGroup: this.fb.group({
-                email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+")]],
+                email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
                 confirmEmail: ['', Validators.required]
             }, { validator: ValidatorService.emailMatcher }),
             phone: [''],

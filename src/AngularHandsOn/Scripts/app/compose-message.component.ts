@@ -13,13 +13,13 @@ export class ComposeMessageComponent {
     @HostBinding('style.display') display = 'block';
     @HostBinding('style.position') position = 'absolute';
     sending: boolean;
-    details: string
+    details: string;
     message: string;
     constructor(private router: Router) {
     }
 
     send() {
-        this.details = "Sending Message...";
+        this.details = 'Sending Message...';
         this.sending = true;
         setTimeout(() => {
             this.sending = false;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 import { ProductService } from './products/product.service';
 import { DataService } from './schoolapp/services/data.service';

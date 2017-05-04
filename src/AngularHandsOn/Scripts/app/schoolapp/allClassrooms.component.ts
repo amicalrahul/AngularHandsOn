@@ -14,7 +14,7 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 export class AllClassroomComponent implements OnInit {
     classroomteacher: string;
     classroomname: string;
-    school: string = "default";
+    school: string = 'default';
     schools: ISchool[];
     allClassrooms: IClassroom[];
     errorMessage: string;
@@ -45,7 +45,7 @@ export class AllClassroomComponent implements OnInit {
         this.validateschoolname(this.school);
         if (this.isschoolinvalid)
             return;
-        console.log("form:" + form);
+        console.log('form:' + form);
         this._dataService.addClassroom({
                                 name: this.classroomname,
                                 teacher: this.classroomteacher,
@@ -56,13 +56,13 @@ export class AllClassroomComponent implements OnInit {
                              this.allClassrooms = data;
                              form.reset();
                             this.school = 'default';
-                            this.classroomname = "";
-                            this.classroomteacher = "";
+                            this.classroomname = '';
+                            this.classroomteacher = '';
                             }
             );
     }
     validateschoolname(school: string) {
-        if (school == 'default')
+        if (school === 'default')
             this.isschoolinvalid = true;
         else
             this.isschoolinvalid = false;

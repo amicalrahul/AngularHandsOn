@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ProductBasicInfoComponent } from './basicinfo.component';
 import { ProductPriceDetailComponent } from './pricedetail.component';
 import { ProductSearchTagsComponent } from './searchtags.component';
-import { ProductEditRoutingModule } from './productedit-routing.module'
+import { ProductEditRoutingModule } from './productedit-routing.module';
 
 import { ProductEditViewComponent } from './edit-view.component';
 @NgModule({

@@ -18,7 +18,7 @@ import { ActivitySeacrhComponent } from './activitysearch.component';
 
 import { HighlightDirective } from './directives/highlight.directive';
 import { FilteredActivities } from './filters/filteredactivities.pipe';
-import { ClassroomDetailResolve } from './classroomDetail.resolve'
+import { ClassroomDetailResolve } from './classroomDetail.resolve';
 
 @NgModule({
     declarations: [HomeComponent,

@@ -13,7 +13,7 @@ import { IActivity } from '../../app/schoolapp/interfaces/activity';
 
 })
 export class HomeComponent implements OnInit {
-    message: string = "School App";
+    message: string = 'School App';
     allSchools: ISchool[];
     allClassrooms: IClassroom[];
     allActivities: IActivity[];

@@ -16,14 +16,14 @@ export class ProductBasicInfoComponent implements OnInit {
     productInfoForm: FormGroup;
     private sub: Subscription;
     product: IProduct;
-    validationMessages : {
+    validationMessages: {
         [key: string]: {
             [key: string]: string
         }
-    }
+    };
     private displayMessage: {
         [key: string]: string
-    } 
+    }; 
         
 
 
@@ -31,13 +31,13 @@ export class ProductBasicInfoComponent implements OnInit {
         private router: Router, private fb: FormBuilder) {
         this.validationMessages = {
             productName: {
-                required: "Product Name is required.",
+                required: 'Product Name is required.',
             },
             productCode: {
-                required: "Product Code is required."
+                required: 'Product Code is required.'
             },
             starRating: {
-                range: "Rating range is from 1 to 5"
+                range: 'Rating range is from 1 to 5'
             }
         };
     }
@@ -53,7 +53,7 @@ export class ProductBasicInfoComponent implements OnInit {
     }
     ngOnInit() {
         this.buildForm();
-        //this.id = +this.route.snapshot.url[0];
+        // this.id = +this.route.snapshot.url[0];
         this.route.params.subscribe(
             params => {
                 let id = +params['id'];
