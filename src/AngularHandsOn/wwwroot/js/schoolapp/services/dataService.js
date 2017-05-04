@@ -15,10 +15,10 @@
         function getItemsById(data, id) {
 
             var matchingItems = data.filter(function (item) {
-                return item.id == id;
+                return item.id === id;
             });
             return matchingItems;
-        };
+        }
         function getAllSchools() {
             return $http.get('/Home/GetSchools')
                 .then(function (response) {
@@ -86,7 +86,7 @@
                      .then(function (response1) {
                          var activities = new Array();
                          response1.data.forEach(function (activity, index, array) {
-                             if (activity.classroom_id == id) {
+                             if (activity.classroom_id === id) {
                                  activities.push(activity);
                              }
                          });

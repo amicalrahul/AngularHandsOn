@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>gulp</title>
+
+    <style>
+        body {
+            font: 20px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+            padding-left: 20px;
+        }
+    </style>
+
+    <!--BEWARE of using any app styles as @media can screw up tests -->
+
+    <link rel="stylesheet" href="/lib/mocha/mocha.css">
+
+</head>
+<body>
+
+<h1><a href="specs.html">Spec Runner</a></h1>
+<p><strong>Make sure the REMOTE server is running</strong><br/>
+    Click on a <em>description title</em> to narrow the scope to just its specs
+    (see "<a href="http://mochajs.github.io/mocha/#grep-option" target="_blank" title="MochaJS grep option">
+        ?grep</a>" in address bar).<br/>
+    Click on a <em>spec title</em> to see the test implementation.<br/>
+    Click on <em>page title</em> to start over.
+</p>
+
+<div id="mocha"></div>
+
+    <!-- inject:testlibraries:js -->
+    <script src="/lib/mocha/mocha.js"></script>
+    <script src="/lib/chai/chai.js"></script>
+    <script src="/lib/mocha-clean/index.js"></script>
+    <script src="/lib/sinon-chai/lib/sinon-chai.js"></script>
+    <!-- endinject -->
+
+    <script>
+        expect = chai.expect;
+        AssertionError = chai.AssertionError;
+        mocha.setup('bdd');
+        mocha.traceIgnores = ['mocha.js', 'chai.js', 'angular.js'];
+    </script>
+
+    <!-- bower:js -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-mocks/angular-mocks.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/angular-permission/dist/angular-permission.js"></script>
+    <script src="lib/angular-permission/dist/angular-permission-ui.js"></script>
+    <script src="lib/angular-permission/dist/angular-permission-ng.js"></script>
+    <script src="lib/angular-ui-scroll/dist/ui-scroll.js"></script>
+    <script src="lib/angular-ui-scrollpoint/dist/scrollpoint.js"></script>
+    <script src="lib/angular-ui-event/dist/event.js"></script>
+    <script src="lib/angular-ui-mask/dist/mask.js"></script>
+    <script src="lib/angular-ui-validate/dist/validate.js"></script>
+    <script src="lib/angular-ui-indeterminate/dist/indeterminate.js"></script>
+    <script src="lib/angular-ui-uploader/dist/uploader.js"></script>
+    <script src="lib/ui-utils/index.js"></script>
+    <script src="lib/toastr/toastr.js"></script>
+    <script src="lib/sinon/index.js"></script>
+    <script src="lib/bardjs/dist/bard.js"></script>
+    <script src="lib/bardjs/dist/bard-ngRouteTester.js"></script>
+    <!-- endbower -->
+
+    <!-- inject:js -->
+    <script src="/lib/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="/js/bookapp_updated/routing.module.js"></script>
+    <script src="/js/bookapp/app.js"></script>
+    <script src="/js/bookapp_updated/app.js"></script>
+    <script src="/js/ngdirectiveapp/app.js"></script>
+    <script src="/js/prodmanagmentapp/app.js"></script>
+    <script src="/js/schoolapp/app.js"></script>
+    <script src="/js/common/services/common.services.js"></script>
+    <script src="/js/bookapp_updated/services/app.services.js"></script>
+    <script src="/js/common/services/alerting.service.js"></script>
+    <script src="/js/bookapp_updated/services/constant.service.js"></script>
+    <script src="/js/bookapp_updated/services/data.service.js"></script>
+    <script src="/js/bookapp_updated/services/exceptionHandler.service.js"></script>
+    <script src="/js/bookapp_updated/services/interpolateDebug.service.js"></script>
+    <script src="/js/login/services/loginapp.service.js"></script>
+    <script src="/js/dataService.js"></script>
+    <script src="/js/site.js"></script>
+    <script src="/js/login/login.controller.js"></script>
+    <script src="/js/test-helpers/mock-data.js"></script>
+    <script src="/js/common/services/productResource.js"></script>
+    <script src="/js/common/services/productResourceMock.js"></script>
+    <script src="/js/bookapp/services/badgeService.js"></script>
+    <script src="/js/bookapp/services/bookResource.js"></script>
+    <script src="/js/bookapp/services/bookResourceMock.js"></script>
+    <script src="/js/bookapp/services/constantService.js"></script>
+    <script src="/js/bookapp/services/dataService.js"></script>
+    <script src="/js/bookapp/services/loggerService.js"></script>
+    <script src="/js/bookapp/books/AddBookController.js"></script>
+    <script src="/js/bookapp/books/BooksController.js"></script>
+    <script src="/js/bookapp/books/EditBookController.js"></script>
+    <script src="/js/bookapp_updated/diagnostic/errorProne.controller.js"></script>
+    <script src="/js/bookapp_updated/directives/alerts.js"></script>
+    <script src="/js/bookapp_updated/directives/directives.js"></script>
+    <script src="/js/bookapp_updated/directives/ratings.js"></script>
+    <script src="/js/bookapp_updated/directives/workSpinner.js"></script>
+    <script src="/js/bookapp_updated/editBooks/editBook.controller.js"></script>
+    <script src="/js/bookapp_updated/displayBooks/books.controller.js"></script>
+    <script src="/js/bookapp_updated/registerUser/registerUser.controller.js"></script>
+    <script src="/js/bookapp_updated/services/requestCounter.js"></script>
+    <script src="/js/login/services/addToken.js"></script>
+    <script src="/js/login/services/auth.js"></script>
+    <script src="/js/login/services/currentUser.js"></script>
+    <script src="/js/login/services/localStorage.js"></script>
+    <script src="/js/login/services/loginRedirect.js"></script>
+    <script src="/js/prodmanagmentapp/products/productDetailCtrl.js"></script>
+    <script src="/js/prodmanagmentapp/products/productEditCtrl.js"></script>
+    <script src="/js/prodmanagmentapp/products/productListCtrl.js"></script>
+    <script src="/js/schoolapp/controllers/AllActivitiesController.js"></script>
+    <script src="/js/schoolapp/controllers/AllClassroomsController.js"></script>
+    <script src="/js/schoolapp/controllers/AllSchoolsController.js"></script>
+    <script src="/js/schoolapp/controllers/ClassroomController.js"></script>
+    <script src="/js/schoolapp/controllers/HomeController.js"></script>
+    <script src="/js/schoolapp/services/dataService.js"></script>
+    <script src="/js/schoolapp/services/helper.js"></script>
+    <script src="/js/schoolapp/services/notifier.js"></script>
+    <script src="/js/schoolapp/filters/activityMonthFilter.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:spechelpers:js -->
+    <!-- endinject -->
+
+    <!-- inject:specs:js -->
+    <script src="/js/login/login.controller.spec.js"></script>
+    <script src="/js/bookapp_updated/displayBooks/books.controller.spec.js"></script>
+    <script src="/js/bookapp_updated/registerUser/registerUser.controller.spec.js"></script>
+    <script src="/js/bookapp_updated/services/data.service.spec.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:templates:js -->
+    <!-- endinject -->
+
+    <script>
+        mocha.run();
+    </script>
+
+</body>
+</html>

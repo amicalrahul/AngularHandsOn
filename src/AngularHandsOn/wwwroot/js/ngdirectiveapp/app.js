@@ -1,7 +1,7 @@
 ﻿/// <reference path="templates/home.html" />
 (function () {
     "use strict";
-    var app = angular.module('ngdirective', ['ngRoute']);
+    var app = angular.module('ngdirective', ['ngRoute', 'ui.bootstrap']);
 
     app.config(['$logProvider', '$routeProvider', '$locationProvider', configSection]);
 
@@ -17,7 +17,7 @@
            .otherwise('/');
     };
 
-    angular.module('ngdirective').controller('mainCtrl', function ($scope) {
+    app.controller('mainCtrl', function ($scope) {
         $scope.person1 = {
             name: 'Luke Skywalker',
             address: {
@@ -30,7 +30,12 @@
               'Leia',
               'Chewbacca'
             ],
-            level: 0
+            level: 0,
+            hasForce: true,
+            yearsOfJediTraining: 4,
+            master: 'Yoda',
+            passedTrials: true,
+            masterApproves: true
         }
         $scope.person2 = {
             name: 'Han Solo',
@@ -65,7 +70,40 @@
         }
     });
 
-    angular.module('ngdirective').directive('userPanel', function () {
+    app.factory('jediPolicy', function ($q) {
+        return {
+            advanceToKnight: function (candidate) {
+                var promise = $q(function (resolve, reject) {
+                    if (candidate.hasForce &&
+                    (
+                      candidate.yearsOfJediTraining > 20
+                      || candidate.isChosenOne
+                      || (candidate.master === 'Yoda' && candidate.yearsOfJediTraining > 3)
+                    )
+                    && candidate.masterApproves
+                    && candidate.passedTrials) {
+                        resolve(candidate);
+                    } else {
+                        reject(candidate);
+                    }
+                });
+                return promise;
+            }
+        }
+    });
+
+    app.controller('knightConfirmationCtrl', function ($scope, $modalInstance, user) {
+        $scope.user = user;
+
+        $scope.yes = function () {
+            $modalInstance.close(true);
+        }
+
+        $scope.no = function () {
+            $modalInstance.close(false);
+        }
+    });
+    app.directive('userPanel', function () {
         return {
             restrict: 'E',
             transclude: true,
@@ -77,6 +115,7 @@
             },
             controller: function ($scope) {
                 $scope.collapsed = ($scope.initialCollapsed === 'true');
+
                 $scope.nextState = function (evt) {
                     evt.stopPropagation();
                     evt.preventDefault();
@@ -89,7 +128,7 @@
             }
         }
     })
-    angular.module('ngdirective').directive('droidInfoCard', function () {
+    app.directive('droidInfoCard', function () {
         return {
             templateUrl: "../../js/ngdirectiveapp/droidInfoCard.html",
             restrict: "E",
@@ -102,7 +141,7 @@
             }
         }
     });
-    angular.module('ngdirective').directive('personInfoCard', function () {
+    app.directive('personInfoCard', function (jediPolicy) {
         return {
             templateUrl: "../../js/ngdirectiveapp/personInfoCard.html",
             restrict: "E",
@@ -110,9 +149,39 @@
                 person: '=',
                 initialCollapsed: '@collapsed'
             },
-            controller: function ($scope) {
-                $scope.knightMe = function (person) {
-                    person.rank = "knight";
+            controller: function ($scope, $modal) {
+                //$scope.knightMe = function (person) {
+                //    person.rank = "knight";
+                //}
+
+                //$scope.knightMe = function (user) {
+                //    jediPolicy.advanceToKnight(user).then(null, function (user) {
+                //        alert('Sorry, ' + user.name + ' is not ready to become a Jedi Knight');
+                //    })
+                //}
+
+                $scope.knightMe = function (user) {
+                    jediPolicy.advanceToKnight(user).then(advance, function (user) {
+                            alert('Sorry, ' + user.name + ' is not ready to become a Jedi Knight');
+                        })
+                }
+
+                function advance(user) {
+                    var modalInstance = $modal.open({
+                        templateUrl: '../../js/ngdirectiveapp/knightConfirmation.html',
+                        controller: 'knightConfirmationCtrl',
+                        resolve: {
+                            user: function () {
+                                return $scope.person;
+                            }
+                        }
+                    })
+
+                    modalInstance.result.then(function (answer) {
+                        if (answer) {
+                            $scope.person.rank = "Jedi Knight";
+                        }
+                    })
                 }
 
                 $scope.removeFriend = function (friend) {
@@ -124,7 +193,7 @@
             }
         }
     });
-    angular.module('ngdirective').directive('stateDisplay', function () {
+    app.directive('stateDisplay', function () {
         return {
             link: function (scope, el, attrs) {
                 var parms = attrs['stateDisplay'].split(' ');
@@ -138,7 +207,7 @@
             }
         }
     })
-    angular.module('ngdirective').directive('eventPause', function ($parse) {
+    app.directive('eventPause', function ($parse) {
         return {
             restrict: 'A',
             link: function (scope, el, attrs) {
@@ -151,7 +220,7 @@
             }
         }
     })
-    angular.module('ngdirective').directive('spacebarSupport', function () {
+    app.directive('spacebarSupport', function () {
         return {
             restrict: 'A',
             link: function (scope, el, attrs) {
@@ -169,7 +238,7 @@
         }
     })
     
-    angular.module('ngdirective').directive('removeFriend', function () {
+    app.directive('removeFriend', function () {
         return {
             restrict: 'E',
             templateUrl: '../../js/ngdirectiveapp/removeFriend.html',
@@ -192,7 +261,7 @@
         }
     })
 
-    angular.module('ngdirective').directive('address', function () {
+    app.directive('address', function () {
         return {
             restrict: 'E',
             scope: true,

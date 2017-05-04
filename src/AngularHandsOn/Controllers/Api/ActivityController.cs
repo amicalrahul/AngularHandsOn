@@ -1,27 +1,33 @@
-﻿using AngularHandsOn.Entities;
+﻿using AngularHandsOn.Domain;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.v3;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 
 namespace AngularHandsOn.Controllers.Api
 {
+    /// <summary>
+    /// Activity Controller
+    /// </summary>
     [Route("api/home1/Activities")]
+    [Produces("application/json")]
     public class ActivityController : Controller
     {
         IActivityRepository<int> _activityRepository;
-
+        /// <summary>
+        /// Contrustor
+        /// </summary>
+        /// <param name="activityRepository"></param>
         public ActivityController(IActivityRepository<int> activityRepository)
         {
             _activityRepository = activityRepository;
         }
 
+        /// <summary>
+        /// Get()
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         public IActionResult Get()
         {
@@ -29,6 +35,12 @@ namespace AngularHandsOn.Controllers.Api
             var results = Mapper.Map<IEnumerable<ActivityModel>>(result);
             return new ObjectResult(results);
         }
+
+        /// <summary>
+        /// Get(int id)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

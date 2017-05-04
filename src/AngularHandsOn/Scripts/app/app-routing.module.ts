@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './not-found.component';
-import { ComposeMessageComponent } from './compose-message.component'
+import { ComposeMessageComponent } from './compose-message.component';
 import { CustomerComponent } from './customersignup/customer.component';
 const appRoutes: Routes = [
     { path: 'compose', component: ComposeMessageComponent, outlet:'popup' },

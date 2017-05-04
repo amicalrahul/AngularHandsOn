@@ -1,4 +1,4 @@
-﻿using AngularHandsOn.Entities;
+﻿using AngularHandsOn.Domain;
 using AngularHandsOn.Filters;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;

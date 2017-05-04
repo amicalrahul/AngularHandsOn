@@ -1,10 +1,6 @@
-﻿using AngularHandsOn.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using AngularHandsOn.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AngularHandsOn.Repositories;
 
 namespace AngularHandsOn.Test

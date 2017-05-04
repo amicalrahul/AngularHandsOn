@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
+using AngularHandsOn.Domain;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using AngularHandsOn.Repositories;
@@ -19,6 +20,14 @@ using AngularHandsOn.Middlewares;
 using AngularHandsOn.Filters;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.Swagger.Model;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
+using AngularHandsOn.Helpers;
+using Microsoft.AspNetCore.Http;
+using AngularHandsOn.Model.ApiModel;
+using Microsoft.AspNetCore.Diagnostics;
+using NLog.Extensions.Logging;
 
 namespace AngularHandsOn
 {
@@ -47,6 +56,25 @@ namespace AngularHandsOn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen();
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.SingleApiVersion(new Info
+                {
+                    Version = "v1",
+                    Title = "Angular Hands On API",
+                    Description = "Angular Hand on",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Rahul Sabharwal", Email = "", Url = "" },
+                    License = new License { Name = "Rahul Sabharwal", Url = "" }
+                });
+                //The below section is commented as I have set "xmlDoc": true in project.json file
+                //  to remove cluttering of "missing xml doc warning" druing build in dev mode 
+                //var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                //var xmlPath = Path.Combine(basePath, "AngularHandsOn.xml");
+                //options.IncludeXmlComments(xmlPath);
+            });
+
             services.AddSingleton(Configuration);
             #region Identity Setup
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AngularDbContext>().AddDefaultTokenProviders();
@@ -98,6 +126,10 @@ namespace AngularHandsOn
             #region Add MVC and define its options
             services.AddMvc(config =>
                 {
+                    // this attribute = true ensures that, if client asks for an unsupported format
+                    // as a response in the request header, then the api should send the 406 - Not Acceptable status code
+                    // and not the default result format as a response
+                    config.ReturnHttpNotAcceptable = true;
                     if (_env.IsProduction())
                         config.Filters.Add(new RequireHttpsAttribute());
                     //Add the filters here if you want this to be executed for every controller
@@ -115,6 +147,7 @@ namespace AngularHandsOn
                 //})
                 //.AddMvcOptions(o =>
                 //{
+                // if the api want to support the xml format as response type the use below code
                 //    o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 //})
                 .AddJsonOptions(o =>
@@ -148,34 +181,85 @@ namespace AngularHandsOn
             services.AddAutoMapper();
             services.AddScoped<UnitOfWorkFilter>();
             services.AddDbContext<AngularDbContext>(options =>
-                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection")));            
+                                    options.UseSqlServer(Configuration.GetConnectionString("AngularHandsOnConnection"),
+                                    b => b.MigrationsAssembly("AngularHandsOn")
+                                    ));            
             services.AddTransient<Seeder>();
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
             services.AddScoped<IProductRepository<string>, ProductRepository>();
+            services.AddScoped<IBookRepository<int>, BookRepository>();
+
+            services.AddHttpCacheHeaders(configureExpirationModelOptions =>
+                                        {
+                                            configureExpirationModelOptions.MaxAge = 600;
+                                        }
+                                        ,configureValidationModelOptions =>
+                                        {
+                                            configureValidationModelOptions.AddMustRevalidate = true;
+                                        }
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Seeder seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            loggerFactory.AddDebug(LogLevel.Trace);
+            loggerFactory.AddProvider(new NLogLoggerProvider());
+            loggerFactory.AddNLog();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    OnPrepareResponse = (context) =>
+            //    {
+            //        // Disable caching for all static files.
+            //        context.Context.Response.Headers["Cache-Control"] = "no-cache, nostore";
+            //        context.Context.Response.Headers["Pragma"] = "no-cache";
+            //        context.Context.Response.Headers["Expires"] = "-1";
+            //    }
+            //});
+            app.UseFileServer();
+            app.UseSwagger();
+            app.UseSwaggerUi();
             //Adding ConfigureAuth middleware enables token authenticaion for API calls
             ConfigureAuth(app);
 
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseBrowserLink();
+            //}
+            //else
             {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+               app.UseExceptionHandler(appbuilder =>
+               {
+                   appbuilder.Run(async context =>
+                   {
+                       var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                       if (exceptionHandlerFeature != null)
+                       {
+                           var logger = loggerFactory.CreateLogger("Global exception logger");
+
+                           logger.LogError(500, exceptionHandlerFeature.Error, exceptionHandlerFeature.Error.Message);
+                       }
+
+                       if (context.Request.Path.Value.Contains("/api/"))
+                       {
+                           context.Response.StatusCode = 500;
+                           await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                       }
+                       else
+                       {
+                           context.Response.Redirect("/Home/Error");
+                       }
+                   });
+
+               });
             }
             app.UseStatusCodePages();
-            app.UseFileServer();
             app.UseSession();
 
             #region Automapper Mappings Defined
@@ -195,6 +279,16 @@ namespace AngularHandsOn
                         .ForMember(dest => dest.Tags,
                             opt => opt.MapFrom
                             (src => ConvertStringToArray(src.Tags)));
+
+                    cfg.CreateMap<Author, AuthorsModel>()
+                        .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                       $"{src.FirstName} {src.LastName}"))
+                       .ForMember(dest => dest.Age, opt => opt.MapFrom( src =>
+                       src.DateOfBirth.GetCurrentAge()));
+                    cfg.CreateMap<Book, BooksApiModel>();
+                    cfg.CreateMap<AuthorForCreationModel, Author>();
+                    cfg.CreateMap<BookForCreationModel, Book>().ReverseMap();
+                    cfg.CreateMap<BookForUpdateModel, Book>().ReverseMap();
                 }); 
             #endregion
 
@@ -223,6 +317,8 @@ namespace AngularHandsOn
 
             //Middleware added for example only
             app.UseMiddleware<MyMiddleware>();
+
+            //app.UseHttpCacheHeaders();
 
             #region Use MVC and defines default routes
             app.UseMvc(routes =>

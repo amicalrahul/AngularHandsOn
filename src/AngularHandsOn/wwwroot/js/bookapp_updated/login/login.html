@@ -1,0 +1,13 @@
+﻿<div>
+    <form ng-if="!nav.user.loggedIn" name="loginForm" ng-submit="vm.login(loginForm)" novalidate>
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" type="text" placeholder="Username" class="form-control" ng-model="vm.username" required />
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input name="password" type="password" placeholder="Password" class="form-control" ng-model="vm.password" required />
+        </div>
+        <input class="btn btn-default" type="submit" value="Login" />
+    </form>
+</div>

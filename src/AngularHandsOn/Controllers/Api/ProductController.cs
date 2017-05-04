@@ -1,9 +1,8 @@
-﻿using AngularHandsOn.Entities;
+﻿using AngularHandsOn.Domain;
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace AngularHandsOn.Controllers.Api
@@ -41,14 +40,18 @@ namespace AngularHandsOn.Controllers.Api
         [HttpPost("")]
         public IActionResult Post([FromBody]ProductModel product)
         {
+            var sc = Mapper.Map<Product>(product);
             if (ModelState.IsValid)
             {
-                var sc = Mapper.Map<Product>(product);
                 sc.ProductId = ((int)_productRepository.GetMaxId() + 1).ToString();
                 _productRepository.Add(sc);
             }
-            var result = _productRepository.Fetch();
-            var results = Mapper.Map<IEnumerable<ProductModel>>(result);
+            else
+            {
+                return BadRequest();
+            }
+            var result = _productRepository.Fetch(sc.ProductId);
+            var results = Mapper.Map<ProductModel>(result);
             return new ObjectResult(results);
         }
 
@@ -58,8 +61,8 @@ namespace AngularHandsOn.Controllers.Api
             var sc = Mapper.Map<Product>(product);
             _productRepository.Update(sc);
 
-            var result = _productRepository.Fetch();
-            var results = Mapper.Map<IEnumerable<ProductModel>>(result);
+            var result = _productRepository.Fetch(id);
+            var results = Mapper.Map<ProductModel>(result);
             return new ObjectResult(results);
         }
         [HttpDelete("{id}")]

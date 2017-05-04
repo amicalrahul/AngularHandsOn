@@ -1,5 +1,4 @@
-﻿using AngularHandsOn.Entities;
-using AngularHandsOn.Filters;
+﻿using AngularHandsOn.Filters;
 using AngularHandsOn.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AngularHandsOn.Domain;
 
 namespace AngularHandsOn.Controllers
 {

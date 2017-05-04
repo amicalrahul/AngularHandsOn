@@ -1,0 +1,33 @@
+﻿<h1>Hello {{ vm.appName }}!</h1>
+<h3>All Books</h3>
+<alerts></alerts>
+<div>
+    <div app-Directive1="some string" another-param="another string"></div>
+    <div app-Directive2="{{somestring}}" another-param="another string"></div>
+    <div app-Directive3="vm" another-param="vm.allBooks"></div>
+    <div app-Directive4="{ param: 34, param2: 'cool' }" another-param="another string"></div>
+    <ul>
+        <li ng-repeat="book in vm.allBooks">
+            {{ book.title }} - {{ book.author }}
+
+            <a ng-click="vm.goToBook(book)" style="cursor: pointer">Edit</a>
+        </li>
+    </ul>
+</div>
+
+<ul>
+    <li> <a ui-sref="AddBook">Add New Book</a></li>
+    <li> <a ui-sref="editBook({bookID: vm.lastEdited.book_id})">Open Last Edited</a></li>
+</ul>
+<h3>All Readers</h3>
+<div>
+    <ul>
+        <li ng-repeat="reader in vm.allReaders">{{ reader.name }} - {{ vm.getBadge(reader.totalMinutesRead) }}</li>
+    </ul>
+</div>
+
+
+<h3>Current Favorite Book</h3>
+<div>
+    <a ng-click="vm.goToBook(vm.favoriteBook)" style="cursor: pointer">{{ vm.favoriteBook.title }}</a>
+</div>

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AngularHandsOn.Entities;
+using AngularHandsOn.Data;
+using AngularHandsOn.Domain;
 using Microsoft.EntityFrameworkCore;
-using AngularHandsOn.Model;
 
 namespace AngularHandsOn.Repositories
 {

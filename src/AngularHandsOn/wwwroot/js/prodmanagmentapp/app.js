@@ -3,8 +3,7 @@
     var app = angular.module("productManagement", ['ngRoute', 'common.services',
                              "ui.router",
                             "ui.mask",
-                            "ui.bootstrap",
-                             "productResourceMock"]);
+                            "ui.bootstrap"]);
     app.config(["$stateProvider",
                 "$urlRouterProvider", configSection]);
 

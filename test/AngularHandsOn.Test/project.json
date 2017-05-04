@@ -11,7 +11,9 @@
       "target": "project"
     },
     "Moq": "4.6.38-alpha",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0-rc2-final"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0-rc2-final",
+    "AngularHandsOn.Data": "1.0.0-*",
+    "AngularHandsOn.Domain": "1.0.0-*"
   },
   "frameworks": {
     "netcoreapp1.0": {
