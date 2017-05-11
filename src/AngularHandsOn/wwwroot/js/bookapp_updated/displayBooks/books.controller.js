@@ -22,8 +22,8 @@
             vm.getBadge = constants.retrieveBadge;
             vm.favoriteBook = $cookies.favoriteBook;
 
-            function goToBook(book) {
-                $state.go('editBook', { id: book.book_id });
+            function goToBook(bookId) {
+                $state.go('editBook', { id: bookId });
             }
 
 

@@ -40,6 +40,9 @@ namespace AngularHandsOn.Controllers.Api
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+            if (id == 0)
+                return new ObjectResult(new BookModel());
+
             var result = _bookRepository.Fetch(id);
 
             if (result == null)
@@ -67,6 +70,8 @@ namespace AngularHandsOn.Controllers.Api
         public IActionResult Put(int id, [FromBody]BookModel school)
         {
             var sc = Mapper.Map<Books>(school);
+            sc.Id = id;
+
             _bookRepository.Update(sc);
 
             var result = _bookRepository.Fetch();

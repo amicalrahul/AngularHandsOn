@@ -10,8 +10,20 @@
         return {
             getAllBooks: getAllBooks,
             getAllReaders: getAllReaders,
-            getBookById: getBookById
+            getBookById: getBookById,
+            addBook: addBook,
+            updateBook: updateBook
         };
+        function addBook(book) {
+            return $http.post(bookUrl, book)
+                .then(success)
+                .catch(fail);
+        }
+        function updateBook(id, book) {
+            return $http.put(bookUrl+ '/' + id , book)
+                .then(success)
+                .catch(fail);
+        }
         function getAllBooks() {
             return $http.get(bookUrl)
                 .then(success)

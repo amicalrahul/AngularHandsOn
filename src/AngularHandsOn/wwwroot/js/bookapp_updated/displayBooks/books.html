@@ -10,14 +10,14 @@
         <li ng-repeat="book in vm.allBooks">
             {{ book.title }} - {{ book.author }}
 
-            <a ng-click="vm.goToBook(book)" style="cursor: pointer">Edit</a>
+            <a ng-click="vm.goToBook(book.book_id)" style="cursor: pointer">Edit</a>
         </li>
     </ul>
 </div>
 
 <ul>
-    <li> <a ui-sref="AddBook">Add New Book</a></li>
-    <li> <a ui-sref="editBook({bookID: vm.lastEdited.book_id})">Open Last Edited</a></li>
+    <li> <a ui-sref="editBook({id: 0})" style="cursor:pointer">Add New Book</a></li>
+    <li> <a ui-sref="editBook({id: vm.lastEdited.book_id})">Open Last Edited</a></li>
 </ul>
 <h3>All Readers</h3>
 <div>
