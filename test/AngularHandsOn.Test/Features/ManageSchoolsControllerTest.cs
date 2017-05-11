@@ -24,7 +24,8 @@ namespace AngularHandsOn.Test.Features
 
             var services = new ServiceCollection();
 
-            services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase().UseInternalServiceProvider(efServiceProvider));
+            services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase("Test").UseInternalServiceProvider(efServiceProvider));
+
 
             _serviceProvider = services.BuildServiceProvider();
 

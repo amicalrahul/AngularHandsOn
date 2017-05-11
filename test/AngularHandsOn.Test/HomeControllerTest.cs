@@ -32,7 +32,7 @@ namespace AngularHandsOn.Test
 
             var services = new ServiceCollection();
 
-            services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase().UseInternalServiceProvider(efServiceProvider));
+            services.AddDbContext<AngularDbContext>(b => b.UseInMemoryDatabase("Test1").UseInternalServiceProvider(efServiceProvider));
             services.AddScoped<ISchoolRepository<int>, SchoolRepository>();
             services.AddScoped<IClassroomRepository<int>, ClassroomRepository>();
             services.AddScoped<IActivityRepository<int>, ActivityRepository>();
