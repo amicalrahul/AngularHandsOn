@@ -4,9 +4,6 @@ describe("dataService", function () {
         bard.appModule('bookapp');
         bard.inject(this, '$http', '$httpBackend', '$q', 'dataService', '$rootScope');
     });
-    it("should pass hello test", function () {
-        expect(true).to.be.equal(true);
-    });
     it("exist", function () {
         expect(dataService).to.exist;
     });
@@ -39,5 +36,27 @@ describe("dataService", function () {
         // here we are making server call so don't need $rootScope.$apply()
         // but $httpBackend
         $httpBackend.flush();
+    });
+    it("should add book", function () {
+        $httpBackend
+            .when('POST', '/api/home1/Books')
+            .respond(201);
+        var book = { "book_id": 1, "title": "Goodnight Moon"};
+        //if server fails then we need to check the catch not then
+        dataService.addBook(book);
+        // here we are making server call so don't need $rootScope.$apply()
+        // but $httpBackend
+        expect($httpBackend.flush).not.to.throw();
+    });
+    it("should update book", function () {
+        $httpBackend
+            .when('PUT', '/api/home1/Books/1')
+            .respond(201);
+        var book = { "book_id": 1, "title": "Goodnight Moon" };
+        //if server fails then we need to check the catch not then
+        dataService.updateBook(1, book);
+        // here we are making server call so don't need $rootScope.$apply()
+        // but $httpBackend
+        expect($httpBackend.flush).not.to.throw();
     });
 });

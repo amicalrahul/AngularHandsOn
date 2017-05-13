@@ -35,7 +35,6 @@
                 .catch(fail);
         }
         function success(response) {
-            console.log(response.data);
             return response.data;
         }
         function fail(e) {
