@@ -16,5 +16,7 @@
         var element = $compile('<book-title book="book"></book-title>')($rootScope);
         $rootScope.$digest();
         expect(element.html()).to.be.equal(expectedHtml);
+        expect($rootScope.$countChildScopes()).to.be.equal(1);
+        expect($rootScope.$countWatchers()).to.be.equal(3);
     });
 });
