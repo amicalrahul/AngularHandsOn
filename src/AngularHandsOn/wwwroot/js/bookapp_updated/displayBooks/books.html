@@ -8,9 +8,10 @@
     <div app-Directive4="{ param: 34, param2: 'cool' }" another-param="another string"></div>
     <ul>
         <li ng-repeat="book in vm.allBooks">
-            {{ book.title }} - {{ book.author }}
+            <book-title book="book">
+                    <a ng-click="vm.goToBook(book.book_id)" style="cursor: pointer">Edit</a>
+            </book-title>
 
-            <a ng-click="vm.goToBook(book.book_id)" style="cursor: pointer">Edit</a>
         </li>
     </ul>
 </div>
