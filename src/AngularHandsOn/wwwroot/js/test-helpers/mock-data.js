@@ -3,7 +3,8 @@ var mockData = (function () {
     return {
         getMockBook: getMockBook,
         getMockStates: getMockStates,
-        getMockReaders: getMockReaders
+        getMockReaders: getMockReaders,
+        getMockActivities: getMockActivities
     };
 
     function getMockStates() {
@@ -37,6 +38,14 @@ var mockData = (function () {
             { "book_id": 4, "title": "The Hobbit", "author": "J. R. R. Tolkien", "year_published": 1937 },
             { "book_id": 5, "title": "Curious George", "author": "H. A. Rey", "year_published": 1941 },
             { "book_id": 6, "title": "Alice's Adventures in Wonderland", "author": "Lewis Carroll", "year_published": 1865 }
+        ];
+    }
+
+    function getMockActivities() {        
+        return [
+            { "activity_id": 1, "name": "Museum Field Trip", "date": "2015-10-01T16:00:00.000Z", "classroom_id": 1, "school_id": 1 },
+            { "activity_id": 2, "name": "Book Fair", "date": "2015-11-06T16:00:00.000Z", "classroom_id": 2, "school_id": 1 },
+            { "activity_id": 3, "name": "Petting Zoo Visit", "date": "2015-12-19T16:00:00.000Z", "classroom_id": 3, "school_id": 2 }
         ];
     }
 })();
