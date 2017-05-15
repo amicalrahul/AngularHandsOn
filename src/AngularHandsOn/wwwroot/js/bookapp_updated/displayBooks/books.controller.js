@@ -1,9 +1,9 @@
 ﻿(function () {
     "use strict";
     angular.module('bookapp')
-        .controller('BooksController', ['$cookies', '$state', 'dataService', 'constants', 'alerting',
-            BooksController]);
-    function BooksController($cookies, $state, dataService, constants, alerting) {
+        .controller('BooksController', ['$cookies', '$state', 'dataService', 'constants',
+                                            'alerting', '$exceptionHandler', BooksController]);
+    function BooksController($cookies, $state, dataService, constants, alerting, $exceptionHandler) {
 
             var vm = this;
             //vm.appName = books.appName;
@@ -13,11 +13,17 @@
                     .then(function (data) {
                         alerting.addInfo("Books List count:" + data.length)
                         vm.allBooks = data;
+                    })
+                    .catch(function (e) {
+                        $exceptionHandler(e);
                     });
             dataService.getAllReaders()
                     .then(function (data) {
                         vm.allReaders = data;
-                    });
+                    })
+                    .catch(function (e) {
+                        $exceptionHandler(e);
+                    });;
 
             vm.getBadge = constants.retrieveBadge;
             vm.favoriteBook = $cookies.favoriteBook;

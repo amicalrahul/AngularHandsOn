@@ -15,11 +15,21 @@
         // it'll be like exceptionHandler calling alerting that again caling exception handler
         //==> so to overcome this, $injector service is used to get the instance of alerting service.
         $provide.decorator('$exceptionHandler', function ($delegate, $injector) {
-            return function (exception, cause) {
-                $delegate(exception, cause);
+            var decoratedExceptionHandler = function (exception, cause) {
                 var alertingService = $injector.get('alerting');
                 alertingService.addDanger(exception.message);
+                return $delegate.apply(this, arguments);
             }
+            //You should always make sure to do this when decorating. The real implementation of $exceptionHandler
+            //might not have any properties right now, but you never know if it will have in the future.
+            // The below code block ensures that errors property is correctly set to the new decorator of exceptiohandler service
+            for (var key in $delegate) {
+
+                if (!$delegate.hasOwnProperty(key)) continue;
+
+                decoratedExceptionHandler[key] = $delegate[key];
+            }
+            return decoratedExceptionHandler;
         });
     }
 

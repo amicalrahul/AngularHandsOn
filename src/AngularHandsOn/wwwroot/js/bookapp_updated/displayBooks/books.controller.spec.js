@@ -8,16 +8,22 @@ describe("BooksController", function () {
     var $state;
     var $httpBackend;
     var ds;
+    var $exceptionHandler;
 
     var books = mockData.getMockBook();
     beforeEach(module('bookapp'));
+    beforeEach(module(function ($exceptionHandlerProvider) {
+        $exceptionHandlerProvider.mode('log');
+    }));
     beforeEach(inject(function (_$controller_, _$log_, _$q_, _$rootScope_,_dataService_,
-                                    _$cookies_, _$state_, _constants_, _alerting_, _$httpBackend_) {
+                                    _$cookies_, _$state_, _constants_, _alerting_, _$httpBackend_,
+                                    _$exceptionHandler_) {
         $controller = _$controller_;
         $q = _$q_;
         $rootScope = _$rootScope_;
         $state = _$state_;
         $httpBackend = _$httpBackend_;
+        $exceptionHandler = _$exceptionHandler_;
         //here I am faking the dataService.getAllBooks call
         //to do that I need to return a promise from getAllBooks
         // to return a promise I need to use $q service and return fully resolved promise.
@@ -100,6 +106,35 @@ describe("BooksController", function () {
             expect(controller.allBooks).to.have.length(books.length);
             getAllBooks.calledOnce.should.be.true;
             getAllReaders.calledOnce.should.be.true;
+        });
+        it("should have mock books", function () {
+            expect(controller.allBooks).to.have.length(books.length);
+            getAllBooks.calledOnce.should.be.true;
+            getAllReaders.calledOnce.should.be.true;
+        });
+    });
+    describe("exceptionhandler service", function () {
+        var getAllBooks;
+        var getAllReaders;
+        beforeEach(function () {
+            this.timeout(15000);
+            ds = {
+                getAllBooks: function () { },
+                getAllReaders: function () {  }
+            };;
+
+            getAllBooks = sinon.stub(ds, 'getAllBooks').returns($q.reject("Something went wrong!"));
+            getAllReaders = sinon.stub(ds, 'getAllReaders').returns($q.when(books));
+            controller = $controller('BooksController', {
+                dataService: ds
+            });
+        });
+        beforeEach(function () {
+            $rootScope.$apply();
+        });
+        it("should set result status to error", function () {
+            expect($exceptionHandler.errors).to.have.length(1);
+            expect($exceptionHandler.errors[0]).to.be.equal('Something went wrong!');
         });
     });
     describe("testing states", function () {
