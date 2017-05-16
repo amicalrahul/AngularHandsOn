@@ -1,10 +1,11 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../app/schoolapp/services/data.service';
 
 import { ISchool } from '../../app/schoolapp/interfaces/school';
 import { IClassroom } from '../../app/schoolapp/interfaces/classroom';
 import { IActivity } from '../../app/schoolapp/interfaces/activity';
+import { TOASTR_TOKEN, Toastr } from '../../app/shared/toastr.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AllSchoolsComponent implements OnInit {
     schoolname: string = null;
     schoolprincipal: string = null;
     editing: boolean = false;
-    constructor(private dataService: DataService, private route: ActivatedRoute) {
+    constructor(private dataService: DataService, private route: ActivatedRoute,
+            @Inject(TOASTR_TOKEN) private toastr: Toastr) {
     }
 
     ngOnInit(): void {
@@ -30,6 +32,7 @@ export class AllSchoolsComponent implements OnInit {
             name: this.schoolname,
             principal: this.schoolprincipal
         }).subscribe(data => {
+            this.toastr.success('School Added');
             this.schools = data;
             this.schoolname = null;
             this.schoolprincipal = null;
