@@ -2,6 +2,7 @@
 using AngularHandsOn.Model;
 using AngularHandsOn.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ namespace AngularHandsOn.Controllers.Api
 {
     [Route("api/home1/Products")]
     [Produces("application/json")]
+    [EnableCors("AnyGet")]
     public class ProductController: Controller
     {
         IProductRepository<string> _productRepository;
