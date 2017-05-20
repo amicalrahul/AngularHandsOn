@@ -1,5 +1,5 @@
 import './rxjs-extensions';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -18,7 +18,7 @@ import { ProductModule } from 'app/products/product.module';
     HttpModule, ProductModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
