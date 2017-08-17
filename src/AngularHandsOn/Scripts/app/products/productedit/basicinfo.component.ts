@@ -69,8 +69,12 @@ export class ProductBasicInfoComponent implements OnInit {
     get tags(): FormArray {
         return <FormArray>this.productInfoForm.get('tags');
     }
-    addTag() {
+    addTag() {  
         this.tags.push(new FormControl());
+    }
+    deleteTag(index: number) {
+        const arrayControl = <FormArray>this.productInfoForm.get('tags');
+        arrayControl.removeAt(index);
     }
     getProduct(id: number) {
         this.productService.getProduct(id)

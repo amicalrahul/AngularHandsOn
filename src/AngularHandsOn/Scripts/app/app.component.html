@@ -27,6 +27,7 @@
                     </ul>
                 </li>
                 <li><a [routerLink]="[{outlets: { popup: ['compose']}}]">Contact</a></li>
+                <li><a [routerLink]="['/testapp']">Test App</a></li>
                 <li><a [routerLink]="['/signup']">Sign Up</a></li>
                 <li *ngIf="!authService.isLoggedIn()" ><a [routerLink]="['/login']">Login</a></li>
                 <li *ngIf="authService.isLoggedIn()"><a class="pointercursor" (click)="logout()">Logout</a></li>

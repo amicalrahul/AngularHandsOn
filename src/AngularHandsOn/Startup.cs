@@ -293,11 +293,11 @@ namespace AngularHandsOn
             #endregion
 
             app.UseIdentity();
-            app.UseFacebookAuthentication(new FacebookOptions()
-            {
-                AppId = Configuration["Authentication:Facebook:AppId"],
-                AppSecret = Configuration["Authentication:Facebook:AppSecret"]
-            });
+            //app.UseFacebookAuthentication(new FacebookOptions()
+            //{
+            //    AppId = Configuration["Authentication:Facebook:AppId"],
+            //    AppSecret = Configuration["Authentication:Facebook:AppSecret"]
+            //});
 
             #region JWT Middleware
             app.UseJwtBearerAuthentication(new JwtBearerOptions()

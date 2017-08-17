@@ -14,13 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './not-found.component';
 import { ComposeMessageComponent } from './compose-message.component';
 import { CustomerComponent } from './customersignup/customer.component';
+import { TestAppComponent } from './testapp/test.component';
 import { AuthService } from './shared/auth.service';
 import { UserModule } from './user/user.module';
 import { TOASTR_TOKEN, Toastr } from './shared/toastr.service'
 declare let toastr: Toastr
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, ProductModule, SchoolAppModule, UserModule, AppRoutingModule],
-    declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent, ComposeMessageComponent, CustomerComponent],
+    declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent, ComposeMessageComponent,
+        CustomerComponent, TestAppComponent],
     bootstrap: [AppComponent],
     providers: [AuthService,
         { provide: TOASTR_TOKEN, useValue: toastr }]
